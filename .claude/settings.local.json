@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls /Users/apple/Downloads/ | grep -i \"logo\\\\|dolphin\\\\|svg\\\\|png\" | head -40)",
+      "Read(//Users/apple/Downloads/**)"
+    ]
+  }
+}

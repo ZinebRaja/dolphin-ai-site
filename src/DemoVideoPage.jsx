@@ -1,0 +1,173 @@
+import { useState, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { ArrowRight, Play } from 'lucide-react';
+
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
+export default function DemoVideoPage() {
+  const navigate              = useNavigate();
+  const videoRef              = useRef(null);
+  const [ended, setEnded]     = useState(false);
+  const [started, setStarted] = useState(false);
+  const [progress, setProgress] = useState(0);
+
+  function handlePlay() {
+    setStarted(true);
+  }
+
+  function handleTimeUpdate() {
+    const v = videoRef.current;
+    if (!v || !v.duration) return;
+    setProgress((v.currentTime / v.duration) * 100);
+  }
+
+  function handleEnded() {
+    setEnded(true);
+    setProgress(100);
+  }
+
+  return (
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(160deg, #fff 0%, #FDF6F2 40%, #F0DDD4 100%)', display: 'flex', flexDirection: 'column' }}>
+
+      {/* Navbar */}
+      <header className="navbar">
+        <div className="container nav-inner">
+          <Link to="/" className="logo-link">
+            <img src="/logowebsite.png" alt="Dolphin AI" className="logo-img" />
+          </Link>
+          <nav className="nav-links">
+            <Link to="/#solution">Solution</Link>
+            <Link to="/#workflow">Workflow</Link>
+            <Link to="/pricing">Pricing</Link>
+            <Link to="/#contact">Contact</Link>
+          </nav>
+          <div className="nav-actions">
+            <Link to="/book-demo" className="btn btn-primary">Book a demo</Link>
+          </div>
+        </div>
+      </header>
+
+      {/* Content */}
+      <main style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '3rem 1.5rem' }}>
+
+        {/* Header */}
+        <div style={{ textAlign: 'center', marginBottom: '2rem', maxWidth: '640px' }}>
+          <span style={{
+            display: 'inline-block', fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.1em',
+            textTransform: 'uppercase', color: 'var(--copper)', background: 'var(--copper-pale)',
+            padding: '4px 14px', borderRadius: '999px', marginBottom: '1rem'
+          }}>
+            Live Demo
+          </span>
+          <h1 style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.4rem)', fontWeight: 800, color: 'var(--navy)', margin: '0 0 0.75rem' }}>
+            See Dolphin AI in action
+          </h1>
+          <p style={{ color: 'var(--gray-600)', fontSize: '1.05rem', margin: 0 }}>
+            Watch how we classify your spend data instantly — then try it yourself.
+          </p>
+        </div>
+
+        {/* Video card */}
+        <div style={{
+          width: '100%', maxWidth: '860px',
+          background: '#fff',
+          borderRadius: '20px',
+          boxShadow: '0 4px 40px rgba(165,109,88,0.15), 0 1px 4px rgba(0,0,0,0.06)',
+          overflow: 'hidden',
+          border: '1px solid rgba(165,109,88,0.15)'
+        }}>
+
+          {/* Video */}
+          <div style={{ position: 'relative', background: '#0F1928', aspectRatio: '16/9' }}>
+            <video
+              ref={videoRef}
+              src="/demo.mp4"
+              style={{ width: '100%', height: '100%', display: 'block', objectFit: 'contain' }}
+              controls
+              onPlay={handlePlay}
+              onTimeUpdate={handleTimeUpdate}
+              onEnded={handleEnded}
+              poster="/demo-poster.png"
+            />
+
+            {/* Play overlay — shown before user starts */}
+            {!started && (
+              <div
+                onClick={() => videoRef.current?.play()}
+                style={{
+                  position: 'absolute', inset: 0,
+                  display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+                  cursor: 'pointer',
+                  background: 'linear-gradient(135deg, rgba(15,25,40,0.7) 0%, rgba(165,109,88,0.4) 100%)'
+                }}
+              >
+                <div style={{
+                  width: 72, height: 72, borderRadius: '50%',
+                  background: 'linear-gradient(135deg, #A56D58, #8B4E3A)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  boxShadow: '0 8px 32px rgba(165,109,88,0.5)',
+                  transition: 'transform 0.2s'
+                }}>
+                  <Play size={28} fill="#fff" color="#fff" style={{ marginLeft: 4 }} />
+                </div>
+                <p style={{ color: '#fff', marginTop: '1rem', fontWeight: 600, fontSize: '0.95rem', opacity: 0.9 }}>
+                  Click to watch the demo
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* Progress bar */}
+          <div style={{ height: 4, background: 'var(--gray-100)' }}>
+            <div style={{
+              height: '100%',
+              width: `${progress}%`,
+              background: 'linear-gradient(90deg, #A56D58, #C4876E)',
+              transition: 'width 0.3s ease'
+            }} />
+          </div>
+
+          {/* Bottom bar */}
+          <div style={{
+            padding: '1.25rem 1.75rem',
+            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+            flexWrap: 'wrap', gap: '1rem'
+          }}>
+            <div>
+              {ended ? (
+                <p style={{ margin: 0, fontWeight: 600, color: '#16a34a', fontSize: '0.95rem' }}>
+                  ✓ You're ready — start classifying your spend data!
+                </p>
+              ) : (
+                <p style={{ margin: 0, color: 'var(--gray-600)', fontSize: '0.9rem' }}>
+                  {started ? 'Watch the full demo to unlock the classifier.' : 'Watch the demo to proceed to the live classifier.'}
+                </p>
+              )}
+            </div>
+
+            <button
+              onClick={() => navigate('/classify')}
+              disabled={!ended}
+              className="btn btn-primary"
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: '8px',
+                opacity: ended ? 1 : 0.4,
+                cursor: ended ? 'pointer' : 'not-allowed',
+                transition: 'opacity 0.3s, transform 0.2s',
+                transform: ended ? 'scale(1)' : 'scale(0.97)'
+              }}
+            >
+              Start classifying <ArrowRight size={16} />
+            </button>
+          </div>
+        </div>
+
+        {/* Skip note */}
+        <p style={{ marginTop: '1.25rem', color: 'var(--gray-400)', fontSize: '0.82rem', textAlign: 'center' }}>
+          The classifier unlocks automatically when the video finishes.
+        </p>
+
+      </main>
+    </div>
+  );
+}
