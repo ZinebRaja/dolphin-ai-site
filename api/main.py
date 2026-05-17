@@ -30,6 +30,8 @@ for _az_path in ["/opt/homebrew/bin", "/usr/local/bin"]:
 OPENAI_API_KEY   = os.getenv("OPENAI_API_KEY", "")
 AZURE_SQL_SERVER = os.getenv("AZURE_SQL_SERVER", "spendanalyticsserver.database.windows.net")
 AZURE_SQL_DB     = os.getenv("AZURE_SQL_DATABASE", "Spend-Analytics")
+AZURE_SQL_USER   = os.getenv("AZURE_SQL_USER", "")   # set on Railway; empty = use Azure AD
+AZURE_SQL_PASS   = os.getenv("AZURE_SQL_PASS", "")
 
 SMTP_HOST        = os.getenv("SMTP_HOST", "smtp.office365.com")
 SMTP_PORT        = int(os.getenv("SMTP_PORT", "587"))
@@ -60,18 +62,31 @@ def _odbc_driver():
     raise RuntimeError("No SQL Server ODBC driver found. Install msodbcsql18.")
 
 def get_db():
-    credential   = DefaultAzureCredential()
-    raw_token    = credential.get_token("https://database.windows.net/.default").token
-    token_bytes  = raw_token.encode("utf-16-le")
-    token_struct = struct.pack(f"<I{len(token_bytes)}s", len(token_bytes), token_bytes)
-
-    conn_str = (
-        f"DRIVER={{{_odbc_driver()}}};"
-        f"SERVER={AZURE_SQL_SERVER};"
-        f"DATABASE={AZURE_SQL_DB};"
-        f"Encrypt=yes;TrustServerCertificate=no;"
-    )
-    return pyodbc.connect(conn_str, attrs_before={SQL_COPT_SS_ACCESS_TOKEN: token_struct})
+    driver = _odbc_driver()
+    if AZURE_SQL_USER and AZURE_SQL_PASS:
+        # SQL Server auth — used in production (Railway)
+        conn_str = (
+            f"DRIVER={{{driver}}};"
+            f"SERVER={AZURE_SQL_SERVER};"
+            f"DATABASE={AZURE_SQL_DB};"
+            f"UID={AZURE_SQL_USER};"
+            f"PWD={AZURE_SQL_PASS};"
+            f"Encrypt=yes;TrustServerCertificate=no;"
+        )
+        return pyodbc.connect(conn_str)
+    else:
+        # Azure AD token auth — used locally via az CLI
+        credential   = DefaultAzureCredential()
+        raw_token    = credential.get_token("https://database.windows.net/.default").token
+        token_bytes  = raw_token.encode("utf-16-le")
+        token_struct = struct.pack(f"<I{len(token_bytes)}s", len(token_bytes), token_bytes)
+        conn_str = (
+            f"DRIVER={{{driver}}};"
+            f"SERVER={AZURE_SQL_SERVER};"
+            f"DATABASE={AZURE_SQL_DB};"
+            f"Encrypt=yes;TrustServerCertificate=no;"
+        )
+        return pyodbc.connect(conn_str, attrs_before={SQL_COPT_SS_ACCESS_TOKEN: token_struct})
 
 
 # ─── Create Users table on startup ────────────────────────────────────────────

@@ -1,0 +1,7 @@
+[build]
+dockerfile = "api/Dockerfile"
+watchPatterns = ["api/**"]
+
+[deploy]
+healthcheckPath = "/api/health"
+restartPolicyType = "ON_FAILURE"
