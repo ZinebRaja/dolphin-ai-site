@@ -4,11 +4,15 @@ import { motion, AnimatePresence } from 'framer-motion';
 import PricingPage from './PricingPage.jsx';
 import ClassifyPage from './ClassifyPage.jsx';
 import PrivacyPage from './PrivacyPage.jsx';
+import TermsPage from './TermsPage.jsx';
+import AboutPage from './AboutPage.jsx';
+import SecurityPage from './SecurityPage.jsx';
 import NotFoundPage from './NotFoundPage.jsx';
 import LoginPage from './LoginPage.jsx';
 import SignupPage from './SignupPage.jsx';
 import BookDemoPage from './BookDemoPage.jsx';
 import DemoVideoPage from './DemoVideoPage.jsx';
+import CookieBanner from './CookieBanner.jsx';
 import {
   ArrowRight,
   BarChart3,
@@ -724,6 +728,7 @@ function HomePage() {
           <div className="section-head">
             <span className="eyebrow">Solution</span>
             <h2>From raw supplier spend to clean strategic insight.</h2>
+            <div className="section-rule" style={{ margin: '1rem 0 1.25rem' }} />
             <p>Built for companies that still depend on Excel, manual category mapping, and inconsistent supplier names.</p>
           </div>
           <div className="features-grid">
@@ -743,6 +748,7 @@ function HomePage() {
             <div className="section-head centered">
               <span className="eyebrow">How it works</span>
               <h2>A simple process for complex procurement data.</h2>
+              <div className="section-rule" />
               <p>Dolphin AI gives teams a repeatable workflow — import, clean, classify, validate, and export.</p>
             </div>
             <div className="steps-grid">
@@ -762,6 +768,7 @@ function HomePage() {
           <div className="section-head centered">
             <span className="eyebrow">The difference</span>
             <h2>Before and after Dolphin AI.</h2>
+            <div className="section-rule" />
           </div>
           <div className="compare-grid">
             <div className="compare-card compare-before">
@@ -797,12 +804,74 @@ function HomePage() {
           </div>
         </section>
 
+        {/* ══ CASE STUDIES ══ */}
+        <section className="cases-section container">
+          <div className="section-head centered">
+            <span className="eyebrow">Results</span>
+            <h2>What procurement teams achieve</h2>
+            <div className="section-rule" />
+            <p>Real outcomes from organisations that replaced manual spend analysis with Dolphin AI.</p>
+          </div>
+          <div className="cases-grid">
+            {[
+              {
+                industry: 'Industrial Manufacturing',
+                spend: '$450M annual spend',
+                challenge: 'Supplier names duplicated across 4 ERPs. No consistent taxonomy. Category reporting took 3 weeks per quarter.',
+                results: [
+                  '1,800+ supplier records normalized in one run',
+                  'Classification accuracy improved from 54% to 97%',
+                  'Quarterly reporting time cut from 3 weeks to 2 days',
+                ],
+                saving: '$3.2M savings identified',
+              },
+              {
+                industry: 'European Retail Group',
+                spend: '$280M annual spend',
+                challenge: 'Procurement team manually mapping 60,000+ spend lines per year in Excel. 40h/month of analyst time wasted on data prep.',
+                results: [
+                  '60,000 spend lines auto-classified at 95%+ accuracy',
+                  'Analyst data prep time reduced by 80%',
+                  'Identified $1.8M in off-contract tail spend',
+                ],
+                saving: '$1.8M tail spend surfaced',
+              },
+              {
+                industry: 'Global Logistics Company',
+                spend: '$750M annual spend',
+                challenge: 'No spend visibility below Level 1 categories. Strategic sourcing decisions made on incomplete data.',
+                results: [
+                  'Full Level 1–4 taxonomy applied across all spend',
+                  'Supplier consolidation opportunities across 6 categories',
+                  'Finance and procurement aligned on one data source',
+                ],
+                saving: '$6.1M consolidation opportunity',
+              },
+            ].map(c => (
+              <div className="case-card" key={c.industry}>
+                <div className="case-header">
+                  <div className="case-industry">{c.industry}</div>
+                  <div className="case-spend">{c.spend}</div>
+                </div>
+                <p className="case-challenge">{c.challenge}</p>
+                <ul className="case-results">
+                  {c.results.map(r => (
+                    <li key={r}><CheckCircle2 size={14} />{r}</li>
+                  ))}
+                </ul>
+                <div className="case-saving">{c.saving}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* ══ TESTIMONIALS ══ */}
         <section className="testimonials-section">
           <div className="container">
             <div className="section-head centered">
               <span className="eyebrow">What our clients say</span>
               <h2>Trusted by procurement and finance teams</h2>
+              <div className="section-rule" />
             </div>
             <div className="testimonials-grid">
               {[
@@ -831,6 +900,7 @@ function HomePage() {
           <div className="section-head centered">
             <span className="eyebrow">FAQ</span>
             <h2>Common questions</h2>
+            <div className="section-rule" />
           </div>
           <div className="faq-list">
             {[
@@ -894,15 +964,16 @@ function HomePage() {
             </div>
             <div className="footer-col">
               <h4>Company</h4>
+              <Link to="/about">About us</Link>
               <Link to="/pricing">Pricing</Link>
+              <Link to="/security">Security</Link>
               <Link to="/book-demo">Book a demo</Link>
-              <a href="#contact">Contact</a>
             </div>
             <div className="footer-col">
               <h4>Legal</h4>
               <Link to="/privacy">Privacy Policy</Link>
+              <Link to="/terms">Terms of Service</Link>
               <Link to="/privacy">Cookie Policy</Link>
-              <Link to="/privacy">Terms of Service</Link>
             </div>
           </div>
         </div>
@@ -915,6 +986,7 @@ function HomePage() {
         </div>
       </footer>
 
+      <CookieBanner />
     </div>
   );
 }
@@ -930,6 +1002,9 @@ export default function App() {
       <Route path="/book-demo" element={<BookDemoPage />} />
       <Route path="/demo-video" element={<DemoVideoPage />} />
       <Route path="/privacy" element={<PrivacyPage />} />
+      <Route path="/terms" element={<TermsPage />} />
+      <Route path="/about" element={<AboutPage />} />
+      <Route path="/security" element={<SecurityPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );

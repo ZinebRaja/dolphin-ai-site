@@ -1,234 +1,320 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, TrendingUp, Clock, DollarSign, Star } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
 
-function fmtEUR(n) {
-  if (isNaN(n) || !isFinite(n)) return '€0';
-  return new Intl.NumberFormat('en-IE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(n);
+const TIERS = [
+  {
+    name: 'Coastal', spend: 'Up to $200M', price: '$699', period: '/mo',
+    features: [
+      'Data connectors: 1',
+      'Named users: 2',
+      'Runs: 10,000 / month',
+      'Onboarding: Self-serve + 5 hrs',
+      'Support: Email · 99.5% SLA',
+    ],
+    cta: 'Start free trial', ctaLink: '/book-demo', note: '14 days free · No card required',
+  },
+  {
+    name: 'Reef', spend: 'Up to $400M', price: '$999', period: '/mo',
+    features: [
+      'Data connectors: 2',
+      'Named users: 5',
+      'Runs: 30,000 / month',
+      'Onboarding: Guided · 20 hrs',
+      'Support: Email + chat · 99.9% SLA',
+    ],
+    cta: 'Start free trial', ctaLink: '/book-demo', note: '14 days free · No card required',
+  },
+  {
+    name: 'Navigator', spend: 'Up to $750M', price: '$1,399', period: '/mo',
+    popular: true,
+    features: [
+      'Data connectors: 5',
+      'Named users: 10',
+      'Runs: 100,000 / month',
+      'Onboarding: Dedicated · 30 hrs',
+      'Support: Priority · 99.9% SLA',
+    ],
+    cta: 'Start free trial', ctaLink: '/book-demo', note: '14 days free · No card required',
+  },
+  {
+    name: 'Horizon', spend: 'Up to $1B+', price: '$1,699', period: '/mo',
+    features: [
+      'Data connectors: 10',
+      'Named users: 20',
+      'Runs: 300,000 / month',
+      'Onboarding: Dedicated · 40 hrs',
+      'Support: Priority + SLA · 99.9%',
+    ],
+    cta: 'Start free trial', ctaLink: '/book-demo', note: '14 days free · No card required',
+  },
+  {
+    name: 'Apex', spend: '$1.5B+ under management', price: 'Custom', period: '/mo',
+    features: [
+      'Data connectors: Unlimited',
+      'Named users: Unlimited',
+      'Runs: Unlimited',
+      'Onboarding: Custom',
+      'Support: Dedicated CSM · 99.99% SLA',
+    ],
+    cta: 'Contact sales', ctaLink: '/book-demo', note: 'Need advanced AI modules? Talk to us',
+  },
+];
+
+function PricingTiers() {
+  return (
+    <section className="pt-section container">
+      <div className="pt-header">
+        <span className="eyebrow">Plans</span>
+        <h2 className="pt-title">Simple, transparent pricing</h2>
+        <p className="pt-sub">Scale from mid-market to enterprise. Every plan includes a 14-day free trial.</p>
+      </div>
+      <div className="pt-grid">
+        {TIERS.map(t => (
+          <div key={t.name} className={`pt-card${t.popular ? ' pt-card--popular' : ''}`}>
+            {t.popular && <div className="pt-badge">Most popular</div>}
+            <div className="pt-card-top">
+              <h3 className="pt-name">{t.name}</h3>
+              <p className="pt-spend">{t.spend}</p>
+            </div>
+            <div className="pt-price-row">
+              <span className="pt-price">{t.price}</span>
+              {t.period && <span className="pt-period">{t.period}</span>}
+            </div>
+            <ul className="pt-features">
+              {t.features.map(f => (
+                <li key={f}>
+                  <Check size={13} className="pt-check" />
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <div className="pt-card-bottom">
+              <Link to={t.ctaLink} className="btn btn-primary pt-cta-btn">
+                {t.cta}
+              </Link>
+              <p className="pt-note">{t.note}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
 }
 
-function Slider({ label, value, min, max, onChange, format }) {
+const fmt = (n) => {
+  if (!isFinite(n) || isNaN(n)) return '$0';
+  return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n);
+};
+
+function RoiSlider({ label, value, min, max, step, onChange, format, rangeMin, rangeMax }) {
   const pct = ((value - min) / (max - min)) * 100;
   return (
     <div className="pc-field">
       <div className="pc-label-row">
         <label>{label}</label>
-        <span className="pc-val">{format ? format(value) : value}</span>
+        <span className="pc-val">{format ? format(value) : value.toLocaleString()}</span>
       </div>
       <div className="pc-slider-wrap">
-        <input
-          type="range" min={min} max={max} value={value}
+        <input type="range" min={min} max={max} step={step || 1} value={value}
           onChange={e => onChange(Number(e.target.value))}
-          style={{ '--pct': `${pct}%` }}
-        />
+          style={{ '--pct': `${pct}%` }} />
+      </div>
+      {(rangeMin || rangeMax) && (
+        <div className="pc-range-labels"><span>{rangeMin}</span><span>{rangeMax}</span></div>
+      )}
+    </div>
+  );
+}
+
+function Toggle({ label, value, onChange }) {
+  return (
+    <div className="roi-toggle-row">
+      <span className="roi-toggle-label">{label}</span>
+      <div className="roi-toggle-group">
+        <button className={`roi-toggle-btn${!value ? ' active' : ''}`} onClick={() => onChange(false)}>No</button>
+        <button className={`roi-toggle-btn${value ? ' active' : ''}`} onClick={() => onChange(true)}>Yes</button>
       </div>
     </div>
   );
 }
 
 function PricingCalculator() {
-  const [annualSpend,   setAnnualSpend]   = useState(25000000);
-  const [suppliers,     setSuppliers]     = useState(1200);
-  const [spendLines,    setSpendLines]    = useState(80000);
-  const [monthlyHours,  setMonthlyHours]  = useState(40);
-  const [savingsPct,    setSavingsPct]    = useState(3);
-  const [planType,      setPlanType]      = useState('Professional');
+  const [annualSpend,       setAnnualSpend]       = useState(200000000);
+  const [suppliers,         setSuppliers]          = useState(500);
+  const [monthlyHours,      setMonthlyHours]       = useState(160);
+  const [hourlyRate,        setHourlyRate]         = useState(75);
+  const [hasClassification, setHasClassification] = useState(false);
+  const [classDepth,        setClassDepth]         = useState(2);
+  const [classAccuracy,     setClassAccuracy]      = useState(55);
+  const [hasNormalization,  setHasNormalization]   = useState(false);
+  const [savingsRate,       setSavingsRate]        = useState(3.5);
 
-  const hourlyRate        = 60;
-  const savingsPotential  = Math.round(annualSpend * (savingsPct / 100));
-  const manualWorkSavings = Math.round(monthlyHours * 12 * hourlyRate);
+  // ── Calculations ──────────────────────────────────
+  // Labor: how much time Dolphin AI frees up
+  const laborReduction = hasClassification
+    ? (classDepth >= 3 ? 0.40 : classDepth === 2 ? 0.55 : 0.65)
+    : 0.80;
+  const laborSavings = Math.round(monthlyHours * hourlyRate * 12 * laborReduction);
 
-  const basePrice = (() => {
-    const p = planType === 'Starter'       ? Math.max(12000, annualSpend * 0.0008)
-            : planType === 'Professional'  ? Math.max(24000, annualSpend * 0.0012)
-            : Math.max(48000, annualSpend * 0.0018);
-    return Math.round(p);
+  // Spend: better category visibility → better sourcing decisions
+  // Bonus if currently no classification or low accuracy
+  const accuracyBonus = hasClassification ? Math.max(0, (80 - classAccuracy) / 80 * 0.015) : 0.015;
+  const effectiveSavingsRate = (savingsRate / 100) + accuracyBonus;
+  const spendSavings = Math.round(annualSpend * effectiveSavingsRate);
+
+  // Supplier normalization value
+  const normSavings = hasNormalization
+    ? Math.round(suppliers * 35)
+    : Math.round(suppliers * 90);
+
+  const totalBenefit   = laborSavings + spendSavings + normSavings;
+
+  // Dolphin AI fee by spend tier
+  const { tierName, annualFee } = (() => {
+    if (annualSpend < 200000000)  return { tierName: 'Coastal',   annualFee: 699  * 12 };
+    if (annualSpend < 400000000)  return { tierName: 'Reef',      annualFee: 999  * 12 };
+    if (annualSpend < 750000000)  return { tierName: 'Navigator', annualFee: 1399 * 12 };
+    if (annualSpend < 1500000000) return { tierName: 'Horizon',   annualFee: 1699 * 12 };
+    return { tierName: 'Apex', annualFee: 2500 * 12 };
   })();
 
-  const complexityFee        = Math.round((suppliers * 2) + (spendLines * 0.03));
-  const estimatedAnnualPrice = Math.round(basePrice + complexityFee);
-  const totalBenefit         = savingsPotential + manualWorkSavings;
-  const roi                  = ((totalBenefit - estimatedAnnualPrice) / Math.max(1, estimatedAnnualPrice)) * 100;
-  const paybackMonths        = Math.round(estimatedAnnualPrice / Math.max(1, totalBenefit / 12));
+  const netBenefit    = totalBenefit - annualFee;
+  const roi           = Math.round((netBenefit / Math.max(1, annualFee)) * 100);
+  const paybackDays   = Math.round((annualFee / Math.max(1, totalBenefit)) * 365);
+  const paybackText   = paybackDays < 30
+    ? `${paybackDays} days`
+    : paybackDays < 365
+      ? `${Math.round(paybackDays / 30)} months`
+      : `${(paybackDays / 365).toFixed(1)} yrs`;
 
-  let recommended = 'Professional';
-  if (annualSpend < 10000000) recommended = 'Starter';
-  if (annualSpend > 75000000 || suppliers > 3000) recommended = 'Enterprise';
-
-  const PLANS = ['Starter', 'Professional', 'Enterprise'];
+  const benefitPct = Math.min(96, Math.round((totalBenefit / Math.max(1, totalBenefit + annualFee)) * 100));
 
   return (
     <div className="pc-card">
-      {/* ── Inputs ── */}
+
+      {/* ── LEFT: Inputs ── */}
       <div className="pc-inputs">
-        <p className="pc-section-label">Your data</p>
 
-        <div className="pc-field">
-          <div className="pc-label-row">
-            <label>Annual addressable spend</label>
-            <span className="pc-val">{fmtEUR(annualSpend)}</span>
-          </div>
-          <div className="pc-slider-wrap">
-            <input type="range" min={1000000} max={500000000} step={1000000}
-              value={annualSpend} onChange={e => setAnnualSpend(Number(e.target.value))}
-              style={{ '--pct': `${((annualSpend - 1000000) / (500000000 - 1000000)) * 100}%` }}
-            />
-          </div>
-          <div className="pc-range-labels"><span>€1M</span><span>€500M</span></div>
+        <div className="roi-section">
+          <p className="pc-section-label">Your spend data</p>
+          <RoiSlider label="Annual addressable spend" value={annualSpend}
+            min={10000000} max={2000000000} step={5000000}
+            onChange={setAnnualSpend} format={v => fmt(v)}
+            rangeMin="$10M" rangeMax="$2B" />
+          <RoiSlider label="Number of suppliers" value={suppliers}
+            min={50} max={10000} step={50}
+            onChange={setSuppliers}
+            rangeMin="50" rangeMax="10,000" />
+          <RoiSlider label="Expected savings rate" value={savingsRate}
+            min={0.5} max={8} step={0.5}
+            onChange={setSavingsRate} format={v => `${v}%`}
+            rangeMin="0.5%" rangeMax="8%" />
         </div>
 
-        <div className="pc-field">
-          <div className="pc-label-row">
-            <label>Number of suppliers</label>
-            <span className="pc-val">{suppliers.toLocaleString()}</span>
-          </div>
-          <div className="pc-slider-wrap">
-            <input type="range" min={50} max={10000} step={50}
-              value={suppliers} onChange={e => setSuppliers(Number(e.target.value))}
-              style={{ '--pct': `${((suppliers - 50) / (10000 - 50)) * 100}%` }}
-            />
-          </div>
-          <div className="pc-range-labels"><span>50</span><span>10,000</span></div>
+        <div className="roi-section">
+          <p className="pc-section-label">Your team cost</p>
+          <RoiSlider label="Hours on data cleaning / month" value={monthlyHours}
+            min={5} max={500} step={5}
+            onChange={setMonthlyHours} format={v => `${v}h`}
+            rangeMin="5h" rangeMax="500h" />
+          <RoiSlider label="Labor cost per hour" value={hourlyRate}
+            min={30} max={250} step={5}
+            onChange={setHourlyRate} format={v => `$${v}`}
+            rangeMin="$30" rangeMax="$250" />
         </div>
 
-        <div className="pc-field">
-          <div className="pc-label-row">
-            <label>Annual spend lines</label>
-            <span className="pc-val">{spendLines.toLocaleString()}</span>
-          </div>
-          <div className="pc-slider-wrap">
-            <input type="range" min={1000} max={1000000} step={1000}
-              value={spendLines} onChange={e => setSpendLines(Number(e.target.value))}
-              style={{ '--pct': `${((spendLines - 1000) / (1000000 - 1000)) * 100}%` }}
-            />
-          </div>
-          <div className="pc-range-labels"><span>1k</span><span>1M</span></div>
-        </div>
-
-        <div className="pc-field">
-          <div className="pc-label-row">
-            <label>Hours cleaning data / month</label>
-            <span className="pc-val">{monthlyHours}h</span>
-          </div>
-          <div className="pc-slider-wrap">
-            <input type="range" min={5} max={200} step={5}
-              value={monthlyHours} onChange={e => setMonthlyHours(Number(e.target.value))}
-              style={{ '--pct': `${((monthlyHours - 5) / (200 - 5)) * 100}%` }}
-            />
-          </div>
-          <div className="pc-range-labels"><span>5h</span><span>200h</span></div>
-        </div>
-
-        <div className="pc-field">
-          <div className="pc-label-row">
-            <label>Expected savings opportunity</label>
-            <span className="pc-val">{savingsPct}%</span>
-          </div>
-          <div className="pc-slider-wrap">
-            <input type="range" min={1} max={8} step={0.5}
-              value={savingsPct} onChange={e => setSavingsPct(Number(e.target.value))}
-              style={{ '--pct': `${((savingsPct - 1) / (8 - 1)) * 100}%` }}
-            />
-          </div>
-          <div className="pc-range-labels"><span>1%</span><span>8%</span></div>
-        </div>
-
-        {/* Plan selector */}
-        <div className="pc-plans">
-          <p className="pc-section-label" style={{ marginBottom: '10px' }}>Plan</p>
-          <div className="pc-plan-tabs">
-            {PLANS.map(p => (
-              <button
-                key={p}
-                className={`pc-plan-tab ${planType === p ? 'active' : ''} ${recommended === p ? 'recommended' : ''}`}
-                onClick={() => setPlanType(p)}
-              >
-                {p}
-                {recommended === p && <span className="rec-dot" />}
-              </button>
-            ))}
-          </div>
-          {recommended === planType && (
-            <p className="rec-note">✦ Recommended based on your inputs</p>
+        <div className="roi-section">
+          <p className="pc-section-label">Your current process</p>
+          <Toggle label="Do you classify spend today?" value={hasClassification} onChange={setHasClassification} />
+          {hasClassification && (
+            <div className="roi-sub">
+              <p className="roi-sub-label">Classification depth</p>
+              <div className="roi-depth-pills">
+                {[1,2,3,4].map(d => (
+                  <button key={d}
+                    className={`roi-depth-pill${classDepth === d ? ' active' : ''}`}
+                    onClick={() => setClassDepth(d)}>
+                    Level {d}
+                  </button>
+                ))}
+              </div>
+              <RoiSlider label="Current accuracy" value={classAccuracy}
+                min={20} max={95} step={5}
+                onChange={setClassAccuracy} format={v => `${v}%`}
+                rangeMin="20%" rangeMax="95%" />
+            </div>
           )}
+          <Toggle label="Supplier normalization in place?" value={hasNormalization} onChange={setHasNormalization} />
         </div>
+
       </div>
 
-      {/* ── Results ── */}
+      {/* ── RIGHT: Results ── */}
       <div className="pc-results">
-        <p className="pc-section-label">Your estimate</p>
+        <p className="pc-section-label">Your savings potential</p>
 
-        <div className="pc-hero-metric">
-          <span className="pc-hero-label">Estimated annual price</span>
-          <span className="pc-hero-value">{fmtEUR(estimatedAnnualPrice)}</span>
+        {/* Big ROI */}
+        <div className="roi-headline">
+          <span className="roi-hl-label">Estimated Year 1 ROI</span>
+          <span className="roi-hl-value">
+            {roi <= 0 ? '—' : roi > 9999 ? '>9,999%' : `${roi.toLocaleString()}%`}
+          </span>
+          <span className="roi-hl-sub">Payback in {paybackText}</span>
         </div>
 
-        <div className="pc-metrics-grid">
-          <div className="pc-metric">
-            <TrendingUp size={16} />
-            <div>
-              <span className="metric-label">Savings potential</span>
-              <strong>{fmtEUR(savingsPotential)}</strong>
-            </div>
+        {/* Savings breakdown */}
+        <div className="roi-breakdown">
+          <div className="roi-break-row">
+            <span>Labor time saved (annual)</span>
+            <strong>{fmt(laborSavings)}</strong>
           </div>
-          <div className="pc-metric">
-            <Clock size={16} />
-            <div>
-              <span className="metric-label">Manual work savings</span>
-              <strong>{fmtEUR(manualWorkSavings)}</strong>
-            </div>
+          <div className="roi-break-row">
+            <span>Spend savings ({(effectiveSavingsRate * 100).toFixed(1)}%)</span>
+            <strong>{fmt(spendSavings)}</strong>
           </div>
-          <div className="pc-metric">
-            <DollarSign size={16} />
-            <div>
-              <span className="metric-label">Estimated ROI</span>
-              <strong className={roi > 0 ? 'positive' : ''}>{roi.toFixed(0)}%</strong>
-            </div>
+          <div className="roi-break-row">
+            <span>Supplier normalization value</span>
+            <strong>{fmt(normSavings)}</strong>
           </div>
-          <div className="pc-metric">
-            <Star size={16} />
-            <div>
-              <span className="metric-label">Payback period</span>
-              <strong>{isFinite(paybackMonths) && paybackMonths > 0 ? `${paybackMonths} months` : 'N/A'}</strong>
-            </div>
+          <div className="roi-break-row roi-break-total">
+            <span>Total benefit (Year 1)</span>
+            <strong>{fmt(totalBenefit)}</strong>
           </div>
         </div>
 
-        {/* ROI bar */}
-        <div className="pc-roi-bar-wrap">
-          <div className="pc-roi-bar-labels">
-            <span>Cost</span>
-            <span>Total benefit</span>
+        {/* Visual bar */}
+        <div className="roi-bar-section">
+          <div className="roi-bar-labels">
+            <span>Dolphin AI cost</span>
+            <span>Your benefit</span>
           </div>
-          <div className="pc-roi-bars">
-            <div className="pc-bar pc-bar-cost" style={{ width: '100%' }}>
-              <span>{fmtEUR(estimatedAnnualPrice)}</span>
+          <div className="roi-bar-track">
+            <div className="roi-bar-cost" style={{ width: `${100 - benefitPct}%` }}>
+              <span>{fmt(annualFee)}</span>
             </div>
-            <div
-              className="pc-bar pc-bar-benefit"
-              style={{ width: `${Math.min(100, (totalBenefit / Math.max(1, estimatedAnnualPrice)) * 50)}%`, minWidth: '30%' }}
-            >
-              <span>{fmtEUR(totalBenefit)}</span>
+            <div className="roi-bar-benefit" style={{ width: `${benefitPct}%` }}>
+              <span>{fmt(totalBenefit)}</span>
             </div>
           </div>
         </div>
 
-        <div className="pc-recommended-plan">
-          <span>Recommended plan for you:</span>
-          <strong>{recommended}</strong>
+        {/* Recommended plan */}
+        <div className="roi-plan-chip">
+          <span>Suggested plan</span>
+          <strong>{tierName} · {fmt(annualFee)} / yr</strong>
         </div>
 
-        <p className="pc-disclaimer">
-          Estimate only. Actual pricing depends on data quality, integrations, and scope.
-        </p>
+        <p className="pc-disclaimer">Estimates based on your inputs. Actual results depend on data quality and scope.</p>
 
-        <Link to="/book-demo" className="btn btn-primary btn-full" style={{ marginTop: '1rem' }}>
-          Validate your estimate with us <ArrowRight size={15} />
+        <Link to="/book-demo" className="btn btn-primary btn-full" style={{ marginTop: '0.5rem' }}>
+          Validate your ROI with us <ArrowRight size={15} />
         </Link>
       </div>
     </div>
   );
 }
+
 
 export default function PricingPage() {
   return (
@@ -264,6 +350,14 @@ export default function PricingPage() {
           <p style={{ color: 'var(--gray-600)', maxWidth: '580px', fontSize: '15.5px' }}>
             Adjust the sliders to your organisation's data and see your estimated price, savings, and payback period in real time.
           </p>
+        </div>
+
+        {/* Pricing tier cards */}
+        <PricingTiers />
+
+        {/* Divider */}
+        <div className="pt-divider container">
+          <span>Or use our ROI calculator to estimate your exact cost</span>
         </div>
 
         {/* Calculator */}
