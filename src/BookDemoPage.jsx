@@ -4,7 +4,7 @@ import { ArrowRight, CheckCircle2, Calendar, Clock, Users } from 'lucide-react';
 
 const API_URL       = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 const COMPANY_SIZES = ['1–50', '51–200', '201–500', '501–2,000', '2,000–10,000', '10,000+'];
-const SPEND_RANGES  = ['Under €5M', '€5M–€25M', '€25M–€100M', '€100M–€500M', 'Over €500M'];
+const SPEND_RANGES  = ['Under $5M', '$5M–$25M', '$25M–$100M', '$100M–$500M', 'Over $500M'];
 const ROLES         = ['CPO / Head of Procurement', 'Procurement Manager', 'Finance / CFO', 'Data / Analytics', 'IT', 'Other'];
 
 export default function BookDemoPage() {
@@ -95,7 +95,7 @@ export default function BookDemoPage() {
 
             <div className="demo-quote">
               <p>"Dolphin AI cut our data cleaning time by 80% and gave us confidence in our spend reports for the first time."</p>
-              <span>— Head of Procurement, €2B manufacturing group</span>
+              <span>— Head of Procurement, $2B manufacturing group</span>
             </div>
           </div>
 
@@ -109,7 +109,7 @@ export default function BookDemoPage() {
                 <p style={{ color: 'var(--gray-400)', fontSize: '13.5px' }}>
                   While you wait, explore how the classifier works.
                 </p>
-                <Link to="/classify" className="btn btn-primary" style={{ marginTop: '0.5rem' }}>
+                <Link to="/demo-video" className="btn btn-primary" style={{ marginTop: '0.5rem' }}>
                   Try the classifier <ArrowRight size={15} />
                 </Link>
               </div>

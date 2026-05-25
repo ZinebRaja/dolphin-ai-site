@@ -12,6 +12,7 @@ import LoginPage from './LoginPage.jsx';
 import SignupPage from './SignupPage.jsx';
 import BookDemoPage from './BookDemoPage.jsx';
 import DemoVideoPage from './DemoVideoPage.jsx';
+import DashboardPage from './DashboardPage.jsx';
 import CookieBanner from './CookieBanner.jsx';
 import {
   ArrowRight,
@@ -314,12 +315,12 @@ function InsightsScene() {
           </div>
           <div className="saving-row">
             <span>Projected savings</span>
-            <b>EUR 95k / year</b>
+            <b>$95k / year</b>
           </div>
           <div className="progress-line"><span /></div>
         </motion.div>
 
-        <CountMetric label="Savings potential" value={9} prefix="EUR " suffix=".0M" accent />
+        <CountMetric label="Savings potential" value={9} prefix="$" suffix=".0M" accent />
         <CountMetric label="Normalized suppliers" value={1284} />
         <CountMetric label="Contract coverage" value={26} suffix=".18%" />
         <CountMetric label="Classification confidence" value={94} suffix="%" />
@@ -826,7 +827,7 @@ function HomePage() {
                 saving: '$3.2M savings identified',
               },
               {
-                industry: 'European Retail Group',
+                industry: 'US Retail Group',
                 spend: '$280M annual spend',
                 challenge: 'Procurement team manually mapping 60,000+ spend lines per year in Excel. 40h/month of analyst time wasted on data prep.',
                 results: [
@@ -865,30 +866,27 @@ function HomePage() {
           </div>
         </section>
 
-        {/* ══ TESTIMONIALS ══ */}
-        <section className="testimonials-section">
+        {/* ══ TRUST STATS ══ */}
+        <section className="trust-stats-section">
           <div className="container">
             <div className="section-head centered">
-              <span className="eyebrow">What our clients say</span>
-              <h2>Trusted by procurement and finance teams</h2>
+              <span className="eyebrow">Why teams choose Dolphin AI</span>
+              <h2>Built for the reality of procurement data</h2>
               <div className="section-rule" />
             </div>
-            <div className="testimonials-grid">
+            <div className="trust-stats-grid">
               {[
-                { quote: "Dolphin AI cut our spend classification time by 80%. What used to take our team weeks now happens in hours — and the accuracy is far better than manual mapping.", name: "Sarah Mitchell", role: "Head of Procurement", company: "Global Manufacturing Group" },
-                { quote: "We had supplier names in 6 different formats across 3 ERPs. Dolphin AI normalized everything into one clean master list in a single run. Game-changer for our reporting.", name: "Thomas Berger", role: "CPO", company: "€1.2B Industrial Distributor" },
-                { quote: "The spend category visibility we now have changed how we approach sourcing strategy. We identified €4M in consolidation opportunities we didn't know existed.", name: "Amina Rousseau", role: "Category Manager", company: "European Retail Group" },
-              ].map(t => (
-                <div className="testimonial-card" key={t.name}>
-                  <div className="testimonial-stars">{'★'.repeat(5)}</div>
-                  <p className="testimonial-quote">"{t.quote}"</p>
-                  <div className="testimonial-author">
-                    <div className="author-avatar">{t.name.split(' ').map(n=>n[0]).join('')}</div>
-                    <div>
-                      <strong>{t.name}</strong>
-                      <span>{t.role} · {t.company}</span>
-                    </div>
-                  </div>
+                { value: '95%+',   label: 'Classification accuracy',        sub: 'Across L1–L4 taxonomy levels' },
+                { value: '80%',    label: 'Less time on data cleaning',      sub: 'Compared to manual Excel work' },
+                { value: '4×',     label: 'Faster category analysis',        sub: 'From raw data to insights' },
+                { value: '<24h',   label: 'Time to first results',           sub: 'From data upload to classified output' },
+                { value: '360°',   label: 'Supplier visibility',             sub: 'Normalized across all ERP sources' },
+                { value: '100%',   label: 'Data stays yours',                sub: 'Never used for model training' },
+              ].map(s => (
+                <div className="trust-stat-card" key={s.label}>
+                  <span className="trust-stat-value">{s.value}</span>
+                  <strong className="trust-stat-label">{s.label}</strong>
+                  <span className="trust-stat-sub">{s.sub}</span>
                 </div>
               ))}
             </div>
@@ -909,7 +907,7 @@ function HomePage() {
               { q: "Do I need to change my ERP or procurement system?", a: "No. Dolphin AI connects to your existing systems via API or file upload. You keep your current stack — we enrich and classify the data, then return it in whatever format you need." },
               { q: "How long does it take to get started?", a: "Most clients are up and running within one week. We start with a sample of your data, configure your taxonomy, and deliver a first classification run before full deployment." },
               { q: "Is our spend data secure?", a: "Yes. All data is encrypted in transit and at rest. We use Azure cloud infrastructure, and your data is never used to train models or shared with third parties. We sign NDAs and DPAs as standard." },
-              { q: "What's the difference between the plans?", a: "Starter is for teams with under €10M spend and basic needs. Professional adds more suppliers, integrations, and advanced reporting. Enterprise covers unlimited scope, dedicated support, and custom integrations." },
+              { q: "What's the difference between the plans?", a: "Starter is for teams with under $10M spend and basic needs. Professional adds more suppliers, integrations, and advanced reporting. Enterprise covers unlimited scope, dedicated support, and custom integrations." },
             ].map((item, i) => (
               <div className={`faq-item ${faqOpen === i ? 'open' : ''}`} key={i} onClick={() => setFaqOpen(faqOpen === i ? null : i)}>
                 <div className="faq-q">
@@ -1001,6 +999,7 @@ export default function App() {
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/book-demo" element={<BookDemoPage />} />
       <Route path="/demo-video" element={<DemoVideoPage />} />
+      <Route path="/dashboard" element={<DashboardPage />} />
       <Route path="/privacy" element={<PrivacyPage />} />
       <Route path="/terms" element={<TermsPage />} />
       <Route path="/about" element={<AboutPage />} />

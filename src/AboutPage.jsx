@@ -3,10 +3,16 @@ import { ArrowRight } from 'lucide-react';
 
 const TEAM = [
   {
-    name: 'Raja Essahri',
-    role: 'CEO & Co-founder',
-    bio: 'Procurement and spend analytics leader with extensive experience helping large organizations unlock value from messy ERP data. Built Dolphin AI to solve the classification and normalization problem he saw firsthand across dozens of procurement transformations.',
-    initials: 'RE',
+    name: 'Mairaj Khan',
+    role: 'Co-founder',
+    bio: 'Co-founder of Dolphin AI, focused on building scalable AI-powered solutions for procurement and finance teams. Brings deep expertise in enterprise software and data-driven decision making.',
+    initials: 'MK',
+  },
+  {
+    name: 'Omer Khan',
+    role: 'Co-founder',
+    bio: 'Co-founder of Dolphin AI, driving product strategy and technical architecture. Passionate about turning complex procurement data challenges into simple, actionable intelligence for enterprise teams.',
+    initials: 'OK',
   },
 ];
 
@@ -132,7 +138,10 @@ export default function AboutPage() {
           <div className="about-team-grid">
             {TEAM.map(m => (
               <div className="about-member" key={m.name}>
-                <div className="about-avatar">{m.initials}</div>
+                <div className="about-avatar-wrap">
+                  <img src="/logowebsite.png" alt="Dolphin AI" className="about-avatar-logo" />
+                  <span className="about-avatar-initials">{m.initials}</span>
+                </div>
                 <h3>{m.name}</h3>
                 <p className="about-role">{m.role}</p>
                 <p className="about-bio">{m.bio}</p>
@@ -149,7 +158,7 @@ export default function AboutPage() {
               <p>Dolphin AI LLC · 7301 State Highway 161 Ste 148 · Irving, TX 75039</p>
               <p style={{ marginTop: '0.5rem' }}>
                 Serving procurement and finance teams globally, with a focus on North American
-                and European mid-market and enterprise organisations.
+                and North American mid-market and enterprise organizations.
               </p>
             </div>
             <Link to="/book-demo" className="btn btn-primary">

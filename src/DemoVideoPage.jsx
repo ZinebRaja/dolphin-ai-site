@@ -78,11 +78,11 @@ export default function DemoVideoPage() {
         }}>
 
           {/* Video */}
-          <div style={{ position: 'relative', background: '#0F1928', aspectRatio: '16/9' }}>
+          <div style={{ position: 'relative', background: '#0F1928' }}>
             <video
               ref={videoRef}
               src="/demo.mp4"
-              style={{ width: '100%', height: '100%', display: 'block', objectFit: 'contain' }}
+              style={{ width: '100%', height: 'auto', display: 'block' }}
               controls
               onPlay={handlePlay}
               onTimeUpdate={handleTimeUpdate}

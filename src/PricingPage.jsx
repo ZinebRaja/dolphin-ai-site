@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
 
+// annualMonthly = price/mo on annual plan. Monthly = annualMonthly × 14/12 (annual gives 2 months free).
 const TIERS = [
   {
-    name: 'Coastal', spend: 'Up to $200M', price: '$699', period: '/mo',
+    name: 'Coastal', spend: 'Up to $200M', annualMonthly: 699,
     features: [
       'Data connectors: 1',
       'Named users: 2',
@@ -15,7 +16,7 @@ const TIERS = [
     cta: 'Start free trial', ctaLink: '/book-demo', note: '14 days free · No card required',
   },
   {
-    name: 'Reef', spend: 'Up to $400M', price: '$999', period: '/mo',
+    name: 'Reef', spend: 'Up to $400M', annualMonthly: 999,
     features: [
       'Data connectors: 2',
       'Named users: 5',
@@ -26,7 +27,7 @@ const TIERS = [
     cta: 'Start free trial', ctaLink: '/book-demo', note: '14 days free · No card required',
   },
   {
-    name: 'Navigator', spend: 'Up to $750M', price: '$1,399', period: '/mo',
+    name: 'Navigator', spend: 'Up to $750M', annualMonthly: 1399,
     popular: true,
     features: [
       'Data connectors: 5',
@@ -38,7 +39,7 @@ const TIERS = [
     cta: 'Start free trial', ctaLink: '/book-demo', note: '14 days free · No card required',
   },
   {
-    name: 'Horizon', spend: 'Up to $1B+', price: '$1,699', period: '/mo',
+    name: 'Horizon', spend: 'Up to $1B+', annualMonthly: 1699,
     features: [
       'Data connectors: 10',
       'Named users: 20',
@@ -49,7 +50,7 @@ const TIERS = [
     cta: 'Start free trial', ctaLink: '/book-demo', note: '14 days free · No card required',
   },
   {
-    name: 'Apex', spend: '$1.5B+ under management', price: 'Custom', period: '/mo',
+    name: 'Apex', spend: '$1.5B+ under management', annualMonthly: null,
     features: [
       'Data connectors: Unlimited',
       'Named users: Unlimited',
@@ -57,46 +58,88 @@ const TIERS = [
       'Onboarding: Custom',
       'Support: Dedicated CSM · 99.99% SLA',
     ],
-    cta: 'Contact sales', ctaLink: '/book-demo', note: 'Need advanced AI modules? Talk to us',
+    cta: 'Contact sales', ctaLink: '/book-demo', note: 'Custom scope · Enterprise SLA',
   },
 ];
 
 function PricingTiers() {
+  const [annual, setAnnual] = useState(false);
+
   return (
     <section className="pt-section container">
       <div className="pt-header">
         <span className="eyebrow">Plans</span>
         <h2 className="pt-title">Simple, transparent pricing</h2>
         <p className="pt-sub">Scale from mid-market to enterprise. Every plan includes a 14-day free trial.</p>
-      </div>
-      <div className="pt-grid">
-        {TIERS.map(t => (
-          <div key={t.name} className={`pt-card${t.popular ? ' pt-card--popular' : ''}`}>
-            {t.popular && <div className="pt-badge">Most popular</div>}
-            <div className="pt-card-top">
-              <h3 className="pt-name">{t.name}</h3>
-              <p className="pt-spend">{t.spend}</p>
-            </div>
-            <div className="pt-price-row">
-              <span className="pt-price">{t.price}</span>
-              {t.period && <span className="pt-period">{t.period}</span>}
-            </div>
-            <ul className="pt-features">
-              {t.features.map(f => (
-                <li key={f}>
-                  <Check size={13} className="pt-check" />
-                  {f}
-                </li>
-              ))}
-            </ul>
-            <div className="pt-card-bottom">
-              <Link to={t.ctaLink} className="btn btn-primary pt-cta-btn">
-                {t.cta}
-              </Link>
-              <p className="pt-note">{t.note}</p>
-            </div>
+
+        {/* Billing toggle */}
+        <div className="pt-toggle-wrap">
+          <div className="pt-pill-toggle">
+            <button
+              className={`pt-pill-btn${!annual ? ' active' : ''}`}
+              onClick={() => setAnnual(false)}
+            >
+              Monthly
+            </button>
+            <button
+              className={`pt-pill-btn${annual ? ' active' : ''}`}
+              onClick={() => setAnnual(true)}
+            >
+              Annual <span className="pt-save-badge">2 months free</span>
+            </button>
           </div>
-        ))}
+        </div>
+      </div>
+
+      <div className="pt-grid">
+        {TIERS.map(t => {
+          const monthlyPrice = t.annualMonthly ? Math.floor(t.annualMonthly / 10) : null;
+          const displayPrice = t.annualMonthly === null
+            ? 'Custom'
+            : annual
+              ? `$${t.annualMonthly.toLocaleString()}`
+              : `$${monthlyPrice.toLocaleString()}`;
+          const period = t.annualMonthly === null ? '/mo' : annual ? '/year' : '/mo';
+
+          return (
+            <div key={t.name} className={`pt-card${t.popular ? ' pt-card--popular' : ''}`}>
+              {t.popular && <div className="pt-badge">Most popular</div>}
+              <div className="pt-card-top">
+                <h3 className="pt-name">{t.name}</h3>
+                <p className="pt-spend">{t.spend}</p>
+              </div>
+              <div className="pt-price-row">
+                <span className="pt-price">{displayPrice}</span>
+                {period && <span className="pt-period">{period}</span>}
+              </div>
+              <div className="pt-annual-info">
+                {t.annualMonthly ? (
+                  annual ? (
+                    <span className="pt-annual-saving">2 months free vs monthly</span>
+                  ) : (
+                    <span className="pt-annual-total">or ${t.annualMonthly.toLocaleString()}/year · save 2 months</span>
+                  )
+                ) : (
+                  <span className="pt-annual-total">Pricing tailored to your scale</span>
+                )}
+              </div>
+              <ul className="pt-features">
+                {t.features.map(f => (
+                  <li key={f}>
+                    <Check size={13} className="pt-check" />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <div className="pt-card-bottom">
+                <Link to={t.ctaLink} className="btn btn-primary pt-cta-btn">
+                  {t.cta}
+                </Link>
+                <p className="pt-note">{t.note}</p>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </section>
   );
