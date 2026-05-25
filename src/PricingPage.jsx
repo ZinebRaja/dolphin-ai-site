@@ -2,109 +2,106 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
 
-// annualMonthly = price/mo on annual plan. Monthly = annualMonthly × 14/12 (annual gives 2 months free).
 const TIERS = [
   {
-    name: 'Coastal', spend: 'Up to $200M', annualMonthly: 699,
+    icon: '🌊', name: 'Coastal', spend: 'Up to $200M', annualMonthly: 699,
     features: [
-      'Data connectors: 1',
-      'Named users: 2',
-      'Runs: 10,000 / month',
-      'Onboarding: Self-serve + 5 hrs',
-      'Support: Email · 99.5% SLA',
+      'Up to $200M spend under management',
+      'Spend classification & taxonomy mapping',
+      'Supplier normalization & deduplication',
+      'Automated data quality detection',
+      'Email support & self-serve onboarding',
     ],
-    cta: 'Start free trial', ctaLink: '/book-demo', note: '14 days free · No card required',
+    cta: 'Get started', ctaLink: '/book-demo', note: '',
   },
   {
-    name: 'Reef', spend: 'Up to $400M', annualMonthly: 999,
+    icon: '🪸', name: 'Reef', spend: 'Up to $400M', annualMonthly: 999,
     features: [
-      'Data connectors: 2',
-      'Named users: 5',
-      'Runs: 30,000 / month',
-      'Onboarding: Guided · 20 hrs',
-      'Support: Email + chat · 99.9% SLA',
+      'Up to $400M spend under management',
+      'Full spend classification suite',
+      'Advanced category performance reporting',
+      'Opportunity & savings identification',
+      'Email + chat support with guided onboarding',
     ],
-    cta: 'Start free trial', ctaLink: '/book-demo', note: '14 days free · No card required',
+    cta: 'Get started', ctaLink: '/book-demo', note: '',
   },
   {
-    name: 'Navigator', spend: 'Up to $750M', annualMonthly: 1399,
+    icon: '🧭', name: 'Navigator', spend: 'Up to $750M', annualMonthly: 1399,
     popular: true,
     features: [
-      'Data connectors: 5',
-      'Named users: 10',
-      'Runs: 100,000 / month',
-      'Onboarding: Dedicated · 30 hrs',
-      'Support: Priority · 99.9% SLA',
+      'Up to $750M spend under management',
+      'Multi-source spend consolidation',
+      'Custom taxonomy configuration',
+      'Savings detection & tail spend analysis',
+      'Priority support & dedicated onboarding',
     ],
-    cta: 'Start free trial', ctaLink: '/book-demo', note: '14 days free · No card required',
+    cta: 'Get started', ctaLink: '/book-demo', note: '',
   },
   {
-    name: 'Horizon', spend: 'Up to $1B+', annualMonthly: 1699,
+    icon: '🌅', name: 'Horizon', spend: 'Up to $1B+', annualMonthly: 1699,
     features: [
-      'Data connectors: 10',
-      'Named users: 20',
-      'Runs: 300,000 / month',
-      'Onboarding: Dedicated · 40 hrs',
-      'Support: Priority + SLA · 99.9%',
+      'Up to $1B+ spend under management',
+      'Enterprise-grade data pipelines',
+      'Full supplier ecosystem visibility',
+      'Advanced opportunity detection',
+      'Dedicated onboarding team & priority SLA',
     ],
-    cta: 'Start free trial', ctaLink: '/book-demo', note: '14 days free · No card required',
+    cta: 'Get started', ctaLink: '/book-demo', note: '',
   },
   {
-    name: 'Apex', spend: '$1.5B+ under management', annualMonthly: null,
+    icon: '🐬', name: 'Apex', spend: '$1.5B+ under management', annualMonthly: null,
     features: [
-      'Data connectors: Unlimited',
-      'Named users: Unlimited',
-      'Runs: Unlimited',
-      'Onboarding: Custom',
-      'Support: Dedicated CSM · 99.99% SLA',
+      'Unlimited spend under management',
+      'Custom integrations & taxonomy',
+      'White-glove implementation',
+      'Dedicated CSM & enterprise SLA',
+      'Security, compliance & custom reporting',
     ],
     cta: 'Contact sales', ctaLink: '/book-demo', note: 'Custom scope · Enterprise SLA',
   },
 ];
 
 function PricingTiers() {
-  const [annual, setAnnual] = useState(false);
+  const [annual, setAnnual] = useState(true);
 
   return (
     <section className="pt-section container">
       <div className="pt-header">
         <span className="eyebrow">Plans</span>
         <h2 className="pt-title">Simple, transparent pricing</h2>
-        <p className="pt-sub">Scale from mid-market to enterprise. Every plan includes a 14-day free trial.</p>
+        <p className="pt-sub">Scale from mid-market to enterprise. No long-term commitment required.</p>
 
         {/* Billing toggle */}
-        <div className="pt-toggle-wrap">
-          <div className="pt-pill-toggle">
-            <button
-              className={`pt-pill-btn${!annual ? ' active' : ''}`}
-              onClick={() => setAnnual(false)}
-            >
-              Monthly
-            </button>
-            <button
-              className={`pt-pill-btn${annual ? ' active' : ''}`}
-              onClick={() => setAnnual(true)}
-            >
-              Annual <span className="pt-save-badge">2 months free</span>
-            </button>
-          </div>
+        <div className="pt-billing-row">
+          <span className={`pt-billing-label${!annual ? ' is-active' : ''}`}>Monthly pricing</span>
+          <button
+            className={`pt-ios-switch${annual ? ' on' : ''}`}
+            onClick={() => setAnnual(a => !a)}
+            aria-pressed={annual}
+            aria-label="Toggle yearly pricing"
+          />
+          <span className={`pt-billing-label${annual ? ' is-active' : ''}`}>
+            Yearly pricing <span className="pt-save-badge">Save 15%</span>
+          </span>
         </div>
       </div>
 
       <div className="pt-grid">
         {TIERS.map(t => {
-          const monthlyPrice = t.annualMonthly ? Math.floor(t.annualMonthly / 10) : null;
+          const monthlyPrice = t.annualMonthly ? Math.round(t.annualMonthly * 1.15) : null;
+          const yearlyTotal = t.annualMonthly ? t.annualMonthly * 12 : null;
           const displayPrice = t.annualMonthly === null
             ? 'Custom'
             : annual
               ? `$${t.annualMonthly.toLocaleString()}`
               : `$${monthlyPrice.toLocaleString()}`;
-          const period = t.annualMonthly === null ? '/mo' : annual ? '/year' : '/mo';
+          const period = t.annualMonthly === null ? '' : '/mo';
 
           return (
             <div key={t.name} className={`pt-card${t.popular ? ' pt-card--popular' : ''}`}>
               {t.popular && <div className="pt-badge">Most popular</div>}
               <div className="pt-card-top">
+                <div className="pt-tier-icon">{t.icon}</div>
                 <h3 className="pt-name">{t.name}</h3>
                 <p className="pt-spend">{t.spend}</p>
               </div>
@@ -115,9 +112,9 @@ function PricingTiers() {
               <div className="pt-annual-info">
                 {t.annualMonthly ? (
                   annual ? (
-                    <span className="pt-annual-saving">2 months free vs monthly</span>
+                    <span className="pt-annual-saving">Billed yearly · ${yearlyTotal.toLocaleString()}/year</span>
                   ) : (
-                    <span className="pt-annual-total">or ${t.annualMonthly.toLocaleString()}/year · save 2 months</span>
+                    <span className="pt-annual-total">Billed monthly · no commitment</span>
                   )
                 ) : (
                   <span className="pt-annual-total">Pricing tailored to your scale</span>
@@ -135,7 +132,7 @@ function PricingTiers() {
                 <Link to={t.ctaLink} className="btn btn-primary pt-cta-btn">
                   {t.cta}
                 </Link>
-                <p className="pt-note">{t.note}</p>
+                {t.note && <p className="pt-note">{t.note}</p>}
               </div>
             </div>
           );
@@ -374,7 +371,6 @@ export default function PricingPage() {
             <Link to="/#contact">Contact</Link>
           </nav>
           <div className="nav-actions">
-            <Link to="/login?redirect=/demo-video" className="btn btn-primary">Live demo</Link>
             <Link to="/book-demo" className="btn btn-primary">Book a demo</Link>
           </div>
         </div>

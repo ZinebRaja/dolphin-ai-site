@@ -197,7 +197,6 @@ export default function DashboardPage() {
             <Link to="/#contact">Contact</Link>
           </nav>
           <div className="nav-actions">
-            <Link to="/login?redirect=/demo-video" className="btn btn-primary">Live demo</Link>
             <Link to="/book-demo" className="btn btn-primary">Book a demo</Link>
           </div>
         </div>

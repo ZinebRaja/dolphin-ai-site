@@ -13,6 +13,7 @@ import SignupPage from './SignupPage.jsx';
 import BookDemoPage from './BookDemoPage.jsx';
 import DemoVideoPage from './DemoVideoPage.jsx';
 import DashboardPage from './DashboardPage.jsx';
+import ContactPage from './ContactPage.jsx';
 import CookieBanner from './CookieBanner.jsx';
 import {
   ArrowRight,
@@ -22,7 +23,14 @@ import {
   Layers3,
   RefreshCcw,
   Search,
-  ShieldCheck
+  ShieldCheck,
+  TrendingUp,
+  Building2,
+  Lightbulb,
+  Link2,
+  Database,
+  PieChart,
+  GitBranch,
 } from 'lucide-react';
 
 const features = [
@@ -122,6 +130,71 @@ function LogoOracle() {
       <text x="28" y="33" textAnchor="middle" fill="#E10000"
         fontSize="8" fontWeight="900" fontFamily="Arial,sans-serif" letterSpacing="0.5">ORACLE</text>
     </svg>
+  );
+}
+
+
+function LogoWorkday() {
+  return (
+    <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
+      <rect width="52" height="52" rx="12" fill="#F6F9FF"/>
+      <circle cx="26" cy="26" r="13" fill="#F5A623" opacity="0.15"/>
+      <path d="M14 30 L19 18 L23 26 L26 20 L29 26 L33 18 L38 30 Z" fill="#F5A623" stroke="#E09010" strokeWidth="0.5"/>
+    </svg>
+  );
+}
+
+function LogoAriba() {
+  return (
+    <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
+      <rect width="52" height="52" rx="12" fill="#F5F5F5"/>
+      <text x="26" y="31" textAnchor="middle" fill="#0070D2"
+        fontSize="11" fontWeight="900" fontFamily="Arial,sans-serif" letterSpacing="0.5">ARIBA</text>
+      <rect x="10" y="34" width="32" height="2.5" rx="1.25" fill="#0070D2" opacity="0.6"/>
+    </svg>
+  );
+}
+
+function LogoJaggaer() {
+  return (
+    <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
+      <rect width="52" height="52" rx="12" fill="#F0F7F0"/>
+      <text x="26" y="31" textAnchor="middle" fill="#2E7D32"
+        fontSize="9" fontWeight="900" fontFamily="Arial,sans-serif" letterSpacing="0.3">JAGGAER</text>
+      <circle cx="26" cy="17" r="6" fill="#2E7D32" opacity="0.2"/>
+      <circle cx="26" cy="17" r="3" fill="#2E7D32"/>
+    </svg>
+  );
+}
+
+const TICKER_ITEMS = [
+  { logo: <LogoSAP />,      name: 'SAP' },
+  { logo: <LogoOracle />,   name: 'Oracle' },
+  { logo: <LogoDynamics />, name: 'MS Dynamics' },
+  { logo: <LogoCoupa />,    name: 'Coupa' },
+  { logo: <LogoExcel />,    name: 'Excel' },
+  { logo: <LogoSharePoint />, name: 'SharePoint' },
+  { logo: <LogoWorkday />,  name: 'Workday' },
+  { logo: <LogoAriba />,    name: 'SAP Ariba' },
+  { logo: <LogoJaggaer />,  name: 'Jaggaer' },
+];
+
+function LogoTicker() {
+  const items = [...TICKER_ITEMS, ...TICKER_ITEMS];
+  return (
+    <div className="ticker-section">
+      <p className="ticker-label">Works with the tools your team already uses</p>
+      <div className="ticker-wrap">
+        <div className="ticker-track">
+          {items.map((item, i) => (
+            <div className="ticker-item" key={i}>
+              {item.logo}
+              <span>{item.name}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -392,6 +465,7 @@ function HomePage() {
   const [faqOpen, setFaqOpen] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const productRef = useRef(null);
+  const closeTimer = useRef(null);
 
   useEffect(() => {
     function onDocClick(e) {
@@ -425,8 +499,8 @@ function HomePage() {
             <div
               ref={productRef}
               className="nav-item product-item"
-              onMouseEnter={() => setProductOpen(true)}
-              onMouseLeave={() => setProductOpen(false)}
+              onMouseEnter={() => { clearTimeout(closeTimer.current); setProductOpen(true); }}
+              onMouseLeave={() => { closeTimer.current = setTimeout(() => setProductOpen(false), 180); }}
             >
               <button
                 className={`nav-link product-toggle ${productOpen ? 'open' : ''}`}
@@ -441,67 +515,62 @@ function HomePage() {
                 </svg>
               </button>
 
-              <div
-                className={`mega-menu ${productOpen ? 'open' : ''}`}
-                role="menu"
-              >
+              <div className={`mega-menu ${productOpen ? 'open' : ''}`} role="menu">
                 <div className="mega-inner container">
-                  <div className="mega-col">
-                    <h4 className="mega-title">Product</h4>
-                    <p className="mega-copy">Dolphin AI brings clean, classified, and actionable spend data to procurement teams.</p>
+
+                  {/* Left: Overview */}
+                  <div className="mega-overview">
+                    <div className="mega-brand-badge">
+                      <img src="/logowebsite.png" alt="Dolphin AI" style={{ height: 36 }} />
+                    </div>
+                    <h4 className="mega-overview-title">Spend Intelligence Platform</h4>
+                    <p className="mega-overview-copy">Clean, classify, and analyze your procurement data from any source — in hours, not months.</p>
+                    <a href="#solution" className="mega-overview-link">Explore platform <ArrowRight size={13} /></a>
                   </div>
 
-                  <div className="mega-col">
-                    <h5 className="mega-section">Core capabilities</h5>
-                    <ul className="mega-list">
-                      <li tabIndex={0} className="mega-item">
-                        <a href="#workflow"><strong>Spend classification</strong>
-                        <span>Automatically classify transactions using your procurement taxonomy.</span></a>
-                      </li>
-                      <li tabIndex={0} className="mega-item">
-                        <a href="#workflow"><strong>Supplier normalization</strong>
-                        <span>Clean, standardize, and group duplicate supplier names into one trusted supplier view.</span></a>
-                      </li>
-                      <li tabIndex={0} className="mega-item">
-                        <a href="#platform"><strong>Spend intelligence</strong>
-                        <span>Turn raw spend data into clear insights, trends, and category visibility.</span></a>
-                      </li>
-                      <li tabIndex={0} className="mega-item">
-                        <a href="#platform"><strong>Opportunity detection</strong>
-                        <span>Identify savings opportunities, off-contract spend, consolidation potential, and tail spend.</span></a>
-                      </li>
-                      <li tabIndex={0} className="mega-item">
-                        <a href="#platform"><strong>Data enrichment</strong>
-                        <span>Improve descriptions, supplier records, and category mapping with AI-assisted enrichment.</span></a>
-                      </li>
-                    </ul>
+                  {/* Center: Capabilities grid */}
+                  <div className="mega-caps">
+                    <p className="mega-section">Capabilities</p>
+                    <div className="mega-caps-grid">
+                      {[
+                        { icon: <Layers3 size={16}/>,    title: 'Spend Classification',   desc: 'Map every transaction to your taxonomy' },
+                        { icon: <Building2 size={16}/>,  title: 'Supplier Normalization', desc: 'One trusted view of every supplier' },
+                        { icon: <TrendingUp size={16}/>, title: 'Spend Intelligence',     desc: 'Trends, KPIs, and category visibility' },
+                        { icon: <Lightbulb size={16}/>,  title: 'Opportunity Detection',  desc: 'Savings, tail spend, off-contract' },
+                        { icon: <Database size={16}/>,   title: 'Data Enrichment',        desc: 'AI-assisted cleaning and enrichment' },
+                        { icon: <Link2 size={16}/>,      title: 'Integrations',           desc: 'SAP, Oracle, Coupa, Excel and more' },
+                      ].map(item => (
+                        <a href="#solution" className="mega-cap-item" key={item.title}>
+                          <div className="mega-cap-icon">{item.icon}</div>
+                          <div className="mega-cap-text">
+                            <strong>{item.title}</strong>
+                            <span>{item.desc}</span>
+                          </div>
+                        </a>
+                      ))}
+                    </div>
                   </div>
 
-                  <div className="mega-col">
-                    <h5 className="mega-section">Quick links</h5>
-                    <ul className="mega-list">
-                      <li tabIndex={0} className="mega-item">
-                        <a href="#ecosystem"><strong>Integrations</strong>
-                        <span>Connect ERP systems, Excel files, procurement platforms, and supplier datasets.</span></a>
-                      </li>
-                      <li tabIndex={0} className="mega-item">
-                        <a href="#security"><strong>Security</strong>
-                        <span>Learn how Dolphin AI handles data privacy, protection, and enterprise security.</span></a>
-                      </li>
-                      <li tabIndex={0} className="mega-item">
-                        <a href="#workflow"><strong>Workflow</strong>
-                        <span>Discover how Dolphin AI cleans, classifies, validates, and enriches spend data.</span></a>
-                      </li>
-                      <li tabIndex={0} className="mega-item">
-                        <a href="#platform"><strong>Analytics</strong>
-                        <span>Explore dashboards, KPIs, confidence scores, and reporting outputs.</span></a>
-                      </li>
-                      <li tabIndex={0} className="mega-item">
-                        <a href="#contact"><strong>Contact / Demo</strong>
-                        <span>Talk to us about your procurement data use case.</span></a>
-                      </li>
-                    </ul>
+                  {/* Right: Resources */}
+                  <div className="mega-resources">
+                    <p className="mega-section">Resources</p>
+                    <div className="mega-res-list">
+                      {[
+                        { icon: <GitBranch size={15}/>, title: 'How it works',          desc: 'See the end-to-end workflow',      href: '#workflow' },
+                        { icon: <PieChart size={15}/>,  title: 'Analytics & Reporting', desc: 'KPIs, dashboards, and insights',   href: '#platform' },
+                        { icon: <ShieldCheck size={15}/>, title: 'Security',            desc: 'Data privacy & enterprise grade',  href: '/security' },
+                      ].map(r => (
+                        <a href={r.href} className="mega-res-item" key={r.title}>
+                          <div className="mega-res-icon">{r.icon}</div>
+                          <div><strong>{r.title}</strong><span>{r.desc}</span></div>
+                        </a>
+                      ))}
+                    </div>
+                    <Link to="/book-demo" className="mega-demo-cta">
+                      Book a demo <ArrowRight size={13}/>
+                    </Link>
                   </div>
+
                 </div>
               </div>
             </div>
@@ -510,11 +579,10 @@ function HomePage() {
             <a href="#solution">Solution</a>
             <a href="#workflow">Workflow</a>
             <Link to="/pricing">Pricing</Link>
-            <a href="#contact">Contact</a>
+            <Link to="/contact">Contact</Link>
           </nav>
           <div className="nav-actions">
-            <Link to="/login?redirect=/demo-video" className="btn btn-primary">Live demo</Link>
-            <Link to="/book-demo" className="btn btn-primary">Book a demo</Link>
+            <Link to="/login" className="nav-login">Log in</Link>
           </div>
           <button className="mobile-menu-btn" onClick={() => setMobileOpen(m => !m)} aria-label="Menu">
             <span className={`hamburger ${mobileOpen ? 'open' : ''}`} />
@@ -528,7 +596,6 @@ function HomePage() {
           <a href="#workflow">Workflow</a>
           <Link to="/pricing">Pricing</Link>
           <a href="#contact">Contact</a>
-          <Link to="/login?redirect=/demo-video" className="btn btn-primary">Live demo</Link>
           <Link to="/book-demo" className="btn btn-primary">Book a demo</Link>
         </div>
       )}
@@ -549,10 +616,21 @@ function HomePage() {
                 Dolphin AI normalizes supplier names, classifies spend using your taxonomy,
                 and reveals opportunities hidden in procurement data.
               </p>
+              <div className="hero-actions">
+                <Link to="/book-demo" className="btn btn-primary btn-lg btn-pill">
+                  Book a demo <ArrowRight size={16} />
+                </Link>
+                <Link to="/login?redirect=/demo-video" className="btn-text-link">
+                  Try the classifier <ArrowRight size={16} />
+                </Link>
+              </div>
               <HeroDemoRotator />
             </motion.div>
           </div>
         </section>
+
+        {/* ══ LOGO TICKER ══ */}
+        <LogoTicker />
 
         {/* ══ INTEGRATION ECOSYSTEM ══ */}
         <section id="ecosystem" className="integration-section">
@@ -1004,6 +1082,7 @@ export default function App() {
       <Route path="/terms" element={<TermsPage />} />
       <Route path="/about" element={<AboutPage />} />
       <Route path="/security" element={<SecurityPage />} />
+      <Route path="/contact" element={<ContactPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
