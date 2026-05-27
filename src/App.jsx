@@ -452,26 +452,25 @@ function HomePage() {
                 <ellipse cx="400" cy="280" rx="258" ry="208"
                   fill="none" stroke="#A56D58" strokeOpacity="0.06"  strokeWidth="1.2"/>
 
-                {/* Connector curves — card → center (data flowing in)
-                    p1 SAP (220,105) · p2 Dynamics (582,105)
-                    p3 Oracle (168,280) · p4 SharePoint (630,280)
-                    p5 Coupa (220,455) · p6 Azure (400,502) · p7 Excel (580,455)
-                    p8 Workday (400,78) */}
-                <path id="p8" d="M400,78 Q400,179 400,280"
+                {/* Connector curves — 8 nodes at 45° intervals → hub (400,280)
+                    p1 SAP(218,133) p2 Dynamics(582,133) p3 Oracle(142,280)
+                    p4 SharePoint(658,280) p5 Coupa(218,427) p6 Azure(400,488)
+                    p7 Excel(582,427) p8 Workday(400,72) */}
+                <path id="p1" d="M218,133 Q309,207 400,280"
                   fill="none" stroke="#A56D58" strokeWidth="0.9" strokeOpacity="0.16"/>
-                <path id="p1" d="M220,105 Q310,193 400,280"
+                <path id="p2" d="M582,133 Q491,207 400,280"
                   fill="none" stroke="#A56D58" strokeWidth="0.9" strokeOpacity="0.16"/>
-                <path id="p2" d="M582,105 Q491,193 400,280"
+                <path id="p3" d="M142,280 Q271,274 400,280"
                   fill="none" stroke="#A56D58" strokeWidth="0.9" strokeOpacity="0.16"/>
-                <path id="p3" d="M168,280 Q284,271 400,280"
+                <path id="p4" d="M658,280 Q529,274 400,280"
                   fill="none" stroke="#A56D58" strokeWidth="0.9" strokeOpacity="0.16"/>
-                <path id="p4" d="M630,280 Q515,271 400,280"
+                <path id="p5" d="M218,427 Q309,354 400,280"
                   fill="none" stroke="#A56D58" strokeWidth="0.9" strokeOpacity="0.16"/>
-                <path id="p5" d="M220,455 Q310,368 400,280"
+                <path id="p6" d="M400,488 Q400,384 400,280"
                   fill="none" stroke="#A56D58" strokeWidth="0.9" strokeOpacity="0.16"/>
-                <path id="p6" d="M400,502 Q400,391 400,280"
+                <path id="p7" d="M582,427 Q491,354 400,280"
                   fill="none" stroke="#A56D58" strokeWidth="0.9" strokeOpacity="0.16"/>
-                <path id="p7" d="M580,455 Q490,368 400,280"
+                <path id="p8" d="M400,72 Q400,176 400,280"
                   fill="none" stroke="#A56D58" strokeWidth="0.9" strokeOpacity="0.16"/>
 
                 {/* Animated data-flow dots — copper primary, navy accent */}

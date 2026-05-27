@@ -495,14 +495,15 @@ a { color: inherit; text-decoration: none; }
   transform: translate(-50%, -50%);
   z-index: 5;
 }
-.anchor-sap        { top: 105px; left: 220px; }
-.anchor-dynamics   { top: 105px; left: 582px; }
-.anchor-oracle     { top: 280px; left: 168px; }
-.anchor-sharepoint { top: 280px; left: 630px; }
-.anchor-coupa      { top: 455px; left: 220px; }
-.anchor-azure      { top: 502px; left: 400px; }
-.anchor-excel      { top: 455px; left: 580px; }
-.anchor-workday    { top:  78px; left: 400px; }
+/* 8 nodes evenly at 45° intervals on the outer ellipse (rx=258, ry=208, cx=400, cy=280) */
+.anchor-workday    { top:  72px; left: 400px; }   /* 270° top-center   */
+.anchor-dynamics   { top: 133px; left: 582px; }   /* 315° top-right    */
+.anchor-sharepoint { top: 280px; left: 658px; }   /* 0°   right        */
+.anchor-excel      { top: 427px; left: 582px; }   /* 45°  bottom-right */
+.anchor-azure      { top: 488px; left: 400px; }   /* 90°  bottom       */
+.anchor-coupa      { top: 427px; left: 218px; }   /* 135° bottom-left  */
+.anchor-oracle     { top: 280px; left: 142px; }   /* 180° left         */
+.anchor-sap        { top: 133px; left: 218px; }   /* 225° top-left     */
 
 .int-card {
   display: flex; align-items: center; gap: 12px;
