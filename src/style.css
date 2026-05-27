@@ -495,15 +495,15 @@ a { color: inherit; text-decoration: none; }
   transform: translate(-50%, -50%);
   z-index: 5;
 }
-/* 8 nodes at 45° intervals — hub center (400,300), outer ellipse rx=245 ry=200 */
-.anchor-workday    { top: 100px; left: 400px; }   /* 12 o'clock        */
-.anchor-dynamics   { top: 159px; left: 573px; }   /* 1:30              */
-.anchor-sharepoint { top: 300px; left: 645px; }   /* 3 o'clock         */
-.anchor-excel      { top: 441px; left: 573px; }   /* 4:30              */
-.anchor-azure      { top: 500px; left: 400px; }   /* 6 o'clock         */
-.anchor-coupa      { top: 441px; left: 227px; }   /* 7:30              */
-.anchor-oracle     { top: 300px; left: 155px; }   /* 9 o'clock         */
-.anchor-sap        { top: 159px; left: 227px; }   /* 10:30             */
+/* 8 nodes — percentage positions so layout scales at all viewport widths */
+.anchor-workday    { top: 18%; left: 50%; }   /* 12 o'clock  */
+.anchor-dynamics   { top: 27%; left: 71%; }   /* 1:30        */
+.anchor-sharepoint { top: 50%; left: 81%; }   /* 3 o'clock   */
+.anchor-excel      { top: 73%; left: 71%; }   /* 4:30        */
+.anchor-azure      { top: 82%; left: 50%; }   /* 6 o'clock   */
+.anchor-coupa      { top: 73%; left: 29%; }   /* 7:30        */
+.anchor-oracle     { top: 50%; left: 19%; }   /* 9 o'clock   */
+.anchor-sap        { top: 27%; left: 29%; }   /* 10:30       */
 
 .int-card {
   display: flex; align-items: center; gap: 12px;
