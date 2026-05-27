@@ -14,6 +14,7 @@ import BookDemoPage from './BookDemoPage.jsx';
 import DemoVideoPage from './DemoVideoPage.jsx';
 import DashboardPage from './DashboardPage.jsx';
 import ContactPage from './ContactPage.jsx';
+import AssessmentPage from './AssessmentPage.jsx';
 import CookieBanner from './CookieBanner.jsx';
 import {
   ArrowRight,
@@ -376,8 +377,8 @@ function HomePage() {
                 <Link to="/book-demo" className="btn btn-primary btn-lg btn-pill">
                   Book a demo <ArrowRight size={16} />
                 </Link>
-                <Link to="/login?redirect=/demo-video" className="btn-text-link">
-                  Try the classifier <ArrowRight size={16} />
+                <Link to="/assessment" className="btn btn-outline btn-lg btn-pill">
+                  Get your free assessment <ArrowRight size={16} />
                 </Link>
               </div>
             </motion.div>
@@ -863,6 +864,7 @@ export default function App() {
       <Route path="/about" element={<AboutPage />} />
       <Route path="/security" element={<SecurityPage />} />
       <Route path="/contact" element={<ContactPage />} />
+      <Route path="/assessment" element={<AssessmentPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
