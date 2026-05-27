@@ -161,7 +161,7 @@ export default function ContactPage() {
                     <div className="contact-info-icon"><Mail size={16} /></div>
                     <div>
                       <strong>Email</strong>
-                      <a href="mailto:hello@dolphin-ai.com">hello@dolphin-ai.com</a>
+                      <a href="mailto:sales@dolphinaipro.com">sales@dolphinaipro.com</a>
                     </div>
                   </div>
                   <div className="contact-info-item">
