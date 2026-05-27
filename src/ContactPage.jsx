@@ -183,15 +183,19 @@ export default function ContactPage() {
               </div>
 
               <div className="contact-info-card">
-                <h3>Response time</h3>
+                <h3>What happens next?</h3>
                 <div className="contact-sla-list">
                   <div className="contact-sla-item">
                     <span className="contact-sla-dot orange" />
-                    <div><strong>General questions</strong><span>Within 1 business day</span></div>
+                    <div><strong>We review your message</strong><span>Our team reads every enquiry carefully</span></div>
                   </div>
                   <div className="contact-sla-item">
-                    <span className="contact-sla-dot gray" />
-                    <div><strong>System integrations</strong><span>Within 2 business days</span></div>
+                    <span className="contact-sla-dot orange" />
+                    <div><strong>We reach out directly</strong><span>A member of the team contacts you personally</span></div>
+                  </div>
+                  <div className="contact-sla-item">
+                    <span className="contact-sla-dot orange" />
+                    <div><strong>We get you set up</strong><span>Tailored onboarding to your spend data</span></div>
                   </div>
                 </div>
               </div>
