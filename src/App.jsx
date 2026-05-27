@@ -535,6 +535,9 @@ function HomePage() {
               <div className="orbit-anchor anchor-excel">
                 <div className="int-card"><LogoExcel /><span>Excel</span></div>
               </div>
+              <div className="orbit-anchor anchor-workday">
+                <div className="int-card"><LogoWorkday /><span>Workday</span></div>
+              </div>
 
             </motion.div>
           </div>
@@ -581,7 +584,7 @@ function HomePage() {
           <div className="container">
             <div className="section-head centered">
               <span className="eyebrow">How it works</span>
-              <h2>A simple process for complex procurement data.</h2>
+              <h2>Turn complex procurement data into savings.</h2>
               <div className="section-rule" />
               <p>Dolphin AI gives teams a repeatable workflow — import, clean, classify, validate, and export.</p>
             </div>
@@ -681,6 +684,28 @@ function HomePage() {
                 ],
                 saving: '$6.1M consolidation opportunity',
               },
+              {
+                industry: 'Healthcare System',
+                spend: '$320M annual spend',
+                challenge: 'Complex supplier landscape across medical devices, pharmaceuticals, and services. No unified category structure across hospital entities.',
+                results: [
+                  'Spend taxonomy harmonized across 8 hospital entities',
+                  'Medical device spend classified at 96% accuracy',
+                  'Contract compliance gaps surfaced across 3 categories',
+                ],
+                saving: '$4.1M in contract leakage identified',
+              },
+              {
+                industry: 'Global Banking Group',
+                spend: '$600M annual spend',
+                challenge: 'Procurement operating across 12 countries with inconsistent supplier master data and no cross-entity spend visibility.',
+                results: [
+                  'Supplier master harmonized across 12 entities',
+                  '94% of indirect spend auto-classified',
+                  'Procurement risk reduced through supplier deduplication',
+                ],
+                saving: '$7.2M savings opportunity identified',
+              },
             ].map(c => (
               <div className="case-card" key={c.industry}>
                 <div className="case-header">
@@ -738,8 +763,8 @@ function HomePage() {
               { q: "What kind of data does Dolphin AI work with?", a: "Dolphin AI works with any spend data — ERP exports, procurement platform reports, Excel files, or AP transaction data. As long as it contains supplier names, amounts, and descriptions, we can classify and normalize it." },
               { q: "How accurate is the classification?", a: "Our classification engine achieves 95%+ accuracy on spend data, combining a sourcing team's rule-based recommendations with AI reasoning. Every result can be reviewed and validated before export." },
               { q: "Do I need to change my ERP or procurement system?", a: "No. Dolphin AI connects to your existing systems via API or file upload. You keep your current stack — we enrich and classify the data, then return it in whatever format you need." },
-              { q: "How long does it take to get started?", a: "Most clients are up and running within one week. We start with a sample of your data, configure your taxonomy, and deliver a first classification run before full deployment." },
-              { q: "Is our spend data secure?", a: "Yes. All data is encrypted in transit and at rest. We use Azure cloud infrastructure, and your data is never used to train models or shared with third parties. We sign NDAs and DPAs as standard." },
+              { q: "How long does it take to get started?", a: "It depends on the quality and complexity of your data. We start with a sample, configure your taxonomy, and deliver a first classification run before full deployment. The cleaner and more structured your data, the faster we can move." },
+              { q: "Is our spend data secure?", a: "Yes. All data is encrypted in transit and at rest, and your data is never used to train models or shared with third parties. We sign NDAs and DPAs as standard." },
               { q: "What's the difference between the plans?", a: "Starter is for teams with under $10M spend and basic needs. Professional adds more suppliers, integrations, and advanced reporting. Enterprise covers unlimited scope, dedicated support, and custom integrations." },
             ].map((item, i) => (
               <div className={`faq-item ${faqOpen === i ? 'open' : ''}`} key={i} onClick={() => setFaqOpen(faqOpen === i ? null : i)}>
