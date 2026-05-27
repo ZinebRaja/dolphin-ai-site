@@ -465,7 +465,8 @@ a { color: inherit; text-decoration: none; }
   position: relative;
   width: 100%;
   max-width: 800px;
-  height: 600px;
+  aspect-ratio: 4 / 3;
+  height: auto;
   margin: 0 auto;
 }
 .eco-svg {
@@ -495,15 +496,15 @@ a { color: inherit; text-decoration: none; }
   transform: translate(-50%, -50%);
   z-index: 5;
 }
-/* 8 nodes — percentage positions so layout scales at all viewport widths */
-.anchor-workday    { top: 18%; left: 50%; }   /* 12 o'clock  */
-.anchor-dynamics   { top: 27%; left: 71%; }   /* 1:30        */
-.anchor-sharepoint { top: 50%; left: 81%; }   /* 3 o'clock   */
-.anchor-excel      { top: 73%; left: 71%; }   /* 4:30        */
-.anchor-azure      { top: 82%; left: 50%; }   /* 6 o'clock   */
-.anchor-coupa      { top: 73%; left: 29%; }   /* 7:30        */
-.anchor-oracle     { top: 50%; left: 19%; }   /* 9 o'clock   */
-.anchor-sap        { top: 27%; left: 29%; }   /* 10:30       */
+/* 8 nodes — exact outer-ring intersections (rx=245 ry=200 cx=400 cy=300) */
+.anchor-workday    { top: 16.7%; left: 50%;   }   /* 12 o'clock  y=100  */
+.anchor-dynamics   { top: 26.5%; left: 71.6%; }   /* 1:30        y=159  */
+.anchor-sharepoint { top: 50%;   left: 80.6%; }   /* 3 o'clock   y=300  */
+.anchor-excel      { top: 73.5%; left: 71.6%; }   /* 4:30        y=441  */
+.anchor-azure      { top: 83.3%; left: 50%;   }   /* 6 o'clock   y=500  */
+.anchor-coupa      { top: 73.5%; left: 28.4%; }   /* 7:30        y=441  */
+.anchor-oracle     { top: 50%;   left: 19.4%; }   /* 9 o'clock   y=300  */
+.anchor-sap        { top: 26.5%; left: 28.4%; }   /* 10:30       y=159  */
 
 .int-card {
   display: flex; align-items: center; gap: 12px;
