@@ -455,7 +455,10 @@ function HomePage() {
                 {/* Connector curves — card → center (data flowing in)
                     p1 SAP (220,105) · p2 Dynamics (582,105)
                     p3 Oracle (168,280) · p4 SharePoint (630,280)
-                    p5 Coupa (220,455) · p6 Azure (400,502) · p7 Excel (580,455) */}
+                    p5 Coupa (220,455) · p6 Azure (400,502) · p7 Excel (580,455)
+                    p8 Workday (400,78) */}
+                <path id="p8" d="M400,78 Q400,179 400,280"
+                  fill="none" stroke="#A56D58" strokeWidth="0.9" strokeOpacity="0.16"/>
                 <path id="p1" d="M220,105 Q310,193 400,280"
                   fill="none" stroke="#A56D58" strokeWidth="0.9" strokeOpacity="0.16"/>
                 <path id="p2" d="M582,105 Q491,193 400,280"
@@ -505,6 +508,11 @@ function HomePage() {
                 <circle r="2.4" fill="#BF8974" opacity="0.85">
                   <animateMotion dur="2.9s" repeatCount="indefinite" begin="0.9s">
                     <mpath href="#p7"/>
+                  </animateMotion>
+                </circle>
+                <circle r="2.8" fill="#A56D58" opacity="0.90">
+                  <animateMotion dur="2.4s" repeatCount="indefinite" begin="0.6s">
+                    <mpath href="#p8"/>
                   </animateMotion>
                 </circle>
               </svg>
