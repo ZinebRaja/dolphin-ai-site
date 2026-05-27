@@ -5,7 +5,7 @@ import { ArrowRight, Mail, Phone, MapPin, MessageSquare, BarChart3, Handshake } 
 const REASONS = [
   {
     icon: <BarChart3 size={22} />,
-    title: 'Talk to Sales',
+    title: 'Talk to Dolphin AI Team',
     desc: 'Get a personalised walkthrough of how Dolphin AI fits your procurement stack.',
     cta: 'Book a demo',
     href: '/book-demo',
@@ -19,8 +19,8 @@ const REASONS = [
   },
   {
     icon: <Handshake size={22} />,
-    title: 'Partnerships',
-    desc: 'Interested in integrating with Dolphin AI or exploring a partnership opportunity?',
+    title: 'Connect Your Systems',
+    desc: 'Want to connect Dolphin AI with your ERP, P2P platform, or data warehouse? Let\'s make it happen.',
     cta: 'Get in touch',
     href: '#contact-form',
   },
@@ -73,7 +73,7 @@ export default function ContactPage() {
           <div className="container contact-hero-inner">
             <span className="eyebrow">Contact us</span>
             <h1>Let's talk spend intelligence</h1>
-            <p>Whether you're evaluating Dolphin AI, already a customer, or just curious — our team responds within one business day.</p>
+            <p>Whether you're evaluating Dolphin AI, already a customer, or just curious — we'd love to hear from you and help you get the most out of your spend data.</p>
           </div>
         </section>
 
@@ -187,15 +187,11 @@ export default function ContactPage() {
                 <div className="contact-sla-list">
                   <div className="contact-sla-item">
                     <span className="contact-sla-dot orange" />
-                    <div><strong>Sales enquiries</strong><span>Within 4 business hours</span></div>
-                  </div>
-                  <div className="contact-sla-item">
-                    <span className="contact-sla-dot gray" />
                     <div><strong>General questions</strong><span>Within 1 business day</span></div>
                   </div>
                   <div className="contact-sla-item">
                     <span className="contact-sla-dot gray" />
-                    <div><strong>Partnerships</strong><span>Within 2 business days</span></div>
+                    <div><strong>System integrations</strong><span>Within 2 business days</span></div>
                   </div>
                 </div>
               </div>
