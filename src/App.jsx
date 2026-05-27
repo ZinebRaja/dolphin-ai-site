@@ -424,53 +424,48 @@ function HomePage() {
               {/* ── SVG layer: glow · rings · connectors · animated data dots ── */}
               <svg
                 className="eco-svg"
-                viewBox="0 0 800 560"
+                viewBox="0 0 800 600"
                 preserveAspectRatio="xMidYMid meet"
                 xmlns="http://www.w3.org/2000/svg"
                 aria-hidden="true"
               >
                 <defs>
-                  {/* Soft radial glow centred on hub */}
                   <radialGradient id="hubGlow" cx="50%" cy="50%" r="50%">
                     <stop offset="0%"   stopColor="#A56D58" stopOpacity="0.22"/>
                     <stop offset="55%"  stopColor="#A56D58" stopOpacity="0.07"/>
                     <stop offset="100%" stopColor="#A56D58" stopOpacity="0"/>
                   </radialGradient>
-                  {/* Navy accent for secondary dots */}
-                  <radialGradient id="copperGlow" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%"   stopColor="#1B2A4A" stopOpacity="0.10"/>
-                    <stop offset="100%" stopColor="#1B2A4A" stopOpacity="0"/>
-                  </radialGradient>
                 </defs>
 
-                {/* Glow ellipse */}
-                <ellipse cx="400" cy="280" rx="195" ry="158" fill="url(#hubGlow)"/>
+                {/* Glow — hub center (400,300) */}
+                <ellipse cx="400" cy="300" rx="185" ry="155" fill="url(#hubGlow)"/>
 
-                {/* Orbital rings — very faint structural guides */}
-                <ellipse cx="400" cy="280" rx="158" ry="126"
+                {/* Orbital rings — hub cx=400 cy=300 */}
+                <ellipse cx="400" cy="300" rx="150" ry="122"
                   fill="none" stroke="#A56D58" strokeOpacity="0.10" strokeWidth="1.2"/>
-                <ellipse cx="400" cy="280" rx="258" ry="208"
-                  fill="none" stroke="#A56D58" strokeOpacity="0.06"  strokeWidth="1.2"/>
+                <ellipse cx="400" cy="300" rx="245" ry="200"
+                  fill="none" stroke="#A56D58" strokeOpacity="0.06" strokeWidth="1.2"/>
 
-                {/* Connector curves — 8 nodes at 45° intervals → hub (400,280)
-                    p1 SAP(218,133) p2 Dynamics(582,133) p3 Oracle(142,280)
-                    p4 SharePoint(658,280) p5 Coupa(218,427) p6 Azure(400,488)
-                    p7 Excel(582,427) p8 Workday(400,72) */}
-                <path id="p1" d="M218,133 Q309,207 400,280"
+                {/* Connectors — 8 nodes → hub (400,300)
+                    p1 SAP(227,159)  p2 Dynamics(573,159)
+                    p3 Oracle(155,300) p4 SharePoint(645,300)
+                    p5 Coupa(227,441) p6 Azure(400,500)
+                    p7 Excel(573,441) p8 Workday(400,100) */}
+                <path id="p1" d="M227,159 Q314,230 400,300"
                   fill="none" stroke="#A56D58" strokeWidth="0.9" strokeOpacity="0.16"/>
-                <path id="p2" d="M582,133 Q491,207 400,280"
+                <path id="p2" d="M573,159 Q487,230 400,300"
                   fill="none" stroke="#A56D58" strokeWidth="0.9" strokeOpacity="0.16"/>
-                <path id="p3" d="M142,280 Q271,274 400,280"
+                <path id="p3" d="M155,300 Q278,296 400,300"
                   fill="none" stroke="#A56D58" strokeWidth="0.9" strokeOpacity="0.16"/>
-                <path id="p4" d="M658,280 Q529,274 400,280"
+                <path id="p4" d="M645,300 Q522,296 400,300"
                   fill="none" stroke="#A56D58" strokeWidth="0.9" strokeOpacity="0.16"/>
-                <path id="p5" d="M218,427 Q309,354 400,280"
+                <path id="p5" d="M227,441 Q314,371 400,300"
                   fill="none" stroke="#A56D58" strokeWidth="0.9" strokeOpacity="0.16"/>
-                <path id="p6" d="M400,488 Q400,384 400,280"
+                <path id="p6" d="M400,500 Q400,400 400,300"
                   fill="none" stroke="#A56D58" strokeWidth="0.9" strokeOpacity="0.16"/>
-                <path id="p7" d="M582,427 Q491,354 400,280"
+                <path id="p7" d="M573,441 Q487,371 400,300"
                   fill="none" stroke="#A56D58" strokeWidth="0.9" strokeOpacity="0.16"/>
-                <path id="p8" d="M400,72 Q400,176 400,280"
+                <path id="p8" d="M400,100 Q400,200 400,300"
                   fill="none" stroke="#A56D58" strokeWidth="0.9" strokeOpacity="0.16"/>
 
                 {/* Animated data-flow dots — copper primary, navy accent */}
