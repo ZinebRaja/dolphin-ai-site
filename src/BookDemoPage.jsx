@@ -147,7 +147,7 @@ export default function BookDemoPage() {
                     </select>
                   </div>
                   <div className="login-field">
-                    <label>Company size</label>
+                    <label>Number of employees</label>
                     <select value={form.companySize} onChange={set('companySize')}>
                       <option value="">Select…</option>
                       {COMPANY_SIZES.map(s => <option key={s}>{s}</option>)}

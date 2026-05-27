@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
 const TIERS = [
   {
     icon: '🌊', name: 'Coastal', spend: 'Up to $200M', annualMonthly: 699,
+    runtime: 'Up to 250K line items / month',
     features: [
       'Up to $200M spend under management',
       'Spend classification & taxonomy mapping',
@@ -16,8 +17,9 @@ const TIERS = [
   },
   {
     icon: '🪸', name: 'Reef', spend: 'Up to $400M', annualMonthly: 999,
+    runtime: 'Up to 500K line items / month',
+    includes: 'Coastal',
     features: [
-      'Up to $400M spend under management',
       'Full spend classification suite',
       'Advanced category performance reporting',
       'Opportunity & savings identification',
@@ -28,19 +30,22 @@ const TIERS = [
   {
     icon: '🧭', name: 'Navigator', spend: 'Up to $750M', annualMonthly: 1399,
     popular: true,
+    runtime: 'Up to 1M line items / month',
+    includes: 'Reef',
     features: [
-      'Up to $750M spend under management',
       'Multi-source spend consolidation',
       'Custom taxonomy configuration',
       'Savings detection & tail spend analysis',
+      'Real-time spend monitoring & alerts',
       'Priority support & dedicated onboarding',
     ],
     cta: 'Get started', ctaLink: '/book-demo', note: '',
   },
   {
     icon: '🌅', name: 'Horizon', spend: 'Up to $1B+', annualMonthly: 1699,
+    runtime: 'Up to 5M line items / month',
+    includes: 'Navigator',
     features: [
-      'Up to $1B+ spend under management',
       'Enterprise-grade data pipelines',
       'Full supplier ecosystem visibility',
       'Advanced opportunity detection',
@@ -50,14 +55,15 @@ const TIERS = [
   },
   {
     icon: '🐬', name: 'Apex', spend: '$1.5B+ under management', annualMonthly: null,
+    runtime: 'Unlimited processing',
+    includes: 'Horizon',
     features: [
-      'Unlimited spend under management',
       'Custom integrations & taxonomy',
       'White-glove implementation',
       'Dedicated CSM & enterprise SLA',
       'Security, compliance & custom reporting',
     ],
-    cta: 'Contact sales', ctaLink: '/book-demo', note: 'Custom scope · Enterprise SLA',
+    cta: 'Contact us', ctaLink: '/contact', note: 'Custom scope · Enterprise SLA',
   },
 ];
 
@@ -120,6 +126,10 @@ function PricingTiers() {
                   <span className="pt-annual-total">Pricing tailored to your scale</span>
                 )}
               </div>
+              {t.runtime && <div className="pt-runtime">{t.runtime}</div>}
+              {t.includes && (
+                <div className="pt-includes">Everything in {t.includes}, plus:</div>
+              )}
               <ul className="pt-features">
                 {t.features.map(f => (
                   <li key={f}>
