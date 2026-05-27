@@ -465,8 +465,7 @@ a { color: inherit; text-decoration: none; }
   position: relative;
   width: 100%;
   max-width: 800px;
-  aspect-ratio: 4 / 3;
-  height: auto;
+  height: 600px;
   margin: 0 auto;
 }
 .eco-svg {

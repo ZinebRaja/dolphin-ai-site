@@ -440,10 +440,10 @@ function HomePage() {
                 {/* Glow — hub center (400,300) */}
                 <ellipse cx="400" cy="300" rx="185" ry="155" fill="url(#hubGlow)"/>
 
-                {/* Orbital rings — hub cx=400 cy=300 */}
-                <ellipse cx="400" cy="300" rx="150" ry="122"
+                {/* Orbital rings — smaller than node positions so nodes sit clearly outside */}
+                <ellipse cx="400" cy="300" rx="130" ry="105"
                   fill="none" stroke="#A56D58" strokeOpacity="0.10" strokeWidth="1.2"/>
-                <ellipse cx="400" cy="300" rx="245" ry="200"
+                <ellipse cx="400" cy="300" rx="205" ry="168"
                   fill="none" stroke="#A56D58" strokeOpacity="0.06" strokeWidth="1.2"/>
 
                 {/* Connectors — 8 nodes → hub (400,300)
