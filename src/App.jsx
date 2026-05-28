@@ -15,6 +15,8 @@ import DemoVideoPage from './DemoVideoPage.jsx';
 import DashboardPage from './DashboardPage.jsx';
 import ContactPage from './ContactPage.jsx';
 import AssessmentPage from './AssessmentPage.jsx';
+import ProductPage from './ProductPage.jsx';
+import ReportingPage from './ReportingPage.jsx';
 import CookieBanner from './CookieBanner.jsx';
 import {
   ArrowRight,
@@ -284,7 +286,7 @@ function HomePage() {
                     </div>
                     <h4 className="mega-overview-title">Spend Intelligence Platform</h4>
                     <p className="mega-overview-copy">Clean, classify, and analyze your procurement data from any source — in hours, not months.</p>
-                    <a href="#solution" className="mega-overview-link">Explore platform <ArrowRight size={13} /></a>
+                    <a href="/product" className="mega-overview-link" onClick={() => setProductOpen(false)}>Explore platform <ArrowRight size={13} /></a>
                   </div>
 
                   {/* Center: Capabilities grid */}
@@ -292,14 +294,14 @@ function HomePage() {
                     <p className="mega-section">Capabilities</p>
                     <div className="mega-caps-grid">
                       {[
-                        { icon: <Layers3 size={16}/>,    title: 'Spend Classification',   desc: 'Map every transaction to your taxonomy' },
-                        { icon: <Building2 size={16}/>,  title: 'Supplier Normalization', desc: 'One trusted view of every supplier' },
-                        { icon: <TrendingUp size={16}/>, title: 'Spend Intelligence',     desc: 'Trends, KPIs, and category visibility' },
-                        { icon: <Lightbulb size={16}/>,  title: 'Opportunity Detection',  desc: 'Savings, tail spend, off-contract' },
-                        { icon: <Database size={16}/>,   title: 'Data Enrichment',        desc: 'AI-assisted cleaning and enrichment' },
-                        { icon: <Link2 size={16}/>,      title: 'Integrations',           desc: 'SAP, Oracle, Coupa, Excel and more' },
+                        { icon: <Layers3 size={16}/>,    title: 'Spend Classification',   desc: 'Map every transaction to your taxonomy', href: '/product#spend-classification' },
+                        { icon: <Building2 size={16}/>,  title: 'Supplier Normalization', desc: 'One trusted view of every supplier',      href: '/product#supplier-normalization' },
+                        { icon: <TrendingUp size={16}/>, title: 'Spend Intelligence',     desc: 'Trends, KPIs, and category visibility',   href: '/product#spend-intelligence' },
+                        { icon: <Lightbulb size={16}/>,  title: 'Opportunity Detection',  desc: 'Savings, tail spend, off-contract',       href: '/product#opportunity-detection' },
+                        { icon: <Database size={16}/>,   title: 'Data Enrichment',        desc: 'AI-assisted cleaning and enrichment',     href: '/product#data-enrichment' },
+                        { icon: <Link2 size={16}/>,      title: 'Integrations',           desc: 'SAP, Oracle, Coupa, Excel and more',      href: '/product#integrations' },
                       ].map(item => (
-                        <a href="#solution" className="mega-cap-item" key={item.title}>
+                        <a href={item.href} className="mega-cap-item" key={item.title} onClick={() => setProductOpen(false)}>
                           <div className="mega-cap-icon">{item.icon}</div>
                           <div className="mega-cap-text">
                             <strong>{item.title}</strong>
@@ -316,16 +318,16 @@ function HomePage() {
                     <div className="mega-res-list">
                       {[
                         { icon: <GitBranch size={15}/>, title: 'How it works',          desc: 'See the end-to-end workflow',      href: '#workflow' },
-                        { icon: <PieChart size={15}/>,  title: 'Analytics & Reporting', desc: 'KPIs, dashboards, and insights',   href: '#platform' },
+                        { icon: <PieChart size={15}/>,  title: 'Analytics & Reporting', desc: 'KPIs, dashboards, and insights',   href: '/reporting' },
                         { icon: <ShieldCheck size={15}/>, title: 'Security',            desc: 'Data privacy & enterprise grade',  href: '/security' },
                       ].map(r => (
-                        <a href={r.href} className="mega-res-item" key={r.title}>
+                        <a href={r.href} className="mega-res-item" key={r.title} onClick={() => setProductOpen(false)}>
                           <div className="mega-res-icon">{r.icon}</div>
                           <div><strong>{r.title}</strong><span>{r.desc}</span></div>
                         </a>
                       ))}
                     </div>
-                    <Link to="/book-demo" className="mega-demo-cta">
+                    <Link to="/book-demo" className="mega-demo-cta" onClick={() => setProductOpen(false)}>
                       Book a demo <ArrowRight size={13}/>
                     </Link>
                   </div>
@@ -869,6 +871,8 @@ export default function App() {
       <Route path="/security" element={<SecurityPage />} />
       <Route path="/contact" element={<ContactPage />} />
       <Route path="/assessment" element={<AssessmentPage />} />
+      <Route path="/product" element={<ProductPage />} />
+      <Route path="/reporting" element={<ReportingPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );

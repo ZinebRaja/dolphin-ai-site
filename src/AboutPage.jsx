@@ -1,20 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 
-const TEAM = [
-  {
-    name: 'Mairaj Khan',
-    role: 'Co-founder',
-    bio: 'Co-founder of Dolphin AI, focused on building scalable AI-powered solutions for procurement and finance teams. Brings deep expertise in enterprise software and data-driven decision making.',
-    initials: 'MK',
-  },
-  {
-    name: 'Omer Khan',
-    role: 'Co-founder',
-    bio: 'Co-founder of Dolphin AI, driving product strategy and technical architecture. Passionate about turning complex procurement data challenges into simple, actionable intelligence for enterprise teams.',
-    initials: 'OK',
-  },
-];
 
 const VALUES = [
   {
@@ -131,21 +117,37 @@ export default function AboutPage() {
         <section className="about-team container">
           <div className="section-head centered">
             <span className="eyebrow">The team</span>
-            <h2>Who builds Dolphin AI</h2>
+            <h2>Built by people who've lived the problem</h2>
             <div className="section-rule" />
           </div>
-          <div className="about-team-grid">
-            {TEAM.map(m => (
-              <div className="about-member" key={m.name}>
-                <div className="about-avatar-wrap">
-                  <img src="/logowebsite.png" alt="Dolphin AI" className="about-avatar-logo" />
-                  <span className="about-avatar-initials">{m.initials}</span>
-                </div>
-                <h3>{m.name}</h3>
-                <p className="about-role">{m.role}</p>
-                <p className="about-bio">{m.bio}</p>
+          <div className="about-team-banner">
+            <p className="about-team-lead">
+              The Dolphin AI team brings together <strong>over 20 years of combined experience</strong> across
+              enterprise procurement, AI engineering, and financial data systems.
+            </p>
+            <p className="about-team-sub">
+              Our founders have worked directly inside the procurement and finance functions of large organisations —
+              building reports manually, wrestling with ERP exports, and spending weeks cleaning data before any
+              analysis could begin. That lived frustration is exactly what Dolphin AI was built to solve.
+            </p>
+            <div className="about-team-stats">
+              <div className="about-team-stat">
+                <strong>20+</strong>
+                <span>Years of combined experience</span>
               </div>
-            ))}
+              <div className="about-team-stat">
+                <strong>3</strong>
+                <span>Industries: procurement, AI, finance</span>
+              </div>
+              <div className="about-team-stat">
+                <strong>$10B+</strong>
+                <span>Spend data processed and analysed</span>
+              </div>
+              <div className="about-team-stat">
+                <strong>100%</strong>
+                <span>Focused on procurement intelligence</span>
+              </div>
+            </div>
           </div>
         </section>
 
