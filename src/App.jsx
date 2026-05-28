@@ -138,15 +138,11 @@ function LogoOracle() {
 function LogoWorkday() {
   return (
     <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-      <rect width="40" height="40" rx="10" fill="#FFF4E0"/>
-      {/* Sunrise arc */}
-      <path d="M10 26 A10 10 0 0 1 30 26" fill="none" stroke="#F5A623" strokeWidth="2.5" strokeLinecap="round"/>
-      {/* Sun disc */}
-      <circle cx="20" cy="26" r="5" fill="#F5A623"/>
-      {/* Rays */}
-      <line x1="20" y1="10" x2="20" y2="13" stroke="#F5A623" strokeWidth="2" strokeLinecap="round"/>
-      <line x1="11" y1="15" x2="13.2" y2="17.2" stroke="#F5A623" strokeWidth="2" strokeLinecap="round"/>
-      <line x1="29" y1="15" x2="26.8" y2="17.2" stroke="#F5A623" strokeWidth="2" strokeLinecap="round"/>
+      <rect width="40" height="40" rx="10" fill="#F3F2F1"/>
+      {/* Workday rising-sun motif: three concentric arcs */}
+      <path d="M8 27 A12 10 0 0 1 32 27" stroke="#E8930C" strokeWidth="2.2" strokeLinecap="round" fill="none"/>
+      <path d="M12 27 A8  7  0 0 1 28 27" stroke="#E8930C" strokeWidth="2.2" strokeLinecap="round" fill="none" opacity="0.65"/>
+      <path d="M16 27 A4  3.5 0 0 1 24 27" stroke="#E8930C" strokeWidth="2.2" strokeLinecap="round" fill="none" opacity="0.35"/>
     </svg>
   );
 }
