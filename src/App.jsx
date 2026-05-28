@@ -137,10 +137,16 @@ function LogoOracle() {
 
 function LogoWorkday() {
   return (
-    <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
-      <rect width="52" height="52" rx="12" fill="#F6F9FF"/>
-      <circle cx="26" cy="26" r="13" fill="#F5A623" opacity="0.15"/>
-      <path d="M14 30 L19 18 L23 26 L26 20 L29 26 L33 18 L38 30 Z" fill="#F5A623" stroke="#E09010" strokeWidth="0.5"/>
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+      <rect width="40" height="40" rx="10" fill="#FFF4E0"/>
+      {/* Sunrise arc */}
+      <path d="M10 26 A10 10 0 0 1 30 26" fill="none" stroke="#F5A623" strokeWidth="2.5" strokeLinecap="round"/>
+      {/* Sun disc */}
+      <circle cx="20" cy="26" r="5" fill="#F5A623"/>
+      {/* Rays */}
+      <line x1="20" y1="10" x2="20" y2="13" stroke="#F5A623" strokeWidth="2" strokeLinecap="round"/>
+      <line x1="11" y1="15" x2="13.2" y2="17.2" stroke="#F5A623" strokeWidth="2" strokeLinecap="round"/>
+      <line x1="29" y1="15" x2="26.8" y2="17.2" stroke="#F5A623" strokeWidth="2" strokeLinecap="round"/>
     </svg>
   );
 }
