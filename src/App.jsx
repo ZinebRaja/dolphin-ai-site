@@ -455,7 +455,7 @@ function HomePage() {
                     p7 Excel(573,441) p8 Workday(400,100) */}
                 <path id="p1" d="M227,159 Q314,230 400,300"
                   fill="none" stroke="#A56D58" strokeWidth="0.9" strokeOpacity="0.16"/>
-                <path id="p2" d="M573,159 Q487,230 400,300"
+                <path id="p2" d="M573,186 Q487,243 400,300"
                   fill="none" stroke="#A56D58" strokeWidth="0.9" strokeOpacity="0.16"/>
                 <path id="p3" d="M155,300 Q278,300 400,300"
                   fill="none" stroke="#A56D58" strokeWidth="0.9" strokeOpacity="0.16"/>

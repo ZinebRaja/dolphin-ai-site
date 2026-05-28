@@ -497,7 +497,7 @@ a { color: inherit; text-decoration: none; }
 }
 /* 8 nodes — exact outer-ring intersections (rx=245 ry=200 cx=400 cy=300) */
 .anchor-workday    { top: 16.7%; left: 50%;   }   /* 12 o'clock — symmetric with Azure AI (83.3%) around hub centre */
-.anchor-dynamics   { top: 26.5%; left: 71.6%; }   /* 1:30        y=159  */
+.anchor-dynamics   { top: 31%;   left: 71.6%; }   /* 1:30 lowered — y=186, ~30px gap from Workday card edge */
 .anchor-sharepoint { top: 50%;   left: 80.6%; }   /* 3 o'clock   y=300  */
 .anchor-excel      { top: 73.5%; left: 71.6%; }   /* 4:30        y=441  */
 .anchor-azure      { top: 83.3%; left: 50%;   }   /* 6 o'clock   y=500  */
