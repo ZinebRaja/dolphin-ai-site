@@ -496,7 +496,7 @@ a { color: inherit; text-decoration: none; }
   z-index: 5;
 }
 /* 8 nodes — exact outer-ring intersections (rx=245 ry=200 cx=400 cy=300) */
-.anchor-workday    { top: 16.7%; left: 50%;   }   /* 12 o'clock  y=100  */
+.anchor-workday    { top: 9%;    left: 50%;   }   /* 12 o'clock lifted — y=54, more breathing room from Dynamics */
 .anchor-dynamics   { top: 26.5%; left: 71.6%; }   /* 1:30        y=159  */
 .anchor-sharepoint { top: 50%;   left: 80.6%; }   /* 3 o'clock   y=300  */
 .anchor-excel      { top: 73.5%; left: 71.6%; }   /* 4:30        y=441  */
