@@ -467,7 +467,7 @@ function HomePage() {
                   fill="none" stroke="#A56D58" strokeWidth="0.9" strokeOpacity="0.16"/>
                 <path id="p7" d="M573,441 Q487,371 400,300"
                   fill="none" stroke="#A56D58" strokeWidth="0.9" strokeOpacity="0.16"/>
-                <path id="p8" d="M400,54 Q400,177 400,300"
+                <path id="p8" d="M400,100 Q400,200 400,300"
                   fill="none" stroke="#A56D58" strokeWidth="0.9" strokeOpacity="0.16"/>
 
                 {/* Animated data-flow dots — copper primary, navy accent */}
