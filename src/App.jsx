@@ -327,8 +327,8 @@ function HomePage() {
                         </a>
                       ))}
                     </div>
-                    <Link to="/book-demo" className="mega-demo-cta" onClick={() => setProductOpen(false)}>
-                      Book a demo <ArrowRight size={13}/>
+                    <Link to="/demo-video" className="mega-demo-cta" onClick={() => setProductOpen(false)}>
+                      Try the classifier free <ArrowRight size={13}/>
                     </Link>
                   </div>
 
