@@ -3,8 +3,16 @@ import { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   Layers3, Building2, TrendingUp, Lightbulb, Database, Link2,
-  CheckCircle2, ArrowRight, BookOpen,
+  CheckCircle2, ArrowRight, BookOpen, EyeOff, Sparkles, PieChart, DollarSign, ShieldCheck,
 } from 'lucide-react';
+
+const VALUE_POINTS = [
+  { icon: <EyeOff size={18} />,     color: '#E06820', bg: '#FFF3EB', title: 'Eliminate Blindspots',     desc: 'Turns fragmented transactions into clear, actionable spend strategy.' },
+  { icon: <Sparkles size={18} />,   color: '#7C3AED', bg: '#F5F0FF', title: 'Automate Data Cleanup',    desc: 'Automatically categorizes and cleans raw, messy expense data in minutes.' },
+  { icon: <PieChart size={18} />,   color: '#0E8A5A', bg: '#E8F7F1', title: 'Full Spending Visibility', desc: 'Helps procurement and finance teams see exactly where every dollar goes.' },
+  { icon: <DollarSign size={18} />, color: '#B5620A', bg: '#FDF3E7', title: 'Uncover Hidden Savings',   desc: 'Surfaces hidden opportunities to cut costs and optimize purchasing.' },
+  { icon: <ShieldCheck size={18}/>, color: '#0077B6', bg: '#E8F4FD', title: 'Reduce Financial Risk',    desc: 'Delivers accurate, boardroom-ready intelligence for smarter decisions.' },
+];
 
 const CAPABILITIES = [
   {
@@ -133,8 +141,22 @@ export default function ProductPage() {
         <section className="prod-hero">
           <div className="container prod-hero-inner">
             <span className="eyebrow">Platform capabilities</span>
-            <h1>Everything you need to turn messy spend data into clean insight</h1>
-            <p>Six core capabilities work together to take your procurement data from raw and unreliable to structured, enriched, and ready for decisions.</p>
+            <h1>Your spend data has answers. Dolphin AI helps you find them.</h1>
+
+            {/* Value points — between title and description */}
+            <div className="prod-value-grid">
+              {VALUE_POINTS.map(v => (
+                <div className="prod-value-card" key={v.title}>
+                  <span className="prod-value-icon" style={{ background: v.bg, color: v.color }}>{v.icon}</span>
+                  <div>
+                    <strong>{v.title}</strong>
+                    <p>{v.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <p className="prod-hero-sub">Six core capabilities work together to take your procurement data from raw and unreliable to structured, enriched, and ready for decisions.</p>
             <div className="prod-hero-caps">
               {CAPABILITIES.map(c => (
                 <a key={c.id} href={`#${c.id}`} className="prod-hero-chip">
