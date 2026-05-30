@@ -1735,7 +1735,7 @@ a { color: inherit; text-decoration: none; }
 .rpt-cta-inner h2 { font-size: 2rem; font-weight: 800; color: var(--white); margin: 0 0 16px; }
 .rpt-cta-inner p  { font-size: 16px; color: rgba(255,255,255,0.65); margin: 0 0 36px; }
 .rpt-cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-.rpt-cta .btn-outline { color: var(--white); border-color: rgba(255,255,255,0.35); }
+.rpt-cta .btn-outline { color: var(--white); border-color: rgba(255,255,255,0.35); background: transparent; }
 .rpt-cta .btn-outline:hover { background: rgba(255,255,255,0.08); }
 
 @media (max-width: 1024px) {
@@ -1782,11 +1782,12 @@ a { color: inherit; text-decoration: none; }
 .prod-cap-section { padding: 80px 0; border-bottom: 1px solid var(--gray-100); }
 .prod-cap-section:last-child { border-bottom: none; }
 .prod-cap-inner {
-  display: grid; grid-template-columns: 1fr 400px; gap: 64px; align-items: start;
+  display: grid; grid-template-columns: 1fr 380px; gap: 56px; align-items: start;
 }
-.prod-cap-alt .prod-cap-inner { grid-template-columns: 400px 1fr; }
-.prod-cap-alt .prod-cap-text { order: 2; }
-.prod-cap-alt .prod-cap-card { order: 1; }
+/* Always: text left, card right — no alternating */
+.prod-cap-alt .prod-cap-inner { grid-template-columns: 1fr 380px; }
+.prod-cap-alt .prod-cap-text { order: 1; }
+.prod-cap-alt .prod-cap-card { order: 2; }
 
 .prod-cap-eyebrow {
   display: flex; align-items: center; gap: 10px;
@@ -1820,7 +1821,7 @@ a { color: inherit; text-decoration: none; }
 
 .prod-cap-card {
   border: 1px solid; border-radius: 20px; padding: 28px 28px 24px;
-  position: sticky; top: 120px;
+  align-self: start; margin-top: 116px;
 }
 .prod-card-label {
   font-size: 11px; font-weight: 700; text-transform: uppercase;
@@ -1836,14 +1837,12 @@ a { color: inherit; text-decoration: none; }
 .prod-cta-inner h2 { font-size: 2rem; font-weight: 800; color: var(--white); margin: 0 0 16px; }
 .prod-cta-inner p { font-size: 16px; color: rgba(255,255,255,0.65); margin: 0 0 36px; }
 .prod-cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-.prod-cta .btn-outline { color: var(--white); border-color: rgba(255,255,255,0.35); }
+.prod-cta .btn-outline { color: var(--white); border-color: rgba(255,255,255,0.35); background: transparent; }
 .prod-cta .btn-outline:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.6); }
 
 @media (max-width: 860px) {
   .prod-cap-inner, .prod-cap-alt .prod-cap-inner { grid-template-columns: 1fr; gap: 32px; }
-  .prod-cap-alt .prod-cap-text { order: 1; }
-  .prod-cap-alt .prod-cap-card { order: 2; }
-  .prod-cap-card { position: static; }
+  .prod-cap-card { align-self: auto; }
   .prod-hero-inner h1 { font-size: 1.9rem; }
 }
 
