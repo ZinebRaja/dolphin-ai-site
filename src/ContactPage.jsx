@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Mail, Phone, MapPin, MessageSquare, BarChart3, Handshake } from 'lucide-react';
 
+const API_URL = import.meta.env.VITE_API_URL || 'https://dolphinai-api-c2a8ezgdctakh9g0.centralus-01.azurewebsites.net';
+
 const REASONS = [
   {
     icon: <BarChart3 size={22} />,
@@ -39,7 +41,7 @@ export default function ContactPage() {
   async function submit(e) {
     e.preventDefault();
     try {
-      await fetch('/api/contact', {
+      await fetch(`${API_URL}/api/contact`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
       });

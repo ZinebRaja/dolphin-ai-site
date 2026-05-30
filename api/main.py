@@ -130,7 +130,7 @@ async def signup(req: SignupRequest):
         conn   = get_db()
         cursor = conn.cursor()
 
-        cursor.execute("SELECT id FROM dbo.Users WHERE email = %s", req.email.lower())
+        cursor.execute("SELECT id FROM dbo.Users WHERE email = %s", (req.email.lower(),))
         if cursor.fetchone():
             conn.close()
             return {"error": "An account with this email already exists."}
@@ -138,7 +138,7 @@ async def signup(req: SignupRequest):
         pw_hash = bcrypt.hashpw(req.password.encode(), bcrypt.gensalt()).decode()
         cursor.execute(
             "INSERT INTO dbo.Users (full_name, company, email, password_hash) VALUES (%s, %s, %s, %s)",
-            req.full_name.strip(), req.company.strip(), req.email.lower(), pw_hash,
+            (req.full_name.strip(), req.company.strip(), req.email.lower(), pw_hash),
         )
         conn.commit()
         conn.close()
@@ -158,7 +158,7 @@ async def login(req: LoginRequest):
         cursor = conn.cursor()
         cursor.execute(
             "SELECT id, full_name, company, password_hash FROM dbo.Users WHERE email = %s",
-            req.email.lower(),
+            (req.email.lower(),),
         )
         row = cursor.fetchone()
         conn.close()
@@ -225,9 +225,9 @@ async def book_demo(req: DemoRequest):
             """INSERT INTO dbo.DemoRequests
                (first_name, last_name, email, company, role, company_size, annual_spend, message)
                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)""",
-            req.firstName.strip(), req.lastName.strip(), req.email.lower(),
-            req.company.strip(), req.role, req.companySize, req.annualSpend,
-            req.message.strip(),
+            (req.firstName.strip(), req.lastName.strip(), req.email.lower(),
+             req.company.strip(), req.role, req.companySize, req.annualSpend,
+             req.message.strip()),
         )
         conn.commit()
         conn.close()
@@ -304,6 +304,49 @@ async def book_demo(req: DemoRequest):
         confirm_html
     )
 
+    return {"success": True}
+
+
+# ─── Contact form ─────────────────────────────────────────────────────────────
+
+class ContactRequest(BaseModel):
+    name:    str
+    company: str = ""
+    email:   str
+    spend:   str = ""
+    message: str
+
+@app.post("/api/contact")
+async def contact(req: ContactRequest):
+    if not req.name or not req.email or not req.message:
+        return {"error": "Please fill in all required fields."}
+    html = f"""
+    <div style="font-family:Arial,sans-serif;max-width:600px;padding:24px;">
+      <h2 style="color:#1B2A4A;border-bottom:2px solid #A56D58;padding-bottom:8px;">
+        📩 New Contact Message
+      </h2>
+      <table style="width:100%;border-collapse:collapse;margin-top:16px;">
+        <tr><td style="padding:8px;color:#666;width:120px;">Name</td>
+            <td style="padding:8px;font-weight:600;">{req.name}</td></tr>
+        <tr style="background:#FDF6F2"><td style="padding:8px;color:#666;">Email</td>
+            <td style="padding:8px;"><a href="mailto:{req.email}">{req.email}</a></td></tr>
+        <tr><td style="padding:8px;color:#666;">Company</td>
+            <td style="padding:8px;">{req.company or '—'}</td></tr>
+        <tr style="background:#FDF6F2"><td style="padding:8px;color:#666;">Annual spend</td>
+            <td style="padding:8px;">{req.spend or '—'}</td></tr>
+        <tr><td style="padding:8px;color:#666;vertical-align:top;">Message</td>
+            <td style="padding:8px;">{req.message}</td></tr>
+      </table>
+      <p style="margin-top:24px;color:#999;font-size:12px;">
+        Submitted via dolphinaipro.com/contact
+      </p>
+    </div>
+    """
+    await asyncio.get_event_loop().run_in_executor(
+        None, send_email, NOTIFY_EMAIL,
+        f"New contact message — {req.name}, {req.company}",
+        html
+    )
     return {"success": True}
 
 
