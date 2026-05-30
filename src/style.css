@@ -5,8 +5,12 @@
   --copper-mid:  #E8803A;
   --copper-lt:   #F0A060;
   --copper-pale: #FAD4B0;
-  --copper-bg:   #FFE2C4;
-  --cream:       #F5E8DA;
+  --copper-bg:   #FFE4C4;
+  --cream:       #FFF6EF;
+  --hero-grad:
+    radial-gradient(ellipse at 80% 0%,   rgba(224,104,32,0.48) 0%, transparent 58%),
+    radial-gradient(ellipse at 5% 100%,  rgba(224,104,32,0.20) 0%, transparent 50%),
+    #FFFFFF;
 
   --gray-50:  #F8F8F6;
   --gray-100: #EFEEEC;
@@ -888,7 +892,7 @@ a { color: inherit; text-decoration: none; }
 ════════════════════════════════════ */
 .pc-page-header {
   padding: 2.5rem 0 2rem;
-  background: linear-gradient(180deg, #FAFAF9 0%, #FFFFFF 100%);
+  background: var(--hero-grad);
 }
 .pc-card {
   display: grid; grid-template-columns: 1fr 1fr;
@@ -1166,7 +1170,7 @@ a { color: inherit; text-decoration: none; }
 /* ════════════════════════════════════
    LOGIN PAGE
 ════════════════════════════════════ */
-.login-page { min-height: 100vh; display: flex; flex-direction: column; background: var(--copper-bg); }
+.login-page { min-height: 100vh; display: flex; flex-direction: column; background: var(--hero-grad); }
 .login-main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 3rem 1rem; }
 .login-card {
   background: var(--white); border: 1px solid var(--gray-200);
@@ -1769,7 +1773,7 @@ a { color: inherit; text-decoration: none; }
    PRODUCT PAGE
 ════════════════════════════════════ */
 .prod-hero {
-  background: linear-gradient(160deg, var(--cream) 0%, var(--copper-bg) 100%);
+  background: var(--hero-grad);
   padding: 80px 0 64px;
   border-bottom: 1px solid rgba(224,104,32,0.1);
 }
@@ -2182,7 +2186,7 @@ a { color: inherit; text-decoration: none; }
 .sec-faq-item h4 { font-size: 15px; font-weight: 700; color: var(--navy); margin: 0 0 0.4rem; }
 .sec-faq-item p { font-size: 14px; color: var(--gray-600); line-height: 1.65; margin: 0; }
 
-.sec-cta { background: var(--copper-bg); padding: 4rem 0; text-align: center; }
+.sec-cta { background: var(--hero-grad); padding: 4rem 0; text-align: center; }
 .sec-cta-inner h2 { font-size: 1.6rem; font-weight: 800; color: var(--navy); margin: 0 0 0.75rem; }
 .sec-cta-inner p { color: var(--gray-600); font-size: 15.5px; max-width: 520px; margin: 0 auto 1.75rem; }
 
@@ -2193,10 +2197,7 @@ a { color: inherit; text-decoration: none; }
 ════════════════════════════════════ */
 .contact-hero {
   padding: 80px 0 64px;
-  background:
-    radial-gradient(ellipse at 78% 0%, rgba(224,104,32,0.13) 0%, transparent 48%),
-    radial-gradient(ellipse at 5% 100%, rgba(224,104,32,0.06) 0%, transparent 40%),
-    #FFFFFF;
+  background: var(--hero-grad);
   text-align: center;
   border-bottom: 1px solid var(--gray-200);
 }
@@ -2309,7 +2310,7 @@ a { color: inherit; text-decoration: none; }
    ROI CALCULATOR
 ════════════════════════════════════ */
 .roi-hero {
-  background: linear-gradient(160deg, var(--cream) 0%, var(--copper-bg) 100%);
+  background: var(--hero-grad);
   padding: 64px 0 48px; text-align: center;
   border-bottom: 1px solid rgba(224,104,32,0.1);
 }
@@ -2368,7 +2369,7 @@ a { color: inherit; text-decoration: none; }
 .roi-result-row:last-child { border-bottom: none; }
 .roi-result-row:hover { background: var(--gray-50); }
 .roi-result-left { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
-.roi-result-icon { width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0; background: var(--copper-bg); color: var(--copper); display: flex; align-items: center; justify-content: center; }
+.roi-result-icon { width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0; background: #fff; border: 1px solid rgba(224,104,32,0.2); color: var(--copper); display: flex; align-items: center; justify-content: center; }
 .roi-result-left strong { display: block; font-size: 12.5px; color: var(--navy); }
 .roi-result-left span   { display: block; font-size: 11px; color: var(--gray-400); }
 .roi-result-right { text-align: right; flex-shrink: 0; }
