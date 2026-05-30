@@ -404,16 +404,6 @@ export default function PricingPage() {
         {/* Pricing tier cards */}
         <PricingTiers />
 
-        {/* Divider */}
-        <div className="pt-divider container">
-          <span>Or use our ROI calculator to estimate your exact cost</span>
-        </div>
-
-        {/* Calculator */}
-        <div className="container" style={{ paddingBottom: '3rem' }}>
-          <PricingCalculator />
-        </div>
-
         {/* Why pricing cards */}
         <div className="pc-why container">
           <h3>Why pricing depends on your data</h3>
