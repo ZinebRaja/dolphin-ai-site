@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, CheckCircle2, Calendar, Clock, Users } from 'lucide-react';
 
-const API_URL       = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+const API_URL       = import.meta.env.VITE_API_URL || 'https://dolphinai-api-c2a8ezgdctakh9g0.centralus-01.azurewebsites.net';
 const COMPANY_SIZES = ['1–50', '51–200', '201–500', '501–2,000', '2,000–10,000', '10,000+'];
 const SPEND_RANGES  = ['Under $5M', '$5M–$25M', '$25M–$100M', '$100M–$500M', 'Over $500M'];
 const ROLES         = ['CPO / Head of Procurement', 'Procurement Manager', 'Finance / CFO', 'Data / Analytics', 'IT', 'Other'];

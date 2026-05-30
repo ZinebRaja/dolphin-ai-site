@@ -5,12 +5,11 @@ Dolphin AI API
 """
 import os
 import json
-import struct
 import smtplib
 import asyncio
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-import pyodbc
+import pymssql
 import bcrypt
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -18,14 +17,8 @@ from pydantic import BaseModel
 from openai import AsyncOpenAI
 from difflib import get_close_matches
 from dotenv import load_dotenv
-from azure.identity import DefaultAzureCredential
 
 load_dotenv()
-
-# Ensure Homebrew az CLI is findable by DefaultAzureCredential
-for _az_path in ["/opt/homebrew/bin", "/usr/local/bin"]:
-    if _az_path not in os.environ.get("PATH", ""):
-        os.environ["PATH"] = _az_path + ":" + os.environ.get("PATH", "")
 
 OPENAI_API_KEY   = os.getenv("OPENAI_API_KEY", "")
 AZURE_SQL_SERVER = os.getenv("AZURE_SQL_SERVER", "spendanalyticsserver.database.windows.net")
@@ -49,44 +42,16 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ─── Azure SQL connection (Azure AD token) ─────────────────────────────────────
-
-SQL_COPT_SS_ACCESS_TOKEN = 1256
-
-def _odbc_driver():
-    drivers = pyodbc.drivers()
-    if "ODBC Driver 18 for SQL Server" in drivers:
-        return "ODBC Driver 18 for SQL Server"
-    if "ODBC Driver 17 for SQL Server" in drivers:
-        return "ODBC Driver 17 for SQL Server"
-    raise RuntimeError("No SQL Server ODBC driver found. Install msodbcsql18.")
+# ─── Azure SQL connection (pymssql — no ODBC driver needed) ───────────────────
 
 def get_db():
-    driver = _odbc_driver()
-    if AZURE_SQL_USER and AZURE_SQL_PASS:
-        # SQL Server auth — used in production (Railway)
-        conn_str = (
-            f"DRIVER={{{driver}}};"
-            f"SERVER={AZURE_SQL_SERVER};"
-            f"DATABASE={AZURE_SQL_DB};"
-            f"UID={AZURE_SQL_USER};"
-            f"PWD={AZURE_SQL_PASS};"
-            f"Encrypt=yes;TrustServerCertificate=no;"
-        )
-        return pyodbc.connect(conn_str)
-    else:
-        # Azure AD token auth — used locally via az CLI
-        credential   = DefaultAzureCredential()
-        raw_token    = credential.get_token("https://database.windows.net/.default").token
-        token_bytes  = raw_token.encode("utf-16-le")
-        token_struct = struct.pack(f"<I{len(token_bytes)}s", len(token_bytes), token_bytes)
-        conn_str = (
-            f"DRIVER={{{driver}}};"
-            f"SERVER={AZURE_SQL_SERVER};"
-            f"DATABASE={AZURE_SQL_DB};"
-            f"Encrypt=yes;TrustServerCertificate=no;"
-        )
-        return pyodbc.connect(conn_str, attrs_before={SQL_COPT_SS_ACCESS_TOKEN: token_struct})
+    return pymssql.connect(
+        server=AZURE_SQL_SERVER,
+        user=AZURE_SQL_USER,
+        password=AZURE_SQL_PASS,
+        database=AZURE_SQL_DB,
+        tds_version='7.4',
+    )
 
 
 # ─── Create Users table on startup ────────────────────────────────────────────
@@ -165,14 +130,14 @@ async def signup(req: SignupRequest):
         conn   = get_db()
         cursor = conn.cursor()
 
-        cursor.execute("SELECT id FROM dbo.Users WHERE email = ?", req.email.lower())
+        cursor.execute("SELECT id FROM dbo.Users WHERE email = %s", req.email.lower())
         if cursor.fetchone():
             conn.close()
             return {"error": "An account with this email already exists."}
 
         pw_hash = bcrypt.hashpw(req.password.encode(), bcrypt.gensalt()).decode()
         cursor.execute(
-            "INSERT INTO dbo.Users (full_name, company, email, password_hash) VALUES (?, ?, ?, ?)",
+            "INSERT INTO dbo.Users (full_name, company, email, password_hash) VALUES (%s, %s, %s, %s)",
             req.full_name.strip(), req.company.strip(), req.email.lower(), pw_hash,
         )
         conn.commit()
@@ -192,7 +157,7 @@ async def login(req: LoginRequest):
         conn   = get_db()
         cursor = conn.cursor()
         cursor.execute(
-            "SELECT id, full_name, company, password_hash FROM dbo.Users WHERE email = ?",
+            "SELECT id, full_name, company, password_hash FROM dbo.Users WHERE email = %s",
             req.email.lower(),
         )
         row = cursor.fetchone()
@@ -259,7 +224,7 @@ async def book_demo(req: DemoRequest):
         cursor.execute(
             """INSERT INTO dbo.DemoRequests
                (first_name, last_name, email, company, role, company_size, annual_spend, message)
-               VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
+               VALUES (%s, %s, %s, %s, %s, %s, %s, %s)""",
             req.firstName.strip(), req.lastName.strip(), req.email.lower(),
             req.company.strip(), req.role, req.companySize, req.annualSpend,
             req.message.strip(),
