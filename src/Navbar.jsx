@@ -1,0 +1,127 @@
+import { useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import {
+  ArrowRight, Layers3, Building2, TrendingUp, Lightbulb,
+  Database, Link2, GitBranch, PieChart, ShieldCheck,
+} from 'lucide-react';
+
+export default function Navbar() {
+  const [productOpen, setProductOpen] = useState(false);
+  const [mobileOpen,  setMobileOpen]  = useState(false);
+  const closeTimer = useRef(null);
+  const productRef = useRef(null);
+
+  function close() { setProductOpen(false); }
+
+  return (
+    <>
+      <header className="navbar">
+        <div className="container nav-inner">
+          <Link to="/" className="logo-link">
+            <img src="/logowebsite.png" alt="Dolphin AI" className="logo-img" />
+          </Link>
+
+          <nav className="nav-links">
+            {/* Product mega menu */}
+            <div
+              ref={productRef}
+              className="nav-item product-item"
+              onMouseEnter={() => { clearTimeout(closeTimer.current); setProductOpen(true); }}
+              onMouseLeave={() => { closeTimer.current = setTimeout(() => setProductOpen(false), 180); }}
+            >
+              <button
+                className={`nav-link product-toggle ${productOpen ? 'open' : ''}`}
+                aria-haspopup="true"
+                aria-expanded={productOpen}
+                onClick={(e) => { e.stopPropagation(); setProductOpen(p => !p); }}
+                onKeyDown={(e) => { if (e.key === 'Escape') close(); }}
+              >
+                <span>Product</span>
+                <svg viewBox="0 0 20 20" width="12" height="12" aria-hidden="true">
+                  <path d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z" fill="currentColor" />
+                </svg>
+              </button>
+
+              <div className={`mega-menu ${productOpen ? 'open' : ''}`} role="menu">
+                <div className="mega-inner container">
+
+                  <div className="mega-overview">
+                    <div className="mega-brand-badge">
+                      <img src="/logowebsite.png" alt="Dolphin AI" style={{ height: 36 }} />
+                    </div>
+                    <h4 className="mega-overview-title">Spend Intelligence Platform</h4>
+                    <p className="mega-overview-copy">Clean, classify, and analyze your procurement data from any source — in hours, not months.</p>
+                    <Link to="/product" className="mega-overview-link" onClick={close}>Explore platform <ArrowRight size={13} /></Link>
+                  </div>
+
+                  <div className="mega-caps">
+                    <p className="mega-section">Capabilities</p>
+                    <div className="mega-caps-grid">
+                      {[
+                        { icon: <Layers3 size={16}/>,    title: 'Spend Classification',   desc: 'Map every transaction to your taxonomy', href: '/product#spend-classification' },
+                        { icon: <Building2 size={16}/>,  title: 'Supplier Normalization', desc: 'One trusted view of every supplier',      href: '/product#supplier-normalization' },
+                        { icon: <TrendingUp size={16}/>, title: 'Spend Intelligence',     desc: 'Trends, KPIs, and category visibility',   href: '/product#spend-intelligence' },
+                        { icon: <Lightbulb size={16}/>,  title: 'Opportunity Detection',  desc: 'Savings, tail spend, off-contract',       href: '/product#opportunity-detection' },
+                        { icon: <Database size={16}/>,   title: 'Data Enrichment',        desc: 'AI-assisted cleaning and enrichment',     href: '/product#data-enrichment' },
+                        { icon: <Link2 size={16}/>,      title: 'Integrations',           desc: 'SAP, Oracle, Coupa, Excel and more',      href: '/product#integrations' },
+                      ].map(item => (
+                        <Link to={item.href} className="mega-cap-item" key={item.title} onClick={close}>
+                          <div className="mega-cap-icon">{item.icon}</div>
+                          <div className="mega-cap-text">
+                            <strong>{item.title}</strong>
+                            <span>{item.desc}</span>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="mega-resources">
+                    <p className="mega-section">Resources</p>
+                    <div className="mega-res-list">
+                      {[
+                        { icon: <GitBranch size={15}/>, title: 'How it works',          desc: 'See the end-to-end workflow',      href: '/#workflow' },
+                        { icon: <PieChart size={15}/>,  title: 'Analytics & Reporting', desc: 'KPIs, dashboards, and insights',   href: '/reporting' },
+                        { icon: <ShieldCheck size={15}/>, title: 'Security',            desc: 'Data privacy & enterprise grade',  href: '/security' },
+                      ].map(r => (
+                        <Link to={r.href} className="mega-res-item" key={r.title} onClick={close}>
+                          <div className="mega-res-icon">{r.icon}</div>
+                          <div><strong>{r.title}</strong><span>{r.desc}</span></div>
+                        </Link>
+                      ))}
+                    </div>
+                    <Link to="/demo-video" className="mega-demo-cta" onClick={close}>
+                      See it in action — free <ArrowRight size={13}/>
+                    </Link>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <Link to="/pricing">Pricing</Link>
+            <Link to="/contact">Contact</Link>
+          </nav>
+
+          <div className="nav-actions">
+            <Link to="/login" className="nav-login">Log in</Link>
+            <Link to="/book-demo" className="btn btn-primary">Book a demo</Link>
+          </div>
+
+          <button className="mobile-menu-btn" onClick={() => setMobileOpen(m => !m)} aria-label="Menu">
+            <span className={`hamburger ${mobileOpen ? 'open' : ''}`} />
+          </button>
+        </div>
+      </header>
+
+      {mobileOpen && (
+        <div className="mobile-nav" onClick={() => setMobileOpen(false)}>
+          <Link to="/product">Product</Link>
+          <Link to="/pricing">Pricing</Link>
+          <Link to="/contact">Contact</Link>
+          <Link to="/book-demo" className="btn btn-primary">Book a demo</Link>
+        </div>
+      )}
+    </>
+  );
+}

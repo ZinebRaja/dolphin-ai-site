@@ -1,9 +1,9 @@
+import Navbar from './Navbar.jsx';
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  LayoutDashboard, BarChart3, Users, Tag, FileText,
-  Lightbulb, Bell, BookOpen, ArrowRight, CheckCircle2,
-  TrendingUp, ShieldCheck, Download,
+  BarChart3, Users, Tag, FileText, Lightbulb, Bell, BookOpen,
+  ArrowRight, CheckCircle2, TrendingUp, ShieldCheck, Download, LayoutDashboard,
 } from 'lucide-react';
 
 const TABS = [
@@ -48,7 +48,7 @@ const TABS = [
     icon: <Lightbulb size={16} />,
     label: 'Savings Opportunities',
     headline: 'Savings opportunities ranked by value and confidence',
-    desc: 'Every opportunity quantified in dollars, ranked by potential impact, and tracked through planning, in-progress, and implemented stages. Know exactly where your next saving is coming from.',
+    desc: 'Every opportunity quantified in dollars, ranked by potential impact, and tracked through planning, in-progress, and implemented stages.',
     img: '/screenshots/dash-savings.png',
     stats: [{ label: 'Opportunities found', value: '243' }, { label: 'Potential savings', value: '$412.3M' }, { label: 'Implemented savings', value: '$96.8M' }],
   },
@@ -73,73 +73,37 @@ const TABS = [
 ];
 
 export default function ReportingPage() {
-  const [active, setActive]     = useState(0);
+  const [active, setActive]       = useState(0);
   const [animating, setAnimating] = useState(false);
-  const [visible, setVisible]   = useState(false);
-  const timerRef = useRef(null);
+  const [visible, setVisible]     = useState(false);
   const sectionRef = useRef(null);
 
-  /* scroll reveal */
+  /* scroll reveal only */
   useEffect(() => {
     const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setVisible(true); }, { threshold: 0.1 });
     if (sectionRef.current) obs.observe(sectionRef.current);
     return () => obs.disconnect();
   }, []);
 
-  /* auto-rotate every 4 s */
-  useEffect(() => {
-    timerRef.current = setInterval(() => {
-      switchTo((prev) => (prev + 1) % TABS.length);
-    }, 4000);
-    return () => clearInterval(timerRef.current);
-  }, []);
-
-  function switchTo(getNext) {
-    setAnimating(true);
-    setTimeout(() => {
-      setActive(typeof getNext === 'function' ? getNext : getNext);
-      setAnimating(false);
-    }, 220);
-  }
-
   function handleTabClick(i) {
-    clearInterval(timerRef.current);
-    timerRef.current = setInterval(() => switchTo(p => (p + 1) % TABS.length), 4000);
-    if (i !== active) switchTo(i);
+    if (i === active) return;
+    setAnimating(true);
+    setTimeout(() => { setActive(i); setAnimating(false); }, 200);
   }
 
   const tab = TABS[active];
 
   return (
     <div className="site">
-      <header className="navbar">
-        <div className="container nav-inner">
-          <Link to="/" className="logo-link">
-            <img src="/logowebsite.png" alt="Dolphin AI" className="logo-img" />
-          </Link>
-          <nav className="nav-links">
-            <Link to="/#solution">Solution</Link>
-            <Link to="/#workflow">Workflow</Link>
-            <Link to="/pricing">Pricing</Link>
-            <Link to="/contact">Contact</Link>
-          </nav>
-          <div className="nav-actions">
-            <Link to="/login" className="nav-login">Log in</Link>
-            <Link to="/book-demo" className="btn btn-primary">Book a demo</Link>
-          </div>
-        </div>
-      </header>
+      <Navbar />
 
       <main>
-        {/* ── Hero ── */}
+        {/* Hero */}
         <section className="rpt-hero">
           <div className="container rpt-hero-inner">
             <div className="rpt-live-badge"><span className="rpt-live-dot" />Live dashboards</div>
             <h1>Every procurement insight, live and in one place</h1>
-            <p>
-              From spend trends to supplier risk, contract compliance to savings pipelines —
-              Dolphin AI turns raw data into executive-ready dashboards that update automatically.
-            </p>
+            <p>From spend trends to supplier risk, contract compliance to savings pipelines — Dolphin AI turns raw data into executive-ready dashboards that update automatically.</p>
             <div className="rpt-hero-pills">
               {['Real-time data', 'Zero manual preparation', 'Export to PDF & Excel', 'Scheduled delivery'].map(t => (
                 <span className="rpt-pill" key={t}><CheckCircle2 size={12} />{t}</span>
@@ -148,74 +112,65 @@ export default function ReportingPage() {
           </div>
         </section>
 
-        {/* ── Interactive showcase ── */}
+        {/* Showcase */}
         <section className="rpt-showcase" ref={sectionRef}>
           <div className="container">
+            {/* Headline above grid */}
+          <div className={`rpt-headline-row ${visible ? 'rpt-visible' : ''}`} style={{ opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(20px)', transition: 'opacity 0.5s, transform 0.5s', marginBottom: 24 }}>
+            <h2 className={`rpt-content-h2 ${animating ? 'rpt-fade-out' : 'rpt-fade-in'}`}>{tab.headline}</h2>
+            <div className="rpt-stats2">
+              {tab.stats.map(s => (
+                <div className={`rpt-stat2 ${animating ? 'rpt-fade-out' : 'rpt-fade-in'}`} key={s.label}>
+                  <strong>{s.value}</strong>
+                  <span>{s.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
 
-            <div className={`rpt-layout ${visible ? 'rpt-visible' : ''}`}>
+          <div className={`rpt-layout2 ${visible ? 'rpt-visible' : ''}`}>
 
-              {/* Left: tab list */}
-              <nav className="rpt-tabs">
+              {/* LEFT: tab nav card */}
+              <div className="rpt-tabs2">
                 <p className="rpt-tabs-label">Dashboard views</p>
-                {TABS.map((t, i) => (
-                  <button
-                    key={t.id}
-                    className={`rpt-tab ${i === active ? 'rpt-tab-active' : ''}`}
-                    onClick={() => handleTabClick(i)}
-                  >
-                    <span className="rpt-tab-icon">{t.icon}</span>
-                    {t.label}
-                    {i === active && <span className="rpt-tab-dot" />}
-                  </button>
-                ))}
+                <div className="rpt-tab-list">
+                  {TABS.map((t, i) => (
+                    <button
+                      key={t.id}
+                      className={`rpt-tab2 ${i === active ? 'rpt-tab2-active' : ''}`}
+                      onClick={() => handleTabClick(i)}
+                    >
+                      <span className="rpt-tab-icon">{t.icon}</span>
+                      <span>{t.label}</span>
+                      {i === active && <span className="rpt-tab-dot" />}
+                    </button>
+                  ))}
+                </div>
                 <Link to="/book-demo" className="rpt-tabs-cta">
                   See it live <ArrowRight size={13} />
                 </Link>
-              </nav>
+              </div>
 
-              {/* Right: preview pane */}
-              <div className="rpt-preview">
+              {/* RIGHT: screenshot only */}
+              <div className="rpt-content2">
 
-                {/* Meta info */}
-                <div className="rpt-preview-meta">
-                  <div className="rpt-meta-text">
-                    <h2 className={animating ? 'rpt-fade-out' : 'rpt-fade-in'}>{tab.headline}</h2>
-                    <p className={animating ? 'rpt-fade-out' : 'rpt-fade-in'}>{tab.desc}</p>
-                  </div>
-                  <div className="rpt-stats">
-                    {tab.stats.map(s => (
-                      <div className={`rpt-stat ${animating ? 'rpt-fade-out' : 'rpt-fade-in'}`} key={s.label}>
-                        <strong>{s.value}</strong>
-                        <span>{s.label}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Browser chrome + screenshot */}
-                <div className="rpt-browser">
+                {/* Browser chrome */}
+                <div className="rpt-browser2">
                   <div className="rpt-browser-bar">
                     <span className="rpt-dot rpt-dot-red" />
                     <span className="rpt-dot rpt-dot-yellow" />
                     <span className="rpt-dot rpt-dot-green" />
-                    <span className="rpt-browser-url">app.dolphinai.com / {tab.id}</span>
+                    <span className="rpt-browser-url">app.dolphinaipro.com / {tab.id}</span>
                     <span className="rpt-live-chip"><span className="rpt-live-dot-sm" />LIVE</span>
                   </div>
-                  <div className="rpt-browser-screen">
+                  <div className="rpt-browser-screen2">
                     <img
                       key={tab.id}
                       src={tab.img}
                       alt={tab.label}
-                      className={`rpt-screenshot ${animating ? 'rpt-img-out' : 'rpt-img-in'}`}
+                      className={`rpt-screenshot2 ${animating ? 'rpt-img-out' : 'rpt-img-in'}`}
                     />
                   </div>
-                </div>
-
-                {/* Progress dots */}
-                <div className="rpt-dots">
-                  {TABS.map((_, i) => (
-                    <button key={i} className={`rpt-dot-btn ${i === active ? 'active' : ''}`} onClick={() => handleTabClick(i)} />
-                  ))}
                 </div>
 
               </div>
@@ -223,7 +178,7 @@ export default function ReportingPage() {
           </div>
         </section>
 
-        {/* ── Feature strip ── */}
+        {/* Feature strip */}
         <section className="rpt-features">
           <div className="container rpt-features-grid">
             {[
@@ -241,7 +196,7 @@ export default function ReportingPage() {
           </div>
         </section>
 
-        {/* ── CTA ── */}
+        {/* CTA */}
         <section className="rpt-cta">
           <div className="container rpt-cta-inner">
             <h2>See these dashboards on your own data</h2>

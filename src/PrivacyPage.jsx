@@ -1,24 +1,10 @@
+import Navbar from './Navbar.jsx';
 import { Link } from 'react-router-dom';
 
 export default function PrivacyPage() {
   return (
     <div className="site">
-      <header className="navbar">
-        <div className="container nav-inner">
-          <Link to="/" className="logo-link">
-            <img src="/logowebsite.png" alt="Dolphin AI" className="logo-img" />
-          </Link>
-          <nav className="nav-links">
-            <Link to="/#solution">Solution</Link>
-            <Link to="/#workflow">Workflow</Link>
-            <Link to="/pricing">Pricing</Link>
-            <Link to="/#contact">Contact</Link>
-          </nav>
-          <div className="nav-actions">
-            <Link to="/book-demo" className="btn btn-primary">Book a demo</Link>
-          </div>
-        </div>
-      </header>
+      <Navbar />
       <main style={{ maxWidth: '760px', margin: '0 auto', padding: '3rem 1.5rem 5rem' }}>
         <h1 style={{ fontSize: 'clamp(1.6rem,3vw,2rem)', fontWeight: 800, color: 'var(--navy)', marginBottom: '0.5rem' }}>Privacy Policy</h1>
         <p style={{ color: 'var(--gray-400)', fontSize: '13.5px', marginBottom: '2.5rem' }}>Last updated: May 2026</p>

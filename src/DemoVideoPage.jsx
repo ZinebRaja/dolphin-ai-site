@@ -1,3 +1,4 @@
+import Navbar from './Navbar.jsx';
 import { useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ArrowRight, Play } from 'lucide-react';
@@ -30,22 +31,7 @@ export default function DemoVideoPage() {
     <div style={{ minHeight: '100vh', background: 'linear-gradient(160deg, #fff 0%, #FDF6F2 40%, #F0DDD4 100%)', display: 'flex', flexDirection: 'column' }}>
 
       {/* Navbar */}
-      <header className="navbar">
-        <div className="container nav-inner">
-          <Link to="/" className="logo-link">
-            <img src="/logowebsite.png" alt="Dolphin AI" className="logo-img" />
-          </Link>
-          <nav className="nav-links">
-            <Link to="/#solution">Solution</Link>
-            <Link to="/#workflow">Workflow</Link>
-            <Link to="/pricing">Pricing</Link>
-            <Link to="/#contact">Contact</Link>
-          </nav>
-          <div className="nav-actions">
-            <Link to="/book-demo" className="btn btn-primary">Book a demo</Link>
-          </div>
-        </div>
-      </header>
+      <Navbar />
 
       {/* Content */}
       <main style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '3rem 1.5rem' }}>

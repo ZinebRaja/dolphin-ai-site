@@ -1,3 +1,4 @@
+import Navbar from './Navbar.jsx';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Users, Package, BarChart3, TrendingUp, ShieldCheck, CheckCircle2, Sparkles } from 'lucide-react';
@@ -83,23 +84,7 @@ export default function AssessmentPage() {
 
   return (
     <div className="site">
-      <header className="navbar">
-        <div className="container nav-inner">
-          <Link to="/" className="logo-link">
-            <img src="/logowebsite.png" alt="Dolphin AI" className="logo-img" />
-          </Link>
-          <nav className="nav-links">
-            <Link to="/#solution">Solution</Link>
-            <Link to="/#workflow">Workflow</Link>
-            <Link to="/pricing">Pricing</Link>
-            <Link to="/contact">Contact</Link>
-          </nav>
-          <div className="nav-actions">
-            <Link to="/login" className="nav-login">Log in</Link>
-            <Link to="/book-demo" className="btn btn-primary">Book a demo</Link>
-          </div>
-        </div>
-      </header>
+      <Navbar />
 
       <main>
         {/* Hero */}
