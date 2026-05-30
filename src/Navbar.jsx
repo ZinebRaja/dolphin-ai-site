@@ -18,7 +18,12 @@ export default function Navbar() {
       <header className="navbar">
         <div className="container nav-inner">
           <Link to="/" className="logo-link">
-            <img src="/logowebsite.png" alt="Dolphin AI" className="logo-img" />
+            <div className="logo-wrap">
+              <div className="logo-img-clip">
+                <img src="/logowebsite.png" alt="Dolphin AI" className="logo-img" />
+              </div>
+              <span className="logo-tagline">Intelligence That Drives Growth</span>
+            </div>
           </Link>
 
           <nav className="nav-links">
