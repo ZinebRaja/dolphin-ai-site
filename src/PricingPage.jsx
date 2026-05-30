@@ -383,7 +383,7 @@ export default function PricingPage() {
             Estimate your spend intelligence ROI
           </h1>
           <p style={{ color: 'var(--gray-600)', maxWidth: '580px', fontSize: '15.5px' }}>
-            Adjust the sliders to your organisation's data and see your estimated price, savings, and payback period in real time.
+            Adjust the sliders to your organization's data and see your estimated price, savings, and payback period in real time.
           </p>
         </div>
 

@@ -60,7 +60,7 @@ export default function BookDemoPage() {
             <span className="eyebrow">Book a demo</span>
             <h1 className="demo-title">See Dolphin AI in action</h1>
             <p className="demo-sub">
-              In 30 minutes we'll show you how Dolphin AI cleans, normalises, and classifies your
+              In 30 minutes we'll show you how Dolphin AI cleans, normalizes, and classifies your
               spend data — and estimate the savings potential for your specific data.
             </p>
 

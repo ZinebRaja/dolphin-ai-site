@@ -9,7 +9,7 @@ const REASONS = [
   {
     icon: <BarChart3 size={22} />,
     title: 'Talk to Dolphin AI Team',
-    desc: 'Get a personalised walkthrough of how Dolphin AI fits your procurement stack.',
+    desc: 'Get a personalized walkthrough of how Dolphin AI fits your procurement stack.',
     cta: 'Book a demo',
     href: '/book-demo',
   },

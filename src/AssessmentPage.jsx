@@ -22,7 +22,7 @@ const TEAM_OPTIONS = [
 const MATURITY_OPTIONS = [
   { key: 'Low',    label: 'Just Starting',   desc: 'Manual spreadsheets, limited visibility into spend',   hours: 8 },
   { key: 'Medium', label: 'Partially Set Up',desc: 'Some tools in place, partial classification coverage', hours: 5 },
-  { key: 'High',   label: 'Well Established',desc: 'Strong processes in place, looking to optimise',      hours: 3 },
+  { key: 'High',   label: 'Well Established',desc: 'Strong processes in place, looking to optimize',      hours: 3 },
 ];
 
 /* ── Benchmark rates ─────────────────────────────────────── */
@@ -92,7 +92,7 @@ export default function AssessmentPage() {
           <div className="container roi-hero-inner">
             <div className="roi-hero-badge"><Sparkles size={13} /> Free ROI Calculator</div>
             <h1>How much could you save with Dolphin AI?</h1>
-            <p>3 questions. 30 seconds. Get a personalised savings estimate for your organisation.</p>
+            <p>3 questions. 30 seconds. Get a personalized savings estimate for your organization.</p>
           </div>
         </section>
 

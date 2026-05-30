@@ -28,7 +28,7 @@ export default function DemoVideoPage() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(160deg, #fff 0%, #FDF6F2 40%, #F0DDD4 100%)', display: 'flex', flexDirection: 'column' }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(160deg, #fff 0%, var(--cream) 40%, var(--copper-bg) 100%)', display: 'flex', flexDirection: 'column' }}>
 
       {/* Navbar */}
       <Navbar />
