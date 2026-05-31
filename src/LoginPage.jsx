@@ -64,7 +64,7 @@ export default function LoginPage() {
       <main className="login-main">
         <div className="login-card">
           <div className="login-logo">
-            <img src="/logowebsite.png" alt="Dolphin AI" style={{ height: '90px', width: 'auto' }} />
+            <img src="/logowebsite.png" alt="Dolphin AI" style={{ height: '120px', width: 'auto', mixBlendMode: 'darken' }} />
           </div>
 
           <h1 className="login-title">Welcome back</h1>

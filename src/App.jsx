@@ -282,7 +282,7 @@ function HomePage() {
                   {/* Left: Overview */}
                   <div className="mega-overview">
                     <div className="mega-brand-badge">
-                      <img src="/logowebsite.png" alt="Dolphin AI" style={{ height: 36 }} />
+                      <img src="/logowebsite.png" alt="Dolphin AI" style={{ height: 44, objectFit: 'contain', mixBlendMode: 'darken' }} />
                     </div>
                     <h4 className="mega-overview-title">Spend Intelligence Platform</h4>
                     <p className="mega-overview-copy">Clean, classify, and analyze your procurement data from any source — in hours, not months.</p>
@@ -328,7 +328,7 @@ function HomePage() {
                       ))}
                     </div>
                     <Link to="/demo-video" className="mega-demo-cta" onClick={() => setProductOpen(false)}>
-                      See it in action — free <ArrowRight size={13}/>
+                      See Dolphin AI in action <ArrowRight size={13}/>
                     </Link>
                   </div>
 
@@ -343,7 +343,7 @@ function HomePage() {
             <Link to="/contact">Contact</Link>
           </nav>
           <div className="nav-actions">
-            <Link to="/login" className="nav-login">Log in</Link>
+            <Link to="/book-demo" className="btn btn-primary">Book a demo</Link>
           </div>
           <button className="mobile-menu-btn" onClick={() => setMobileOpen(m => !m)} aria-label="Menu">
             <span className={`hamburger ${mobileOpen ? 'open' : ''}`} />
@@ -378,9 +378,6 @@ function HomePage() {
                 and reveals opportunities hidden in procurement data.
               </p>
               <div className="hero-actions">
-                <Link to="/book-demo" className="btn btn-primary btn-lg btn-pill">
-                  Book a demo <ArrowRight size={16} />
-                </Link>
                 <Link to="/assessment" className="btn btn-outline btn-lg btn-pill">
                   Get your free assessment <ArrowRight size={16} />
                 </Link>

@@ -18,12 +18,7 @@ export default function Navbar() {
       <header className="navbar">
         <div className="container nav-inner">
           <Link to="/" className="logo-link">
-            <div className="logo-wrap">
-              <div className="logo-img-clip">
-                <img src="/logowebsite.png" alt="Dolphin AI" className="logo-img" />
-              </div>
-              <span className="logo-tagline">Intelligence That Drives Growth</span>
-            </div>
+            <img src="/logowebsite.png" alt="Dolphin AI" className="logo-img" />
           </Link>
 
           <nav className="nav-links">
@@ -52,7 +47,7 @@ export default function Navbar() {
 
                   <div className="mega-overview">
                     <div className="mega-brand-badge">
-                      <img src="/logowebsite.png" alt="Dolphin AI" style={{ height: 36 }} />
+                      <img src="/logowebsite.png" alt="Dolphin AI" style={{ height: 32, objectFit: 'contain' }} />
                     </div>
                     <h4 className="mega-overview-title">Spend Intelligence Platform</h4>
                     <p className="mega-overview-copy">Clean, classify, and analyze your procurement data from any source — in hours, not months.</p>
@@ -96,7 +91,7 @@ export default function Navbar() {
                       ))}
                     </div>
                     <Link to="/demo-video" className="mega-demo-cta" onClick={close}>
-                      See it in action — free <ArrowRight size={13}/>
+                      See Dolphin AI in action <ArrowRight size={13}/>
                     </Link>
                   </div>
 
@@ -104,12 +99,12 @@ export default function Navbar() {
               </div>
             </div>
 
+            <Link to="/">Home</Link>
             <Link to="/pricing">Pricing</Link>
             <Link to="/contact">Contact</Link>
           </nav>
 
           <div className="nav-actions">
-            <Link to="/login" className="nav-login">Log in</Link>
             <Link to="/book-demo" className="btn btn-primary">Book a demo</Link>
           </div>
 
@@ -121,6 +116,7 @@ export default function Navbar() {
 
       {mobileOpen && (
         <div className="mobile-nav" onClick={() => setMobileOpen(false)}>
+          <Link to="/">Home</Link>
           <Link to="/product">Product</Link>
           <Link to="/pricing">Pricing</Link>
           <Link to="/contact">Contact</Link>

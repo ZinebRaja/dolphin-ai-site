@@ -17,11 +17,11 @@ export default function TermsPage() {
           },
           {
             title: '2. Description of service',
-            body: 'Dolphin AI is a spend intelligence platform that provides spend classification, supplier normalization, and procurement analytics services. We process spend data provided by clients and return structured, classified outputs via our platform, API, or file export.'
+            body: 'Dolphin AI is a spend intelligence platform that provides spend classification, supplier normalization, and spend analytics services. We process spend data provided by clients and return structured, classified outputs via our platform, API, or file export.'
           },
           {
             title: '3. Account registration',
-            body: 'You must provide accurate and complete information when creating an account. You are responsible for maintaining the confidentiality of your login credentials and for all activity that occurs under your account. Notify us immediately at raja.essahri@dolphinaipro.com if you suspect unauthorized access.'
+            body: 'You must provide accurate and complete information when creating an account. You are responsible for maintaining the confidentiality of your login credentials and for all activity that occurs under your account. Notify us immediately at info@dolphinaipro.com if you suspect unauthorized access.'
           },
           {
             title: '4. Acceptable use',
@@ -33,7 +33,7 @@ export default function TermsPage() {
           },
           {
             title: '6. Payment and billing',
-            body: 'Paid plans are billed monthly or annually as agreed at the time of purchase. All fees are non-refundable unless otherwise stated in writing. We reserve the right to suspend access if payment is overdue by more than 14 days. Pricing is subject to change with 30 days written notice.'
+            body: 'Paid plans are billed monthly or annually based on your plan or contract. All payments are final and non-refundable unless specified otherwise in writing. To ensure uninterrupted service, please keep your billing information up to date.'
           },
           {
             title: '7. Service availability',
@@ -48,16 +48,12 @@ export default function TermsPage() {
             body: 'To the maximum extent permitted by law, Dolphin AI shall not be liable for any indirect, incidental, or consequential damages arising from your use of the Service. Our total liability in any circumstance shall not exceed the fees paid by you in the 12 months preceding the claim.'
           },
           {
-            title: '10. Termination',
-            body: 'Either party may terminate the agreement with 30 days written notice. We may terminate immediately for material breach of these terms. Upon termination, your data will be retained for 30 days then deleted, and you will lose access to the platform.'
-          },
-          {
-            title: '11. Governing law',
+            title: '10. Governing law',
             body: 'These terms are governed by the laws of the State of Texas, United States. Any disputes shall be resolved in the courts of Dallas County, Texas. Clients in the European Union may also have rights under applicable EU law.'
           },
           {
-            title: '12. Changes to terms',
-            body: 'We may update these Terms of Service from time to time. We will notify you of material changes by email or via the platform at least 14 days before they take effect. Continued use after changes constitutes acceptance of the updated terms. Contact us at raja.essahri@dolphinaipro.com with any questions.'
+            title: '11. Changes to terms',
+            body: 'We may update these Terms of Service from time to time. We will notify you of material changes by email or via the platform at least 14 days before they take effect. Continued use after changes constitutes acceptance of the updated terms. Contact us at info@dolphinaipro.com with any questions.'
           },
         ].map(s => (
           <div key={s.title} style={{ marginBottom: '2rem' }}>

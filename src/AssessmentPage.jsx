@@ -1,222 +1,194 @@
 import Navbar from './Navbar.jsx';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Users, Package, BarChart3, TrendingUp, ShieldCheck, CheckCircle2, Sparkles } from 'lucide-react';
+import { ArrowRight, Lock, TrendingUp, Users, BarChart3, ShieldCheck, Sparkles } from 'lucide-react';
 
-/* ── Spend range options ─────────────────────────────────── */
-const SPEND_OPTIONS = [
-  { label: 'Under $25M',    value: 12_500_000 },
-  { label: '$25M – $100M',  value: 62_500_000 },
-  { label: '$100M – $500M', value: 300_000_000 },
-  { label: '$500M – $2B',   value: 1_000_000_000 },
-  { label: 'Over $2B',      value: 3_000_000_000 },
-];
-
-const TEAM_OPTIONS = [
-  { label: '1 – 5',  desc: 'people',  value: 3 },
-  { label: '6 – 20', desc: 'people',  value: 13 },
-  { label: '21 – 50',desc: 'people',  value: 35 },
-  { label: '50+',    desc: 'people',  value: 75 },
-];
-
-const MATURITY_OPTIONS = [
-  { key: 'Low',    label: 'Just Starting',   desc: 'Manual spreadsheets, limited visibility into spend',   hours: 8 },
-  { key: 'Medium', label: 'Partially Set Up',desc: 'Some tools in place, partial classification coverage', hours: 5 },
-  { key: 'High',   label: 'Well Established',desc: 'Strong processes in place, looking to optimize',      hours: 3 },
-];
-
-/* ── Benchmark rates ─────────────────────────────────────── */
-const RATES = {
-  Low:    { classRate: 0.50 * 0.07, tailRate: 0.32 * 0.09, complianceRate: 0.30 * 0.12, sourcingRate: 0.07 },
-  Medium: { classRate: 0.30 * 0.05, tailRate: 0.20 * 0.06, complianceRate: 0.15 * 0.075, sourcingRate: 0.05 },
-  High:   { classRate: 0.12 * 0.03, tailRate: 0.12 * 0.03, complianceRate: 0.07 * 0.035, sourcingRate: 0.03 },
-};
-
-const HOURLY_RATE = 65;
-
-/* ── Formatter ───────────────────────────────────────────── */
-const fmt = (n) => {
-  if (!n || n <= 0) return '$0';
+const fmtCurrency = (n) => {
   if (n >= 1_000_000_000) return `$${(n / 1_000_000_000).toFixed(1)}B`;
   if (n >= 1_000_000)     return `$${(n / 1_000_000).toFixed(1)}M`;
   if (n >= 1_000)         return `$${Math.round(n / 1_000)}K`;
   return `$${Math.round(n).toLocaleString()}`;
 };
 
-/* ── Tile button ─────────────────────────────────────────── */
-function Tile({ selected, onClick, children, className = '' }) {
+function SliderField({ label, value, min, max, step, onChange, display, hint }) {
+  const pct = ((value - min) / (max - min)) * 100;
   return (
-    <button
-      onClick={onClick}
-      className={`roi-tile ${selected ? 'roi-tile-active' : ''} ${className}`}
-    >
-      {selected && <span className="roi-tile-check"><CheckCircle2 size={14} /></span>}
-      {children}
-    </button>
+    <div className="roi-field">
+      <div className="roi-field-header">
+        <label>{label}</label>
+        <span className="roi-field-value">{display(value)}</span>
+      </div>
+      <input type="range" min={min} max={max} step={step} value={value}
+        onChange={e => onChange(Number(e.target.value))}
+        style={{ '--pct': `${pct}%` }} className="roi-slider" />
+      <div className="roi-field-hints"><span>{display(min)}</span><span>{display(max)}</span></div>
+      {hint && <p className="roi-field-hint">{hint}</p>}
+    </div>
+  );
+}
+
+function NumberField({ label, value, min, max, onChange, suffix, hint }) {
+  return (
+    <div className="roi-field">
+      <label className="roi-field-label">{label}</label>
+      <div className="roi-number-wrap">
+        <input type="number" min={min} max={max} value={value}
+          onChange={e => onChange(Math.min(max, Math.max(min, Number(e.target.value))))}
+          className="roi-number-input" />
+        {suffix && <span className="roi-number-suffix">{suffix}</span>}
+      </div>
+      {hint && <p className="roi-field-hint">{hint}</p>}
+    </div>
+  );
+}
+
+export function ROICalculator({ showGate = true }) {
+  const [spend,        setSpend]        = useState(25_000_000);
+  const [employees,    setEmployees]    = useState(2);
+  const [hourlyRate,   setHourlyRate]   = useState(30);
+  const [hoursPerWeek, setHoursPerWeek] = useState(3);
+  const [email,        setEmail]        = useState('');
+  const [unlocked,     setUnlocked]     = useState(!showGate);
+
+  const productivity = Math.round(employees * hoursPerWeek * 52 * 0.65 * hourlyRate);
+  const spendSavings = Math.round(spend * 0.035);
+  const tailSpend    = Math.round(spend * 0.012);
+  const compliance   = Math.round(spend * 0.008);
+  const total        = productivity + spendSavings + tailSpend + compliance;
+
+  const breakdown = [
+    { icon: <Users size={15}/>,       label: 'Productivity Recovery',  value: productivity,  desc: 'Hours freed from manual data work' },
+    { icon: <BarChart3 size={15}/>,   label: 'Classification Savings', value: spendSavings,  desc: 'Better visibility → better contracts' },
+    { icon: <TrendingUp size={15}/>,  label: 'Tail Spend Recovery',    value: tailSpend,     desc: 'Unmanaged spend brought under control' },
+    { icon: <ShieldCheck size={15}/>, label: 'Contract Compliance',    value: compliance,    desc: 'Off-contract purchases reduced' },
+  ];
+
+  return (
+    <div className="roi-calc-grid">
+      {/* LEFT: Inputs */}
+      <div className="roi-inputs-panel">
+        <h3 className="roi-panel-title">Your organization's data</h3>
+        <SliderField label="Annual procurement spend"
+          value={spend} min={1_000_000} max={2_000_000_000} step={1_000_000}
+          onChange={setSpend} display={fmtCurrency}
+          hint="Total spend across all categories and suppliers" />
+        <NumberField label="Employees managing spend data"
+          value={employees} min={1} max={500} onChange={setEmployees}
+          suffix="people" hint="People who clean, classify or report on procurement data" />
+        <SliderField label="Average hourly rate"
+          value={hourlyRate} min={15} max={200} step={5}
+          onChange={setHourlyRate} display={v => `$${v}/hr`}
+          hint="Fully loaded cost per hour for your procurement team" />
+        <SliderField label="Hours spent on data work per employee / week"
+          value={hoursPerWeek} min={1} max={40} step={0.5}
+          onChange={setHoursPerWeek} display={v => `${v}h`}
+          hint="Time spent cleaning, formatting, or preparing spend reports" />
+      </div>
+
+      {/* RIGHT: Results */}
+      <div className="roi-results-panel">
+        {/* Total */}
+        <div className="roi-total">
+          <span className="roi-total-label">Your estimated annual savings</span>
+          <strong className="roi-total-value" style={{ filter: unlocked ? 'none' : 'blur(12px)', userSelect: unlocked ? 'auto' : 'none' }}>
+            {fmtCurrency(total)}
+          </strong>
+          <span className="roi-total-sub">
+            Based on {fmtCurrency(spend)} spend · {employees} {employees === 1 ? 'person' : 'people'} · ${hourlyRate}/hr · {hoursPerWeek}h/week
+          </span>
+        </div>
+
+        {/* Gate or Results */}
+        {!unlocked ? (
+          <div className="roi-gate">
+            <div className="roi-gate-preview">
+              {breakdown.map(r => (
+                <div className="roi-gate-row-item" key={r.label}>
+                  <span className="roi-gate-dot" />
+                  <span style={{ filter: 'blur(5px)', flex: 1 }}>{r.label} — {fmtCurrency(r.value)}</span>
+                </div>
+              ))}
+            </div>
+            <div className="roi-gate-box">
+              <Lock size={20} />
+              <h4>Unlock your full ROI breakdown</h4>
+              <p>Enter your work email to see savings by category, ROI %, and payback period.</p>
+              <form onSubmit={e => { e.preventDefault(); if (email) setUnlocked(true); }} className="roi-gate-form">
+                <input type="email" placeholder="Work email address" value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  className="roi-gate-input" required />
+                <button type="submit" className="btn btn-primary btn-full">
+                  See my ROI breakdown <ArrowRight size={15} />
+                </button>
+              </form>
+              <p className="roi-gate-privacy">No spam. Unsubscribe anytime.</p>
+            </div>
+          </div>
+        ) : (
+          <div className="roi-unlocked">
+            {/* Breakdown rows */}
+            <div className="roi-breakdown-list">
+              {breakdown.map(r => {
+                const pct = Math.round(r.value / total * 100);
+                return (
+                  <div className="roi-brow" key={r.label}>
+                    <div className="roi-brow-icon">{r.icon}</div>
+                    <div className="roi-brow-body">
+                      <div className="roi-brow-top">
+                        <div>
+                          <strong>{r.label}</strong>
+                          <span>{r.desc}</span>
+                        </div>
+                        <strong className="roi-brow-val">{fmtCurrency(r.value)}</strong>
+                      </div>
+                      <div className="roi-brow-bar">
+                        <div className="roi-brow-fill" style={{ width: `${pct}%` }} />
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Metrics */}
+            <div className="roi-metrics-row">
+              <div className="roi-metric">
+                <span>Estimated ROI</span>
+                <strong>{((total / Math.max(spend * 0.001, 1)) * 10).toFixed(0)}×</strong>
+              </div>
+              <div className="roi-metric">
+                <span>Payback period</span>
+                <strong>&lt; 3 months</strong>
+              </div>
+            </div>
+
+            <Link to="/book-demo" className="btn btn-primary btn-full" style={{ margin: '16px 20px 4px', width: 'calc(100% - 40px)' }}>
+              Validate with your real data <ArrowRight size={15} />
+            </Link>
+            <p className="roi-disclaimer" style={{ padding: '0 20px 20px' }}>Estimates use industry benchmark rates. Actual results vary by data quality and scope.</p>
+          </div>
+        )}
+      </div>
+    </div>
   );
 }
 
 export default function AssessmentPage() {
-  const [spendIdx,   setSpendIdx]   = useState(2);   // default $100M–$500M
-  const [teamIdx,    setTeamIdx]    = useState(1);   // default 6–20
-  const [maturity,   setMaturity]   = useState('Medium');
-
-  /* ── Calculations ── */
-  const spend   = SPEND_OPTIONS[spendIdx].value;
-  const team    = TEAM_OPTIONS[teamIdx].value;
-  const mat     = MATURITY_OPTIONS.find(m => m.key === maturity);
-  const rates   = RATES[maturity];
-
-  const productivity    = Math.round(team * mat.hours * 52 * 0.65 * HOURLY_RATE);
-  const classification  = Math.round(spend * rates.classRate);
-  const tailSpend       = Math.round(spend * rates.tailRate);
-  const compliance      = Math.round(spend * rates.complianceRate);
-  const consolidation   = Math.round(spend * rates.sourcingRate * 0.25);
-  const total           = productivity + classification + tailSpend + compliance + consolidation;
-
-  const results = [
-    { icon: <Users size={16} />,      label: 'Productivity Recovery',    value: productivity,   pct: Math.round(productivity   / total * 100), type: 'Cost Avoidance', desc: 'Hours saved on manual data work' },
-    { icon: <BarChart3 size={16} />,  label: 'Classification Savings',   value: classification, pct: Math.round(classification / total * 100), type: 'Hard Savings',   desc: 'Better visibility → better contracts' },
-    { icon: <TrendingUp size={16} />, label: 'Tail Spend Recovery',      value: tailSpend,      pct: Math.round(tailSpend      / total * 100), type: 'Hard Savings',   desc: 'Unmanaged spend brought under control' },
-    { icon: <ShieldCheck size={16}/>, label: 'Contract Compliance',      value: compliance,     pct: Math.round(compliance     / total * 100), type: 'Hard Savings',   desc: 'Off-contract spend reduced' },
-    { icon: <Package size={16} />,    label: 'Supplier Consolidation',   value: consolidation,  pct: Math.round(consolidation  / total * 100), type: 'Hard Savings',   desc: 'Leverage from fewer, stronger suppliers' },
-  ];
-
   return (
     <div className="site">
       <Navbar />
-
       <main>
-        {/* Hero */}
         <section className="roi-hero">
           <div className="container roi-hero-inner">
             <div className="roi-hero-badge"><Sparkles size={13} /> Free ROI Calculator</div>
             <h1>How much could you save with Dolphin AI?</h1>
-            <p>3 questions. 30 seconds. Get a personalized savings estimate for your organization.</p>
+            <p>4 inputs. 30 seconds. Get a personalized savings estimate for your organization.</p>
           </div>
         </section>
-
-        {/* Calculator */}
         <section className="roi-body container">
-          <div className="roi-layout">
-
-            {/* LEFT: Questions */}
-            <div className="roi-questions">
-
-              {/* Q1 */}
-              <div className="roi-question">
-                <div className="roi-q-header">
-                  <span className="roi-q-num">1</span>
-                  <div>
-                    <h3>What is your annual procurement spend?</h3>
-                    <p>Total spend across all categories and suppliers</p>
-                  </div>
-                </div>
-                <div className="roi-tiles-spend">
-                  {SPEND_OPTIONS.map((o, i) => (
-                    <Tile key={o.label} selected={spendIdx === i} onClick={() => setSpendIdx(i)}>
-                      <strong>{o.label}</strong>
-                    </Tile>
-                  ))}
-                </div>
-              </div>
-
-              {/* Q2 */}
-              <div className="roi-question">
-                <div className="roi-q-header">
-                  <span className="roi-q-num">2</span>
-                  <div>
-                    <h3>How many people handle spend data?</h3>
-                    <p>People who prepare, clean, or analyse procurement reports</p>
-                  </div>
-                </div>
-                <div className="roi-tiles-team">
-                  {TEAM_OPTIONS.map((o, i) => (
-                    <Tile key={o.label} selected={teamIdx === i} onClick={() => setTeamIdx(i)}>
-                      <strong>{o.label}</strong>
-                      <span>{o.desc}</span>
-                    </Tile>
-                  ))}
-                </div>
-              </div>
-
-              {/* Q3 */}
-              <div className="roi-question">
-                <div className="roi-q-header">
-                  <span className="roi-q-num">3</span>
-                  <div>
-                    <h3>How mature is your current procurement process?</h3>
-                    <p>Be honest — a lower score means a bigger opportunity</p>
-                  </div>
-                </div>
-                <div className="roi-tiles-maturity">
-                  {MATURITY_OPTIONS.map(o => (
-                    <Tile key={o.key} selected={maturity === o.key} onClick={() => setMaturity(o.key)} className="roi-tile-maturity">
-                      <strong>{o.label}</strong>
-                      <span>{o.desc}</span>
-                    </Tile>
-                  ))}
-                </div>
-              </div>
-
-            </div>
-
-            {/* RIGHT: Live results */}
-            <div className="roi-results">
-
-              {/* Total */}
-              <div className="roi-total">
-                <span className="roi-total-label">Your estimated annual savings</span>
-                <strong className="roi-total-value">{fmt(total)}</strong>
-                <span className="roi-total-sub">Based on {SPEND_OPTIONS[spendIdx].label} spend · {TEAM_OPTIONS[teamIdx].label} people · {MATURITY_OPTIONS.find(m=>m.key===maturity).label}</span>
-              </div>
-
-              {/* Breakdown */}
-              <div className="roi-breakdown">
-                {results.map(r => (
-                  <div className="roi-result-row" key={r.label}>
-                    <div className="roi-result-left">
-                      <span className="roi-result-icon">{r.icon}</span>
-                      <div>
-                        <strong>{r.label}</strong>
-                        <span>{r.desc}</span>
-                      </div>
-                    </div>
-                    <div className="roi-result-right">
-                      <strong>{fmt(r.value)}</strong>
-                      <span className={`roi-badge ${r.type === 'Cost Avoidance' ? 'roi-badge-blue' : 'roi-badge-green'}`}>{r.type}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Bar chart */}
-              <div className="roi-bars">
-                {results.map(r => (
-                  <div className="roi-bar-row" key={r.label}>
-                    <span className="roi-bar-label">{r.label}</span>
-                    <div className="roi-bar-track">
-                      <div className="roi-bar-fill" style={{ width: `${r.pct}%` }} />
-                    </div>
-                    <span className="roi-bar-pct">{r.pct}%</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* CTA */}
-              <div className="roi-cta">
-                <p>Want to validate this with your real data?</p>
-                <Link to="/book-demo" className="btn btn-primary btn-full">
-                  Book a free demo <ArrowRight size={15} />
-                </Link>
-                <p className="roi-disclaimer">Estimates use industry benchmark rates. Actual results vary by data quality and scope.</p>
-              </div>
-
-            </div>
-          </div>
+          <ROICalculator showGate={true} />
         </section>
       </main>
-
       <footer className="footer">
         <div className="container footer-bottom">
           <p>Copyright © 2026 Dolphin AI</p>
