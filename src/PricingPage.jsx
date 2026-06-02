@@ -388,7 +388,7 @@ export default function PricingPage() {
 
         {/* ROI Calculator — no email gate on pricing page */}
         <section className="roi-body container">
-          <ROICalculator showGate={true} />
+          <ROICalculator />
         </section>
 
         {/* Pricing tier cards */}
