@@ -112,7 +112,7 @@ export default function AboutPage() {
               enterprise procurement, AI engineering, and financial data systems.
             </p>
             <p className="about-team-sub">
-              Our founders have worked directly inside the procurement and finance functions of large organisations —
+              Our founders have worked directly inside the procurement and finance functions of large organizations —
               building reports manually, wrestling with ERP exports, and spending weeks cleaning data before any
               analysis could begin. That lived frustration is exactly what Dolphin AI was built to solve.
             </p>
@@ -127,7 +127,7 @@ export default function AboutPage() {
               </div>
               <div className="about-team-stat">
                 <strong>$10B+</strong>
-                <span>Spend data processed and analysed</span>
+                <span>Spend data processed and analyzed</span>
               </div>
               <div className="about-team-stat">
                 <strong>100%</strong>

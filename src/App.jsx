@@ -32,8 +32,6 @@ import {
   Lightbulb,
   Link2,
   Database,
-  PieChart,
-  GitBranch,
 } from 'lucide-react';
 
 const features = [
@@ -63,7 +61,7 @@ const steps = [
   { num: '01', title: 'Import',    text: 'Import raw spend data from Excel, ERP, or any procurement system.' },
   { num: '02', title: 'Normalize', text: 'Normalize supplier names and detect duplicates automatically.' },
   { num: '03', title: 'Classify',  text: 'Classify spend using your taxonomy, business rules, and AI suggestions.' },
-  { num: '04', title: 'Export',    text: 'Review, validate, and export clean data for reporting and strategy.' }
+  { num: '04', title: 'Clear Visibility', text: 'Explore your clean spend data through interactive dashboards and slicers — no exports needed.' }
 ];
 
 /* ── Brand SVG logos ─────────────────────────────────────── */
@@ -312,21 +310,7 @@ function HomePage() {
                     </div>
                   </div>
 
-                  {/* Right: Resources */}
                   <div className="mega-resources">
-                    <p className="mega-section">Resources</p>
-                    <div className="mega-res-list">
-                      {[
-                        { icon: <GitBranch size={15}/>, title: 'How it works',          desc: 'See the end-to-end workflow',      href: '#workflow' },
-                        { icon: <PieChart size={15}/>,  title: 'Analytics & Reporting', desc: 'KPIs, dashboards, and insights',   href: '/reporting' },
-                        { icon: <ShieldCheck size={15}/>, title: 'Security',            desc: 'Data privacy & enterprise grade',  href: '/security' },
-                      ].map(r => (
-                        <a href={r.href} className="mega-res-item" key={r.title} onClick={() => setProductOpen(false)}>
-                          <div className="mega-res-icon">{r.icon}</div>
-                          <div><strong>{r.title}</strong><span>{r.desc}</span></div>
-                        </a>
-                      ))}
-                    </div>
                     <Link to="/demo-video" className="mega-demo-cta" onClick={() => setProductOpen(false)}>
                       See Dolphin AI in action <ArrowRight size={13}/>
                     </Link>
@@ -379,7 +363,7 @@ function HomePage() {
               </p>
               <div className="hero-actions">
                 <Link to="/assessment" className="btn btn-outline btn-lg btn-pill">
-                  Get your free assessment <ArrowRight size={16} />
+                  Get a free estimate <ArrowRight size={16} />
                 </Link>
               </div>
             </motion.div>
@@ -407,10 +391,9 @@ function HomePage() {
                 supplier data to normalize supplier names and classify spend using your taxonomy.
               </p>
               <div className="integration-ctas">
-                <Link to="/book-demo" className="btn btn-primary btn-pill">Book a demo</Link>
-                <a href="#solution" className="btn-text-link">
+                <Link to="/product" className="btn-text-link">
                   Explore Dolphin AI <ArrowRight size={15} />
-                </a>
+                </Link>
               </div>
             </motion.div>
 
@@ -547,23 +530,6 @@ function HomePage() {
           </div>
         </section>
 
-        {/* ══ METRICS ══ */}
-        <section id="platform" className="metrics-strip">
-          <div className="container metrics-grid">
-            {[
-              ['80%',  'Less manual data cleaning'],
-              ['360°', 'Supplier visibility'],
-              ['4×',   'Faster category analysis'],
-              ['95%+', 'Classification accuracy']
-            ].map(([val, label]) => (
-              <div className="metric-cell" key={label}>
-                <strong>{val}</strong>
-                <span>{label}</span>
-              </div>
-            ))}
-          </div>
-        </section>
-
         {/* ══ FEATURES ══ */}
         <section id="solution" className="section container">
           <div className="section-head">
@@ -588,7 +554,7 @@ function HomePage() {
           <div className="container">
             <div className="section-head centered">
               <span className="eyebrow">How it works</span>
-              <h2>Turn complex procurement data into savings.</h2>
+              <h2>Turn complex spend data into savings.</h2>
               <div className="section-rule" />
               <p>Dolphin AI gives teams a repeatable workflow — import, clean, classify, validate, and export.</p>
             </div>
@@ -649,9 +615,9 @@ function HomePage() {
         <section className="cases-section container">
           <div className="section-head centered">
             <span className="eyebrow">Results</span>
-            <h2>What procurement teams achieve</h2>
+            <h2>Measurable impact on your spend data</h2>
             <div className="section-rule" />
-            <p>Real outcomes from organisations that replaced manual spend analysis with Dolphin AI.</p>
+            <p>Real outcomes from organizations that made the switch to automated spend intelligence.</p>
           </div>
           <div className="cases-grid">
             {[
@@ -769,7 +735,7 @@ function HomePage() {
               { q: "Do I need to change my ERP or procurement system?", a: "No. Dolphin AI connects to your existing systems via API or file upload. You keep your current stack — we enrich and classify the data, then return it in whatever format you need." },
               { q: "How long does it take to get started?", a: "It depends on the quality and complexity of your data. We start with a sample, configure your taxonomy, and deliver a first classification run before full deployment. The cleaner and more structured your data, the faster we can move." },
               { q: "Is our spend data secure?", a: "Yes. All data is encrypted in transit and at rest, and your data is never used to train models or shared with third parties. We sign NDAs and DPAs as standard." },
-              { q: "What's the difference between the plans?", a: "Starter is for teams with under $10M spend and basic needs. Professional adds more suppliers, integrations, and advanced reporting. Enterprise covers unlimited scope, dedicated support, and custom integrations." },
+              { q: "What's the difference between the plans?", a: "Coastal (up to $200M spend) covers classification, supplier normalization, and self-serve onboarding. Reef adds advanced reporting and savings identification. Navigator (most popular) adds multi-source consolidation, custom taxonomy, and real-time monitoring. Horizon scales to $1B+ with enterprise-grade pipelines. Apex is fully custom for the largest enterprises, with white-glove implementation and a dedicated CSM." },
             ].map((item, i) => (
               <div className={`faq-item ${faqOpen === i ? 'open' : ''}`} key={i} onClick={() => setFaqOpen(faqOpen === i ? null : i)}>
                 <div className="faq-q">

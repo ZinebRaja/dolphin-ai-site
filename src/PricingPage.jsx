@@ -1,72 +1,46 @@
 import Navbar from './Navbar.jsx';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, BarChart2, Store, Database } from 'lucide-react';
 import { ROICalculator } from './AssessmentPage.jsx';
 
 
 const TIERS = [
   {
-    icon: '🌊', name: 'Coastal', spend: 'Up to $200M', annualMonthly: 699,
-    runtime: 'Up to 250K line items / month',
-    features: [
-      'Up to $200M spend under management',
-      'Spend classification & taxonomy mapping',
-      'Supplier normalization & deduplication',
-      'Automated data quality detection',
-      'Email support & self-serve onboarding',
-    ],
-    cta: 'Get started', ctaLink: '/book-demo', note: '',
+    icon: '🌊', name: 'Coastal', annualMonthly: 699,
+    spendManaged: 'Up to $200M', spendSub: 'Annual spend',
+    activeSuppliers: 'Up to 500', suppliersSub: 'Transacted in last 12 months',
+    historicalData: '2 years included',
+    cta: 'Get started', ctaLink: '/book-demo',
   },
   {
-    icon: '🪸', name: 'Reef', spend: 'Up to $400M', annualMonthly: 999,
-    runtime: 'Up to 500K line items / month',
-    includes: 'Coastal',
-    features: [
-      'Full spend classification suite',
-      'Advanced category performance reporting',
-      'Opportunity & savings identification',
-      'Email + chat support with guided onboarding',
-    ],
-    cta: 'Get started', ctaLink: '/book-demo', note: '',
+    icon: '🪸', name: 'Reef', annualMonthly: 999,
+    spendManaged: 'Up to $400M', spendSub: 'Annual spend',
+    activeSuppliers: 'Up to 1,000', suppliersSub: 'Transacted in last 12 months',
+    historicalData: '2 years included',
+    cta: 'Get started', ctaLink: '/book-demo',
   },
   {
-    icon: '🧭', name: 'Navigator', spend: 'Up to $750M', annualMonthly: 1399,
-    popular: true,
-    runtime: 'Up to 1M line items / month',
-    includes: 'Reef',
-    features: [
-      'Multi-source spend consolidation',
-      'Custom taxonomy configuration',
-      'Savings detection & tail spend analysis',
-      'Real-time spend monitoring & alerts',
-      'Priority support & dedicated onboarding',
-    ],
-    cta: 'Get started', ctaLink: '/book-demo', note: '',
+    icon: '🧭', name: 'Navigator', annualMonthly: 1399, popular: true,
+    spendManaged: 'Up to $750M', spendSub: 'Annual spend',
+    activeSuppliers: 'Up to 1,500', suppliersSub: 'Transacted in last 12 months',
+    historicalData: '3 years included',
+    cta: 'Get started', ctaLink: '/book-demo',
   },
   {
-    icon: '🌅', name: 'Horizon', spend: 'Up to $1B+', annualMonthly: 1699,
-    runtime: 'Up to 5M line items / month',
-    includes: 'Navigator',
-    features: [
-      'Enterprise-grade data pipelines',
-      'Full supplier ecosystem visibility',
-      'Advanced opportunity detection',
-      'Dedicated onboarding team & priority SLA',
-    ],
-    cta: 'Get started', ctaLink: '/book-demo', note: '',
+    icon: '🌅', name: 'Horizon', annualMonthly: 1699,
+    spendManaged: 'Up to $1B', spendSub: 'Annual spend',
+    activeSuppliers: 'Up to 2,000', suppliersSub: 'Transacted in last 12 months',
+    historicalData: '3 years included',
+    cta: 'Get started', ctaLink: '/book-demo',
   },
   {
-    icon: '🐬', name: 'Apex', spend: '$1.5B+ under management', annualMonthly: null,
-    runtime: 'Unlimited processing',
-    includes: 'Horizon',
-    features: [
-      'Custom integrations & taxonomy',
-      'White-glove implementation',
-      'Dedicated CSM & enterprise SLA',
-      'Security, compliance & custom reporting',
-    ],
-    cta: 'Contact us', ctaLink: '/contact', note: 'Custom scope · Enterprise SLA',
+    icon: '🐬', name: 'Apex', annualMonthly: null,
+    customPriceSub: 'Tailored to your scale',
+    spendManaged: '$1.5B and above', spendSub: 'Annual spend',
+    activeSuppliers: 'Agreed at contract', suppliersSub: 'Based on your scope',
+    historicalData: 'Agreed at contract',
+    cta: 'Contact us', ctaLink: '/contact',
   },
 ];
 
@@ -74,7 +48,7 @@ function PricingTiers() {
   const [annual, setAnnual] = useState(true);
 
   return (
-    <section className="pt-section container">
+    <section id="pricing-tiers" className="pt-section container">
       <div className="pt-header">
         <span className="eyebrow">Plans</span>
         <h2 className="pt-title">Simple, transparent pricing</h2>
@@ -112,7 +86,6 @@ function PricingTiers() {
               <div className="pt-card-top">
                 <div className="pt-tier-icon">{t.icon}</div>
                 <h3 className="pt-name">{t.name}</h3>
-                <p className="pt-spend">{t.spend}</p>
               </div>
               <div className="pt-price-row">
                 <span className="pt-price">{displayPrice}</span>
@@ -121,31 +94,36 @@ function PricingTiers() {
               <div className="pt-annual-info">
                 {t.annualMonthly ? (
                   annual ? (
-                    <span className="pt-annual-saving">Billed yearly · ${yearlyTotal.toLocaleString()}/year</span>
+                    <span className="pt-annual-saving">${yearlyTotal.toLocaleString()}/year billed annually</span>
                   ) : (
                     <span className="pt-annual-total">Billed monthly · no commitment</span>
                   )
                 ) : (
-                  <span className="pt-annual-total">Pricing tailored to your scale</span>
+                  <span className="pt-annual-total">{t.customPriceSub}</span>
                 )}
               </div>
-              {t.runtime && <div className="pt-runtime">{t.runtime}</div>}
-              {t.includes && (
-                <div className="pt-includes">Everything in {t.includes}, plus:</div>
-              )}
-              <ul className="pt-features">
-                {t.features.map(f => (
-                  <li key={f}>
-                    <Check size={13} className="pt-check" />
-                    {f}
-                  </li>
-                ))}
-              </ul>
+
+              <div className="pt-metrics">
+                <div className="pt-metric">
+                  <div className="pt-metric-label"><BarChart2 size={13} /> Spend managed</div>
+                  <div className="pt-metric-value">{t.spendManaged}</div>
+                  <div className="pt-metric-sub">{t.spendSub}</div>
+                </div>
+                <div className="pt-metric">
+                  <div className="pt-metric-label"><Store size={13} /> Active suppliers</div>
+                  <div className="pt-metric-value">{t.activeSuppliers}</div>
+                  <div className="pt-metric-sub">{t.suppliersSub}</div>
+                </div>
+                <div className="pt-metric">
+                  <div className="pt-metric-label"><Database size={13} /> Historical data</div>
+                  <div className="pt-metric-value">{t.historicalData}</div>
+                </div>
+              </div>
+
               <div className="pt-card-bottom">
                 <Link to={t.ctaLink} className="btn btn-primary pt-cta-btn">
                   {t.cta}
                 </Link>
-                {t.note && <p className="pt-note">{t.note}</p>}
               </div>
             </div>
           );
@@ -435,16 +413,10 @@ export default function PricingPage() {
               <Link to="/#workflow">Workflow</Link>
             </div>
             <div className="footer-col">
-              <h4>Resources</h4>
-              <a href="#">Documentation</a>
-              <a href="#">Case studies</a>
-              <a href="#">Blog</a>
-            </div>
-            <div className="footer-col">
               <h4>Company</h4>
-              <a href="#">About</a>
-              <Link to="/#contact">Contact</Link>
-              <a href="#">Privacy</a>
+              <Link to="/about">About</Link>
+              <Link to="/contact">Contact</Link>
+              <Link to="/privacy">Privacy</Link>
             </div>
           </div>
         </div>

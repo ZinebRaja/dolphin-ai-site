@@ -77,19 +77,6 @@ export default function Navbar() {
                   </div>
 
                   <div className="mega-resources">
-                    <p className="mega-section">Resources</p>
-                    <div className="mega-res-list">
-                      {[
-                        { icon: <GitBranch size={15}/>, title: 'How it works',          desc: 'See the end-to-end workflow',      href: '/#workflow' },
-                        { icon: <PieChart size={15}/>,  title: 'Analytics & Reporting', desc: 'KPIs, dashboards, and insights',   href: '/reporting' },
-                        { icon: <ShieldCheck size={15}/>, title: 'Security',            desc: 'Data privacy & enterprise grade',  href: '/security' },
-                      ].map(r => (
-                        <Link to={r.href} className="mega-res-item" key={r.title} onClick={close}>
-                          <div className="mega-res-icon">{r.icon}</div>
-                          <div><strong>{r.title}</strong><span>{r.desc}</span></div>
-                        </Link>
-                      ))}
-                    </div>
                     <Link to="/demo-video" className="mega-demo-cta" onClick={close}>
                       See Dolphin AI in action <ArrowRight size={13}/>
                     </Link>

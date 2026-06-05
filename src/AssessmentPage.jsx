@@ -62,12 +62,26 @@ function SliderField({ label, value, min, max, step, onChange, display, hint, ra
 }
 
 function NumberField({ label, value, min, max, onChange, suffix, hint, tooltip }) {
+  const [raw, setRaw] = useState(String(value));
+
+  function commit(str) {
+    const parsed = Number(str);
+    if (!isNaN(parsed) && str !== '') {
+      onChange(Math.min(max, Math.max(min, parsed)));
+      setRaw(String(Math.min(max, Math.max(min, parsed))));
+    } else {
+      setRaw(String(value));
+    }
+  }
+
   return (
     <div className="roi-field">
       <label className="roi-field-label">{label}{tooltip && <Tooltip text={tooltip} />}</label>
       <div className="roi-number-wrap">
-        <input type="number" min={min} max={max} value={value}
-          onChange={e => onChange(Math.min(max, Math.max(min, Number(e.target.value))))}
+        <input type="number" min={min} max={max} value={raw}
+          onChange={e => setRaw(e.target.value)}
+          onBlur={e => commit(e.target.value)}
+          onKeyDown={e => e.key === 'Enter' && commit(e.target.value)}
           className="roi-number-input" />
         {suffix && <span className="roi-number-suffix">{suffix}</span>}
       </div>
@@ -81,20 +95,22 @@ export function ROICalculator() {
   const [employees,         setEmployees]         = useState(2);
   const [hourlyRate,        setHourlyRate]        = useState(30);
   const [hoursPerWeek,      setHoursPerWeek]      = useState(3);
-  const [classifiedPct,     setClassifiedPct]     = useState(60); // % currently well-classified
-  const [tailManagedPct,    setTailManagedPct]    = useState(60); // % of tail spend currently managed
-  const [supplierOptPct,    setSupplierOptPct]    = useState(60); // % of supplier base currently optimized
+  const [classifiedPct,     setClassifiedPct]     = useState(60);
+  const [tailManagedPct,    setTailManagedPct]    = useState(60);
+  const [supplierOptPct,    setSupplierOptPct]    = useState(60);
+  const [activeSuppliers,   setActiveSuppliers]   = useState(500);
 
-  // Recommended plan based on spend
-  const recommendedPlan = spend < 200_000_000
-    ? { name: 'Coastal',   emoji: '🌊', spend: 'Up to $200M',   price: '$699/mo',    annual: '$8,388/yr',  color: '#0ea5e9' }
-    : spend < 400_000_000
-    ? { name: 'Reef',      emoji: '🪸', spend: 'Up to $400M',   price: '$999/mo',    annual: '$11,988/yr', color: '#f97316' }
-    : spend < 750_000_000
-    ? { name: 'Navigator', emoji: '🧭', spend: 'Up to $750M',   price: '$1,399/mo',  annual: '$16,788/yr', color: '#8b5cf6' }
-    : spend < 1_500_000_000
-    ? { name: 'Horizon',   emoji: '🌅', spend: 'Up to $1B+',    price: '$1,699/mo',  annual: '$20,388/yr', color: '#ec4899' }
-    : { name: 'Apex',      emoji: '🐬', spend: '$1.5B+',         price: 'Custom',     annual: null,         color: '#E06820' };
+  // Recommended plan based on spend AND active suppliers — highest need wins
+  const PLAN_TIERS = [
+    { name: 'Coastal',   emoji: '🌊', spend: 'Up to $200M',  price: '$699/mo',   annual: '$8,388/yr',  color: '#0ea5e9' },
+    { name: 'Reef',      emoji: '🪸', spend: 'Up to $400M',  price: '$999/mo',   annual: '$11,988/yr', color: '#f97316' },
+    { name: 'Navigator', emoji: '🧭', spend: 'Up to $750M',  price: '$1,399/mo', annual: '$16,788/yr', color: '#8b5cf6' },
+    { name: 'Horizon',   emoji: '🌅', spend: 'Up to $1B',    price: '$1,699/mo', annual: '$20,388/yr', color: '#ec4899' },
+    { name: 'Apex',      emoji: '🐬', spend: '$1.5B+',        price: 'Custom',    annual: null,         color: '#E06820' },
+  ];
+  const bySpend = spend < 200_000_000 ? 0 : spend < 400_000_000 ? 1 : spend < 750_000_000 ? 2 : spend < 1_500_000_000 ? 3 : 4;
+  const bySuppliers = activeSuppliers <= 500 ? 0 : activeSuppliers <= 1000 ? 1 : activeSuppliers <= 1500 ? 2 : activeSuppliers <= 2000 ? 3 : 4;
+  const recommendedPlan = PLAN_TIERS[Math.max(bySpend, bySuppliers)];
 
   // Formula 1 – Productivity Recovery: Team × Hours/week × 52 × 65% × hourly rate
   const productivity = Math.round(employees * hoursPerWeek * 52 * 0.65 * hourlyRate);
@@ -157,10 +173,15 @@ export function ROICalculator() {
           value={tailManagedPct} min={0} max={100} step={5}
           onChange={setTailManagedPct} display={v => `${v}%`}
           tooltip={`How much of your low-value, unmanaged supplier spend is already under control. ${tailManagedPct}% managed → ${100 - tailManagedPct}% unmanaged → minus 15% buffer = ${effectiveTail}% used in the savings formula.`} />
+        <NumberField label="Total number of active suppliers"
+          value={activeSuppliers} min={1} max={100000} onChange={setActiveSuppliers}
+          suffix="suppliers"
+          tooltip="The total count of distinct suppliers you actively purchase from. Used to estimate how many suppliers could be consolidated."
+          hint={`≈ ${Math.round(activeSuppliers * (1 - supplierOptPct / 100))} suppliers currently not consolidated.`} />
         <SliderField label="What % of your supplier base is currently well-consolidated?"
           value={supplierOptPct} min={0} max={100} step={5}
           onChange={setSupplierOptPct} display={v => `${v}%`}
-          tooltip={`How much of your spend already benefits from consolidated, optimized supplier relationships. ${supplierOptPct}% optimized → ${100 - supplierOptPct}% not → minus 15% buffer = ${effectiveLeverage}% used in the savings formula.`} />
+          tooltip={`How much of your spend already benefits from consolidated, optimized supplier relationships. ${supplierOptPct}% optimized → ${100 - supplierOptPct}% not → minus 15% buffer = ${effectiveLeverage}% used in the savings formula. With ${activeSuppliers} active suppliers, that's ≈ ${Math.round(activeSuppliers * (1 - supplierOptPct / 100))} not yet consolidated.`} />
       </div>
 
       {/* RIGHT: Results */}
@@ -227,9 +248,16 @@ export function ROICalculator() {
                   {recommendedPlan.annual && <span>{recommendedPlan.annual} billed yearly</span>}
                 </div>
               </div>
-              <Link to="/pricing" className="roi-plan-rec-link">
+              <a
+                href="/pricing#pricing-tiers"
+                className="roi-plan-rec-link"
+                onClick={e => {
+                  const el = document.getElementById('pricing-tiers');
+                  if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth' }); }
+                }}
+              >
                 See full plan details <ArrowRight size={12} />
-              </Link>
+              </a>
             </div>
 
             <Link to="/book-demo" className="btn btn-primary btn-full" style={{ margin: '4px 20px 4px', width: 'calc(100% - 40px)' }}>

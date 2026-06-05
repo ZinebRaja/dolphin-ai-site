@@ -10,8 +10,8 @@ const PILLARS = [
   },
   {
     icon: <Server size={22} />,
-    title: 'Azure cloud infrastructure',
-    body: 'Dolphin AI runs on Microsoft Azure, one of the world\'s most trusted enterprise cloud platforms. Data is stored in EU-region data centers with 99.9%+ availability SLA and automatic backups.',
+    title: 'Enterprise cloud infrastructure',
+    body: 'Dolphin AI is hosted on enterprise-grade cloud infrastructure with EU-region data residency, 99.9%+ availability SLA, and automatic backups. Infrastructure details are available upon request.',
   },
   {
     icon: <Eye size={22} />,
@@ -46,7 +46,7 @@ const FAQS = [
   },
   {
     q: 'Where is our data stored?',
-    a: 'Data is stored on Microsoft Azure in EU-region data centers (West Europe / North Europe). We can discuss specific region requirements for enterprise contracts.',
+    a: 'Data is stored in EU-region data centers with geographic redundancy. We can discuss specific region and data residency requirements for enterprise contracts.',
   },
   {
     q: 'Can we request a security review or questionnaire?',
@@ -96,7 +96,7 @@ export default function SecurityPage() {
             {[
               { label: 'TLS 1.2+',     sub: 'Encryption in transit' },
               { label: 'AES-256',      sub: 'Encryption at rest' },
-              { label: 'Azure EU',     sub: 'EU-region cloud storage' },
+              { label: 'EU Cloud',     sub: 'EU-region cloud storage' },
               { label: 'GDPR',         sub: 'Compliant by design' },
               { label: 'DPA',          sub: 'Signed as standard' },
               { label: '90 days',      sub: 'Max data retention' },
