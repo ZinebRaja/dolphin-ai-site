@@ -200,9 +200,9 @@ export default function ReportingPage() {
         <section className="rpt-cta">
           <div className="container rpt-cta-inner">
             <h2>See these dashboards on your own data</h2>
-            <p>In a 30-minute demo we'll connect to your data and show you live results — not a generic demo.</p>
+            <p>In a live demo we'll connect to your data and show you real results — not a generic demo.</p>
             <div className="rpt-cta-btns">
-              <Link to="/book-demo" className="btn btn-primary btn-lg">Book a demo <ArrowRight size={15} /></Link>
+              <Link to="/book-demo" className="btn btn-primary btn-lg">Book a Demo <ArrowRight size={15} /></Link>
               <Link to="/assessment" className="btn btn-outline btn-lg">Try the free ROI calculator <ArrowRight size={15} /></Link>
             </div>
           </div>

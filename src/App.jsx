@@ -219,6 +219,159 @@ function LogoAzure() {
 
 /* ─────────────────────────────────────────────────────────── */
 
+const AFTER_ITEMS = [
+  {
+    label: 'One normalized supplier master view',
+    preview: (
+      <div className="ap-preview-supplier">
+        <div className="ap-preview-title">Supplier normalization</div>
+        {[
+          { raw: '3M Corp',         norm: '3M Company' },
+          { raw: 'Three M Ltd',     norm: '3M Company' },
+          { raw: 'Oracle Inc',      norm: 'Oracle Corporation' },
+          { raw: 'ORACLE CORP',     norm: 'Oracle Corporation' },
+          { raw: 'SAP AG',          norm: 'SAP SE' },
+        ].map(r => (
+          <div className="ap-row" key={r.raw}>
+            <span className="ap-raw">{r.raw}</span>
+            <span className="ap-arrow">→</span>
+            <span className="ap-norm"><CheckCircle2 size={12}/>{r.norm}</span>
+          </div>
+        ))}
+      </div>
+    ),
+  },
+  {
+    label: 'Spend mapped to a consistent taxonomy',
+    preview: (
+      <div className="ap-preview-taxonomy">
+        <div className="ap-preview-title">Taxonomy mapping</div>
+        {[
+          { cat: 'IT Software',   sub: 'SaaS Tools',        pct: 34 },
+          { cat: 'Logistics',     sub: 'Freight & Shipping', pct: 22 },
+          { cat: 'MRO',           sub: 'Industrial Supplies',pct: 18 },
+          { cat: 'Professional',  sub: 'Consulting',         pct: 14 },
+          { cat: 'Facilities',    sub: 'Utilities',          pct: 12 },
+        ].map(r => (
+          <div className="ap-tax-row" key={r.cat}>
+            <div className="ap-tax-labels">
+              <span className="ap-tax-cat">{r.cat}</span>
+              <span className="ap-tax-sub">{r.sub}</span>
+            </div>
+            <div className="ap-tax-bar-wrap">
+              <div className="ap-tax-bar" style={{ width: `${r.pct * 2.5}%` }} />
+            </div>
+            <span className="ap-tax-pct">{r.pct}%</span>
+          </div>
+        ))}
+      </div>
+    ),
+  },
+  {
+    label: 'Clear category visibility for procurement strategy',
+    preview: (
+      <div className="ap-preview-visibility">
+        <div className="ap-preview-title">Category spend breakdown</div>
+        <div className="ap-vis-bars">
+          {[
+            { label: 'IT Software',  val: 34, color: '#E06820' },
+            { label: 'Logistics',    val: 22, color: '#C4591A' },
+            { label: 'MRO',          val: 18, color: '#F0A070' },
+            { label: 'Professional', val: 14, color: '#1B2A4A' },
+            { label: 'Facilities',   val: 12, color: '#8394A8' },
+          ].map(b => (
+            <div className="ap-vis-bar-row" key={b.label}>
+              <span className="ap-vis-label">{b.label}</span>
+              <div className="ap-vis-track">
+                <div className="ap-vis-fill" style={{ width: `${b.val * 2.5}%`, background: b.color }} />
+              </div>
+              <span className="ap-vis-val">{b.val}%</span>
+            </div>
+          ))}
+        </div>
+        <div className="ap-vis-stat">
+          <span>97% classified</span><span>↑ from 54% before</span>
+        </div>
+      </div>
+    ),
+  },
+  {
+    label: 'Clean exports for BI, dashboards, and reporting',
+    preview: (
+      <div className="ap-preview-export">
+        <div className="ap-preview-title">Export-ready data</div>
+        <table className="ap-table">
+          <thead>
+            <tr><th>Supplier</th><th>Category</th><th>Amount</th><th></th></tr>
+          </thead>
+          <tbody>
+            {[
+              { s: 'SAP SE',          c: 'IT Software',  a: '$2.4M' },
+              { s: 'Oracle Corp',     c: 'IT Software',  a: '$1.8M' },
+              { s: 'DHL Express',     c: 'Logistics',    a: '$940K' },
+              { s: 'Fastenal Co.',    c: 'MRO',          a: '$620K' },
+              { s: 'Deloitte',        c: 'Professional', a: '$510K' },
+            ].map(r => (
+              <tr key={r.s}>
+                <td>{r.s}</td><td>{r.c}</td><td>{r.a}</td>
+                <td><CheckCircle2 size={12} color="#16a34a"/></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    ),
+  },
+];
+
+function AfterPreviewSection() {
+  const [active, setActive] = useState(0);
+  return (
+    <section className="compare-section container">
+      <div className="section-head centered">
+        <span className="eyebrow">The difference</span>
+        <h2>Before and after Dolphin AI.</h2>
+        <div className="section-rule" />
+      </div>
+      <div className="compare-grid compare-grid-3">
+        {/* Before */}
+        <div className="compare-card compare-before">
+          <div className="compare-head"><FileSpreadsheet size={24}/><h3>Before</h3></div>
+          {[
+            'Supplier duplicates across several systems',
+            'Manual spend category mapping in Excel',
+            'Low confidence in category-level reporting',
+            'Slow analysis before procurement decisions',
+          ].map(item => (
+            <div className="compare-item" key={item}><span className="dot"/>{item}</div>
+          ))}
+        </div>
+        {/* After */}
+        <div className="compare-card compare-after">
+          <div className="compare-head"><ShieldCheck size={24}/><h3>After Dolphin AI</h3></div>
+          {AFTER_ITEMS.map((item, i) => (
+            <button
+              key={item.label}
+              className={`compare-item compare-item-btn${active === i ? ' is-active' : ''}`}
+              onClick={() => setActive(i)}
+            >
+              <CheckCircle2 size={16}/>
+              <span>{item.label}</span>
+              <ArrowRight size={13} className="ap-chevron"/>
+            </button>
+          ))}
+          <p className="ap-hint">Select an item to see an example →</p>
+        </div>
+        {/* Preview */}
+        <div className="compare-card ap-preview-card">
+          {AFTER_ITEMS[active].preview}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
 function HomePage() {
   const [productOpen, setProductOpen] = useState(false);
   const [faqOpen, setFaqOpen] = useState(null);
@@ -327,7 +480,7 @@ function HomePage() {
             <Link to="/contact">Contact</Link>
           </nav>
           <div className="nav-actions">
-            <Link to="/book-demo" className="btn btn-primary">Book a demo</Link>
+            <Link to="/book-demo" className="btn btn-primary">Book a Demo</Link>
           </div>
           <button className="mobile-menu-btn" onClick={() => setMobileOpen(m => !m)} aria-label="Menu">
             <span className={`hamburger ${mobileOpen ? 'open' : ''}`} />
@@ -341,7 +494,7 @@ function HomePage() {
           <a href="#workflow">Workflow</a>
           <Link to="/pricing">Pricing</Link>
           <a href="#contact">Contact</a>
-          <Link to="/book-demo" className="btn btn-primary">Book a demo</Link>
+          <Link to="/book-demo" className="btn btn-primary">Book a Demo</Link>
         </div>
       )}
 
@@ -373,180 +526,111 @@ function HomePage() {
         {/* ══ LOGO TICKER ══ */}
         <LogoTicker />
 
-        {/* ══ INTEGRATION ECOSYSTEM ══ */}
-        <section id="ecosystem" className="integration-section">
-          <div className="container">
+        {/* ══ BEFORE / AFTER ══ */}
+        <AfterPreviewSection />
 
+        {/* ══ INTEGRATIONS + SOLUTION (unified) ══ */}
+        <section id="ecosystem" className="intsol-section">
+
+          {/* ── Header ── */}
+          <div className="container">
             <motion.div
-              className="integration-header"
+              className="intsol-header"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <span className="eyebrow">Integrations</span>
-              <h2>Unify every spend source into one intelligent classification layer</h2>
-              <p>
-                Dolphin AI connects ERP systems, procurement platforms, spreadsheets, and
-                supplier data to normalize supplier names and classify spend using your taxonomy.
-              </p>
-              <div className="integration-ctas">
-                <Link to="/product" className="btn-text-link">
-                  Explore Dolphin AI <ArrowRight size={15} />
-                </Link>
-              </div>
+              <span className="eyebrow">Integrations & Solution</span>
+              <h2>From raw data sources to <span className="intsol-accent">clean strategic insight</span></h2>
+              <p>Connect every spend source, normalize supplier data, and classify spend using your taxonomy — all in one intelligent layer.</p>
             </motion.div>
+          </div>
 
-            {/* Hub stage — absolute-positioned orbital layout, 800×560 canvas */}
+          {/* ── Two-column body ── */}
+          <div className="container intsol-body">
+
+            {/* LEFT: 3×3 CSS grid hub */}
             <motion.div
-              className="eco-stage"
-              initial={{ opacity: 0, y: 28 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              className="intsol-hub-col"
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.75, delay: 0.2 }}
+              transition={{ duration: 0.7, delay: 0.15 }}
             >
-              {/* ── SVG layer: glow · rings · connectors · animated data dots ── */}
-              <svg
-                className="eco-svg"
-                viewBox="0 0 800 600"
-                preserveAspectRatio="xMidYMid meet"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-              >
-                <defs>
-                  <radialGradient id="hubGlow" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%"   stopColor="#A56D58" stopOpacity="0.22"/>
-                    <stop offset="55%"  stopColor="#A56D58" stopOpacity="0.07"/>
-                    <stop offset="100%" stopColor="#A56D58" stopOpacity="0"/>
-                  </radialGradient>
-                </defs>
-
-                {/* Glow — hub center (400,300) */}
-                <ellipse cx="400" cy="300" rx="185" ry="155" fill="url(#hubGlow)"/>
-
-                {/* Orbital rings — smaller than node positions so nodes sit clearly outside */}
-                <ellipse cx="400" cy="300" rx="130" ry="105"
-                  fill="none" stroke="#A56D58" strokeOpacity="0.10" strokeWidth="1.2"/>
-                <ellipse cx="400" cy="300" rx="205" ry="168"
-                  fill="none" stroke="#A56D58" strokeOpacity="0.06" strokeWidth="1.2"/>
-
-                {/* Connectors — 8 nodes → hub (400,300)
-                    p1 SAP(227,159)  p2 Dynamics(573,159)
-                    p3 Oracle(155,300) p4 SharePoint(645,300)
-                    p5 Coupa(227,441) p6 Azure(400,500)
-                    p7 Excel(573,441) p8 Workday(400,100) */}
-                <path id="p1" d="M227,159 Q314,230 400,300"
-                  fill="none" stroke="#A56D58" strokeWidth="0.9" strokeOpacity="0.16"/>
-                <path id="p2" d="M624,159 Q512,230 400,300"
-                  fill="none" stroke="#A56D58" strokeWidth="0.9" strokeOpacity="0.16"/>
-                <path id="p3" d="M155,300 Q278,300 400,300"
-                  fill="none" stroke="#A56D58" strokeWidth="0.9" strokeOpacity="0.16"/>
-                <path id="p4" d="M645,300 Q522,300 400,300"
-                  fill="none" stroke="#A56D58" strokeWidth="0.9" strokeOpacity="0.16"/>
-                <path id="p5" d="M227,441 Q314,371 400,300"
-                  fill="none" stroke="#A56D58" strokeWidth="0.9" strokeOpacity="0.16"/>
-                <path id="p6" d="M400,500 Q400,400 400,300"
-                  fill="none" stroke="#A56D58" strokeWidth="0.9" strokeOpacity="0.16"/>
-                <path id="p7" d="M573,441 Q487,371 400,300"
-                  fill="none" stroke="#A56D58" strokeWidth="0.9" strokeOpacity="0.16"/>
-                <path id="p8" d="M400,100 Q400,200 400,300"
-                  fill="none" stroke="#A56D58" strokeWidth="0.9" strokeOpacity="0.16"/>
-
-                {/* Animated data-flow dots — copper primary, navy accent */}
-                <circle r="2.8" fill="#A56D58" opacity="0.90">
-                  <animateMotion dur="2.6s" repeatCount="indefinite" begin="0.0s">
-                    <mpath href="#p1"/>
-                  </animateMotion>
-                </circle>
-                <circle r="2.8" fill="#1B2A4A" opacity="0.75">
-                  <animateMotion dur="3.0s" repeatCount="indefinite" begin="0.5s">
-                    <mpath href="#p2"/>
-                  </animateMotion>
-                </circle>
-                <circle r="2.8" fill="#A56D58" opacity="0.90">
-                  <animateMotion dur="2.3s" repeatCount="indefinite" begin="1.1s">
-                    <mpath href="#p3"/>
-                  </animateMotion>
-                </circle>
-                <circle r="2.8" fill="#1B2A4A" opacity="0.75">
-                  <animateMotion dur="2.7s" repeatCount="indefinite" begin="0.7s">
-                    <mpath href="#p4"/>
-                  </animateMotion>
-                </circle>
-                <circle r="2.4" fill="#BF8974" opacity="0.85">
-                  <animateMotion dur="3.2s" repeatCount="indefinite" begin="1.5s">
-                    <mpath href="#p5"/>
-                  </animateMotion>
-                </circle>
-                <circle r="2.8" fill="#A56D58" opacity="0.90">
-                  <animateMotion dur="2.2s" repeatCount="indefinite" begin="0.3s">
-                    <mpath href="#p6"/>
-                  </animateMotion>
-                </circle>
-                <circle r="2.4" fill="#BF8974" opacity="0.85">
-                  <animateMotion dur="2.9s" repeatCount="indefinite" begin="0.9s">
-                    <mpath href="#p7"/>
-                  </animateMotion>
-                </circle>
-                <circle r="2.8" fill="#A56D58" opacity="0.90">
-                  <animateMotion dur="2.4s" repeatCount="indefinite" begin="0.6s">
-                    <mpath href="#p8"/>
-                  </animateMotion>
-                </circle>
-              </svg>
-
-              {/* ── Central hub card ── */}
-              <div className="eco-hub">
-                <img src="/logowebsite.png" alt="Dolphin AI" />
+              <div className="intsol-band-label" style={{ justifyContent: 'flex-start', marginBottom: '20px' }}>
+                <span>Connect your existing systems</span>
+                <span className="intsol-band-line" style={{ maxWidth: 80 }} />
               </div>
-
-              {/* ── Orbit cards: all have icon + name ── */}
-              <div className="orbit-anchor anchor-sap">
-                <div className="int-card"><LogoSAP /><span>SAP</span></div>
+              <div className="hub-matrix">
+                {/* SVG connector lines */}
+                <svg className="hub-matrix-svg" viewBox="0 0 3 3" preserveAspectRatio="none" aria-hidden="true">
+                  <line x1="0.5" y1="0.5" x2="1.5" y2="1.5" stroke="#A56D58" strokeWidth="0.04" strokeOpacity="0.25"/>
+                  <line x1="1.5" y1="0.5" x2="1.5" y2="1.5" stroke="#A56D58" strokeWidth="0.04" strokeOpacity="0.25"/>
+                  <line x1="2.5" y1="0.5" x2="1.5" y2="1.5" stroke="#A56D58" strokeWidth="0.04" strokeOpacity="0.25"/>
+                  <line x1="0.5" y1="1.5" x2="1.5" y2="1.5" stroke="#A56D58" strokeWidth="0.04" strokeOpacity="0.25"/>
+                  <line x1="2.5" y1="1.5" x2="1.5" y2="1.5" stroke="#A56D58" strokeWidth="0.04" strokeOpacity="0.25"/>
+                  <line x1="0.5" y1="2.5" x2="1.5" y2="1.5" stroke="#A56D58" strokeWidth="0.04" strokeOpacity="0.25"/>
+                  <line x1="1.5" y1="2.5" x2="1.5" y2="1.5" stroke="#A56D58" strokeWidth="0.04" strokeOpacity="0.25"/>
+                  <line x1="2.5" y1="2.5" x2="1.5" y2="1.5" stroke="#A56D58" strokeWidth="0.04" strokeOpacity="0.25"/>
+                  {/* Animated data dots */}
+                  <circle r="0.055" fill="#A56D58" opacity="0.8"><animateMotion dur="2.4s" repeatCount="indefinite" path="M0.5,0.5 L1.5,1.5"/></circle>
+                  <circle r="0.055" fill="#1B2A4A" opacity="0.7"><animateMotion dur="2.8s" repeatCount="indefinite" begin="0.4s" path="M1.5,0.5 L1.5,1.5"/></circle>
+                  <circle r="0.055" fill="#A56D58" opacity="0.8"><animateMotion dur="2.2s" repeatCount="indefinite" begin="0.8s" path="M2.5,0.5 L1.5,1.5"/></circle>
+                  <circle r="0.055" fill="#BF8974" opacity="0.7"><animateMotion dur="2.6s" repeatCount="indefinite" begin="1.2s" path="M0.5,1.5 L1.5,1.5"/></circle>
+                  <circle r="0.055" fill="#A56D58" opacity="0.8"><animateMotion dur="2.0s" repeatCount="indefinite" begin="0.2s" path="M2.5,1.5 L1.5,1.5"/></circle>
+                  <circle r="0.055" fill="#1B2A4A" opacity="0.7"><animateMotion dur="3.0s" repeatCount="indefinite" begin="1.5s" path="M0.5,2.5 L1.5,1.5"/></circle>
+                  <circle r="0.055" fill="#A56D58" opacity="0.8"><animateMotion dur="2.5s" repeatCount="indefinite" begin="0.6s" path="M1.5,2.5 L1.5,1.5"/></circle>
+                  <circle r="0.055" fill="#BF8974" opacity="0.7"><animateMotion dur="2.3s" repeatCount="indefinite" begin="1.0s" path="M2.5,2.5 L1.5,1.5"/></circle>
+                </svg>
+                {/* Row 1 */}
+                <div className="hm-node"><LogoSAP /><span>SAP</span></div>
+                <div className="hm-node"><LogoWorkday /><span>Workday</span></div>
+                <div className="hm-node"><LogoDynamics /><span>Dynamics 365</span></div>
+                {/* Row 2 */}
+                <div className="hm-node"><LogoOracle /><span>Oracle</span></div>
+                <div className="hm-center"><img src="/logowebsite.png" alt="Dolphin AI" /></div>
+                <div className="hm-node"><LogoSharePoint /><span>SharePoint</span></div>
+                {/* Row 3 */}
+                <div className="hm-node"><LogoCoupa /><span>Coupa</span></div>
+                <div className="hm-node"><LogoAzure /><span>Azure AI</span></div>
+                <div className="hm-node"><LogoExcel /><span>Excel</span></div>
               </div>
-              <div className="orbit-anchor anchor-dynamics">
-                <div className="int-card"><LogoDynamics /><span>Microsoft Dynamics 365</span></div>
-              </div>
-              <div className="orbit-anchor anchor-oracle">
-                <div className="int-card"><LogoOracle /><span>Oracle</span></div>
-              </div>
-              <div className="orbit-anchor anchor-sharepoint">
-                <div className="int-card"><LogoSharePoint /><span>SharePoint</span></div>
-              </div>
-              <div className="orbit-anchor anchor-coupa">
-                <div className="int-card"><LogoCoupa /><span>Coupa</span></div>
-              </div>
-              <div className="orbit-anchor anchor-azure">
-                <div className="int-card"><LogoAzure /><span>Azure AI</span></div>
-              </div>
-              <div className="orbit-anchor anchor-excel">
-                <div className="int-card"><LogoExcel /><span>Excel</span></div>
-              </div>
-              <div className="orbit-anchor anchor-workday">
-                <div className="int-card"><LogoWorkday /><span>Workday</span></div>
-              </div>
-
             </motion.div>
-          </div>
-        </section>
 
-        {/* ══ FEATURES ══ */}
-        <section id="solution" className="section container">
-          <div className="section-head">
-            <span className="eyebrow">Solution</span>
-            <h2>From raw supplier spend to clean strategic insight.</h2>
-            <div className="section-rule" style={{ margin: '1rem 0 1.25rem' }} />
-            <p>Built for companies that still depend on Excel, manual category mapping, and inconsistent supplier names.</p>
+            {/* RIGHT: feature cards 2×2 */}
+            <motion.div
+              className="intsol-features-col"
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.25 }}
+            >
+              <div className="intsol-band-label" style={{ justifyContent: 'flex-start', marginBottom: '12px' }}>
+                <span>What we deliver</span>
+                <span className="intsol-band-line" style={{ maxWidth: 80 }} />
+              </div>
+              <div className="intsol-cards-row">
+                {features.map((f, i) => (
+                  <motion.article
+                    className="intsol-feat-card"
+                    key={f.title}
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.3 + i * 0.09 }}
+                  >
+                    <div className="intsol-feat-num">0{i + 1}</div>
+                    <div className="intsol-feat-icon">{f.icon}</div>
+                    <h3>{f.title}</h3>
+                    <p>{f.text}</p>
+                  </motion.article>
+                ))}
+              </div>
+            </motion.div>
+
           </div>
-          <div className="features-grid">
-            {features.map(f => (
-              <article className="feature-card" key={f.title}>
-                <div className="feature-icon">{f.icon}</div>
-                <h3>{f.title}</h3>
-                <p>{f.text}</p>
-              </article>
-            ))}
-          </div>
+
         </section>
 
         {/* ══ WORKFLOW ══ */}
@@ -564,47 +648,6 @@ function HomePage() {
                   <div className="step-num">{s.num}</div>
                   <h3>{s.title}</h3>
                   <p>{s.text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ══ BEFORE / AFTER ══ */}
-        <section className="compare-section container">
-          <div className="section-head centered">
-            <span className="eyebrow">The difference</span>
-            <h2>Before and after Dolphin AI.</h2>
-            <div className="section-rule" />
-          </div>
-          <div className="compare-grid">
-            <div className="compare-card compare-before">
-              <div className="compare-head">
-                <FileSpreadsheet size={24} /><h3>Before</h3>
-              </div>
-              {[
-                'Supplier duplicates across several systems',
-                'Manual spend category mapping in Excel',
-                'Low confidence in category-level reporting',
-                'Slow analysis before procurement decisions'
-              ].map(item => (
-                <div className="compare-item" key={item}>
-                  <span className="dot" />{item}
-                </div>
-              ))}
-            </div>
-            <div className="compare-card compare-after">
-              <div className="compare-head">
-                <ShieldCheck size={24} /><h3>After Dolphin AI</h3>
-              </div>
-              {[
-                'One normalized supplier master view',
-                'Spend mapped to a consistent taxonomy',
-                'Clear category visibility for procurement strategy',
-                'Clean exports for BI, dashboards, and reporting'
-              ].map(item => (
-                <div className="compare-item" key={item}>
-                  <CheckCircle2 size={16} />{item}
                 </div>
               ))}
             </div>
@@ -750,18 +793,6 @@ function HomePage() {
           </div>
         </section>
 
-        {/* ══ CTA ══ */}
-        <section id="contact" className="cta-section">
-          <div className="container cta-inner">
-            <span className="eyebrow">Get started</span>
-            <h2>Ready to make your spend data usable?</h2>
-            <p>Build a trusted foundation for procurement reporting, category strategy, and supplier analysis.</p>
-            <Link to="/book-demo" className="btn btn-primary btn-lg">
-              Book a demo <ArrowRight size={16} />
-            </Link>
-          </div>
-        </section>
-
       </main>
 
       {/* ══ FOOTER ══ */}
@@ -793,7 +824,7 @@ function HomePage() {
               <Link to="/about">About us</Link>
               <Link to="/pricing">Pricing</Link>
               <Link to="/security">Security</Link>
-              <Link to="/book-demo">Book a demo</Link>
+              <Link to="/book-demo">Book a Demo</Link>
             </div>
             <div className="footer-col">
               <h4>Legal</h4>

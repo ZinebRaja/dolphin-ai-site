@@ -92,7 +92,7 @@ export default function Navbar() {
           </nav>
 
           <div className="nav-actions">
-            <Link to="/book-demo" className="btn btn-primary">Book a demo</Link>
+            <Link to="/book-demo" className="btn btn-primary">Book a Demo</Link>
           </div>
 
           <button className="mobile-menu-btn" onClick={() => setMobileOpen(m => !m)} aria-label="Menu">
@@ -107,7 +107,7 @@ export default function Navbar() {
           <Link to="/product">Product</Link>
           <Link to="/pricing">Pricing</Link>
           <Link to="/contact">Contact</Link>
-          <Link to="/book-demo" className="btn btn-primary">Book a demo</Link>
+          <Link to="/book-demo" className="btn btn-primary">Book a Demo</Link>
         </div>
       )}
     </>

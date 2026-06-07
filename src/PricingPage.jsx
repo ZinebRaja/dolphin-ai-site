@@ -392,9 +392,9 @@ export default function PricingPage() {
         {/* CTA */}
         <div className="pc-cta container">
           <h3>Want a precise quote based on your real data?</h3>
-          <p>Book a demo — we'll estimate the scope, normalization effort, and savings potential for your specific data.</p>
+          <p>Book a Demo — we'll estimate the scope, normalization effort, and savings potential for your specific data.</p>
           <Link to="/book-demo" className="btn btn-primary btn-lg">
-            Book a demo <ArrowRight size={16} />
+            Book a Demo <ArrowRight size={16} />
           </Link>
         </div>
       </main>

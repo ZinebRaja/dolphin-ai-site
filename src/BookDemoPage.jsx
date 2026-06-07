@@ -57,16 +57,16 @@ export default function BookDemoPage() {
 
           {/* ── Left: info panel ── */}
           <div className="demo-info">
-            <span className="eyebrow">Book a demo</span>
+            <span className="eyebrow">Book a Demo</span>
             <h1 className="demo-title">See Dolphin AI in action</h1>
             <p className="demo-sub">
-              In 30 minutes we'll show you how Dolphin AI cleans, normalizes, and classifies your
+              We'll show you how Dolphin AI cleans, normalizes, and classifies your
               spend data — and estimate the savings potential for your specific data.
             </p>
 
             <div className="demo-perks">
               {[
-                { icon: <Clock size={18} />,    text: '30-minute live walkthrough' },
+                { icon: <Clock size={18} />,    text: 'Live walkthrough' },
                 { icon: <Users size={18} />,    text: 'Tailored to your procurement setup' },
                 { icon: <Calendar size={18} />, text: 'Pick a time that works for you' },
                 { icon: <CheckCircle2 size={18} />, text: 'No commitment required' },

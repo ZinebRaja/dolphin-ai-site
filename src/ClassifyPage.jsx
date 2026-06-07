@@ -166,7 +166,7 @@ export default function ClassifyPage() {
             <Link to="/#contact">Contact</Link>
           </nav>
           <div className="nav-actions">
-            <Link to="/book-demo" className="btn btn-primary">Book a demo</Link>
+            <Link to="/book-demo" className="btn btn-primary">Book a Demo</Link>
           </div>
         </div>
       </header>

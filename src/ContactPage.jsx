@@ -10,7 +10,7 @@ const REASONS = [
     icon: <BarChart3 size={22} />,
     title: 'Talk to Dolphin AI Team',
     desc: 'Get a personalized walkthrough of how Dolphin AI fits your procurement stack.',
-    cta: 'Book a demo',
+    cta: 'Book a Demo',
     href: '/book-demo',
   },
   {
@@ -164,9 +164,9 @@ export default function ContactPage() {
 
               <div className="contact-info-card contact-demo-card">
                 <h3>Prefer to see it first?</h3>
-                <p>Book a live 30-minute demo and see how Dolphin AI handles your real spend data.</p>
+                <p>Book a live demo and see how Dolphin AI handles your real spend data.</p>
                 <Link to="/book-demo" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }}>
-                  Book a demo <ArrowRight size={15} />
+                  Book a Demo <ArrowRight size={15} />
                 </Link>
               </div>
 

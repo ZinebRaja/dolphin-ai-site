@@ -227,9 +227,9 @@ export default function ProductPage() {
         <section className="prod-cta">
           <div className="container prod-cta-inner">
             <h2>Ready to see these capabilities on your own data?</h2>
-            <p>Book a 30-minute demo and we'll show you how each module applies to your specific procurement setup.</p>
+            <p>Book a Demo and we'll show you how each module applies to your specific procurement setup.</p>
             <div className="prod-cta-btns">
-              <Link to="/book-demo" className="btn btn-primary btn-lg">Book a demo <ArrowRight size={15} /></Link>
+              <Link to="/book-demo" className="btn btn-primary btn-lg">Book a Demo <ArrowRight size={15} /></Link>
               <Link to="/assessment" className="btn btn-outline btn-lg">Try the free ROI calculator <ArrowRight size={15} /></Link>
             </div>
           </div>

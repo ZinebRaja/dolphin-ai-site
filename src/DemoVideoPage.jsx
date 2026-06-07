@@ -113,45 +113,21 @@ export default function DemoVideoPage() {
             }} />
           </div>
 
-          {/* Bottom bar */}
-          <div style={{
-            padding: '1.25rem 1.75rem',
-            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-            flexWrap: 'wrap', gap: '1rem'
-          }}>
-            <div>
-              {ended ? (
-                <p style={{ margin: 0, fontWeight: 600, color: '#16a34a', fontSize: '0.95rem' }}>
-                  ✓ You're ready — start classifying your spend data!
-                </p>
-              ) : (
-                <p style={{ margin: 0, color: 'var(--gray-600)', fontSize: '0.9rem' }}>
-                  {started ? 'Watch the full demo to unlock the classifier.' : 'Watch the demo to proceed to the live classifier.'}
-                </p>
-              )}
-            </div>
-
-            <button
-              onClick={() => navigate('/classify')}
-              disabled={!ended}
-              className="btn btn-primary"
-              style={{
-                display: 'inline-flex', alignItems: 'center', gap: '8px',
-                opacity: ended ? 1 : 0.4,
-                cursor: ended ? 'pointer' : 'not-allowed',
-                transition: 'opacity 0.3s, transform 0.2s',
-                transform: ended ? 'scale(1)' : 'scale(0.97)'
-              }}
-            >
-              Start classifying <ArrowRight size={16} />
-            </button>
-          </div>
         </div>
 
-        {/* Skip note */}
-        <p style={{ marginTop: '1.25rem', color: 'var(--gray-400)', fontSize: '0.82rem', textAlign: 'center' }}>
-          The classifier unlocks automatically when the video finishes.
-        </p>
+        {/* Button outside the video box */}
+        <div style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem' }}>
+          <button
+            onClick={() => navigate('/classify')}
+            className="btn btn-primary btn-lg"
+            style={{ display: 'inline-flex', alignItems: 'center', gap: '10px' }}
+          >
+            Start classifying <ArrowRight size={17} />
+          </button>
+          <p style={{ margin: 0, color: 'var(--gray-400)', fontSize: '0.82rem' }}>
+            Try the live classifier — no account needed.
+          </p>
+        </div>
 
       </main>
     </div>
