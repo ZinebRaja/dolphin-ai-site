@@ -80,6 +80,12 @@ export default function Navbar() {
                     <Link to="/demo-video" className="mega-demo-cta" onClick={close}>
                       See Dolphin AI in action <ArrowRight size={13}/>
                     </Link>
+                    <Link to="/dashboard" className="mega-resource-link" onClick={close}>
+                      <PieChart size={14}/> Sample Dashboard
+                    </Link>
+                    <Link to="/reporting" className="mega-resource-link" onClick={close}>
+                      <GitBranch size={14}/> Reporting
+                    </Link>
                   </div>
 
                 </div>
@@ -93,6 +99,7 @@ export default function Navbar() {
 
           <div className="nav-actions">
             <Link to="/book-demo" className="btn btn-primary">Book a Demo</Link>
+            <Link to="/assessment" className="btn btn-soft-estimate">Get a free estimate <ArrowRight size={14} /></Link>
           </div>
 
           <button className="mobile-menu-btn" onClick={() => setMobileOpen(m => !m)} aria-label="Menu">

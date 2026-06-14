@@ -33,14 +33,47 @@ const SPEND_RANGES = [
   'Under $100M', '$100M – $500M', '$500M – $1B', '$1B – $5B', 'Over $5B',
 ];
 
-export default function ContactPage() {
-  const [form, setForm] = useState({ name: '', company: '', email: '', spend: '', message: '' });
-  const [submitted, setSubmitted] = useState(false);
+const PERSONAL_DOMAINS = new Set([
+  'gmail.com','yahoo.com','hotmail.com','outlook.com','live.com','msn.com',
+  'aol.com','icloud.com','me.com','mac.com','protonmail.com','proton.me',
+  'ymail.com','mail.com','zoho.com','inbox.com','gmx.com','gmx.net',
+  'fastmail.com','fastmail.fm','tutanota.com','hey.com','pm.me',
+]);
 
-  function handle(e) { setForm(f => ({ ...f, [e.target.name]: e.target.value })); }
+function isPersonalEmail(email) {
+  const domain = email.split('@')[1]?.toLowerCase();
+  return domain ? PERSONAL_DOMAINS.has(domain) : false;
+}
+
+export default function ContactPage() {
+  const [form, setForm]         = useState({ name: '', company: '', email: '', spend: '', message: '' });
+  const [submitted, setSubmitted] = useState(false);
+  const [emailError, setEmailError] = useState('');
+
+  function handle(e) {
+    const { name, value } = e.target;
+    setForm(f => ({ ...f, [name]: value }));
+    if (name === 'email') {
+      if (value && isPersonalEmail(value)) {
+        setEmailError('Please use your work email address.');
+      } else {
+        setEmailError('');
+      }
+    }
+  }
+
+  function handleEmailBlur() {
+    if (form.email && isPersonalEmail(form.email)) {
+      setEmailError('Please use your work email address.');
+    }
+  }
 
   async function submit(e) {
     e.preventDefault();
+    if (!form.email || isPersonalEmail(form.email)) {
+      setEmailError('Please use your work email address.');
+      return;
+    }
     try {
       await fetch(`${API_URL}/api/contact`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -49,6 +82,8 @@ export default function ContactPage() {
     } catch (_) {}
     setSubmitted(true);
   }
+
+  const emailInvalid = !!form.email && isPersonalEmail(form.email);
 
   return (
     <div className="site">
@@ -113,7 +148,17 @@ export default function ContactPage() {
                   </div>
                   <div className="cf-field">
                     <label>Work email *</label>
-                    <input name="email" type="email" value={form.email} onChange={handle} required placeholder="jane@acme.com" />
+                    <input
+                      name="email" type="email" value={form.email}
+                      onChange={handle} onBlur={handleEmailBlur}
+                      required placeholder="jane@acme.com"
+                      style={emailError ? { borderColor: '#dc2626' } : {}}
+                    />
+                    {emailError && (
+                      <span style={{ color: '#dc2626', fontSize: '12.5px', marginTop: '4px', display: 'block' }}>
+                        {emailError}
+                      </span>
+                    )}
                   </div>
                   <div className="cf-field">
                     <label>Annual spend under management</label>
@@ -126,7 +171,7 @@ export default function ContactPage() {
                     <label>Message *</label>
                     <textarea name="message" value={form.message} onChange={handle} required rows={5} placeholder="Tell us about your procurement data challenge..." />
                   </div>
-                  <button type="submit" className="btn btn-primary btn-full">
+                  <button type="submit" className="btn btn-primary btn-full" disabled={emailInvalid}>
                     Send message <ArrowRight size={15} />
                   </button>
                 </form>

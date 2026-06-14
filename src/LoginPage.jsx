@@ -55,7 +55,7 @@ export default function LoginPage() {
             <Link to="/#contact">Contact</Link>
           </nav>
           <div className="nav-actions">
-            <Link to="/book-demo" className="btn btn-primary">Book a demo</Link>
+            <Link to="/book-demo" className="btn btn-primary">Book a Demo</Link>
           </div>
         </div>
       </header>
@@ -87,7 +87,7 @@ export default function LoginPage() {
             <div className="login-field">
               <div className="login-label-row">
                 <label htmlFor="password">Password</label>
-                <a href="#" className="forgot-link">Forgot password?</a>
+                <span className="forgot-link" style={{ cursor: 'default', opacity: 0.45 }}>Forgot password?</span>
               </div>
               <div className="pass-wrap">
                 <input

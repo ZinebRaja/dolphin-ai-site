@@ -423,8 +423,8 @@ export default function PricingPage() {
         <div className="container footer-bottom">
           <p>Copyright © 2026 Dolphin AI</p>
           <div>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Cookie Policy</a>
+            <Link to="/privacy">Privacy Policy</Link>
+            <Link to="/privacy">Cookie Policy</Link>
           </div>
         </div>
       </footer>

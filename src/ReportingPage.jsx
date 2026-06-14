@@ -76,6 +76,7 @@ export default function ReportingPage() {
   const [active, setActive]       = useState(0);
   const [animating, setAnimating] = useState(false);
   const [visible, setVisible]     = useState(false);
+  const [lightbox, setLightbox]   = useState(null);
   const sectionRef = useRef(null);
 
   /* scroll reveal only */
@@ -84,6 +85,14 @@ export default function ReportingPage() {
     if (sectionRef.current) obs.observe(sectionRef.current);
     return () => obs.disconnect();
   }, []);
+
+  /* close lightbox on Escape */
+  useEffect(() => {
+    if (!lightbox) return;
+    const onKey = (e) => { if (e.key === 'Escape') setLightbox(null); };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [lightbox]);
 
   function handleTabClick(i) {
     if (i === active) return;
@@ -163,13 +172,19 @@ export default function ReportingPage() {
                     <span className="rpt-browser-url">app.dolphinaipro.com / {tab.id}</span>
                     <span className="rpt-live-chip"><span className="rpt-live-dot-sm" />LIVE</span>
                   </div>
-                  <div className="rpt-browser-screen2">
+                  <div className="rpt-browser-screen2" style={{ position: 'relative' }}>
                     <img
                       key={tab.id}
                       src={tab.img}
                       alt={tab.label}
                       className={`rpt-screenshot2 ${animating ? 'rpt-img-out' : 'rpt-img-in'}`}
+                      onClick={() => setLightbox(tab.img)}
+                      style={{ cursor: 'zoom-in' }}
                     />
+                    <div className="rpt-zoom-hint" onClick={() => setLightbox(tab.img)}>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+                      Click to enlarge
+                    </div>
                   </div>
                 </div>
 
@@ -203,7 +218,7 @@ export default function ReportingPage() {
             <p>In a live demo we'll connect to your data and show you real results — not a generic demo.</p>
             <div className="rpt-cta-btns">
               <Link to="/book-demo" className="btn btn-primary btn-lg">Book a Demo <ArrowRight size={15} /></Link>
-              <Link to="/assessment" className="btn btn-outline btn-lg">Try the free ROI calculator <ArrowRight size={15} /></Link>
+              <Link to="/assessment" className="btn btn-primary btn-lg">Try the free ROI calculator <ArrowRight size={15} /></Link>
             </div>
           </div>
         </section>
@@ -218,6 +233,13 @@ export default function ReportingPage() {
           </div>
         </div>
       </footer>
+
+      {lightbox && (
+        <div className="rpt-lightbox" onClick={() => setLightbox(null)}>
+          <button className="rpt-lightbox-close" onClick={() => setLightbox(null)} aria-label="Close">✕</button>
+          <img src={lightbox} alt="Full size screenshot" className="rpt-lightbox-img" onClick={e => e.stopPropagation()} />
+        </div>
+      )}
     </div>
   );
 }

@@ -5,10 +5,8 @@ Dolphin AI API
 """
 import os
 import json
-import smtplib
 import asyncio
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
+import httpx
 import pymssql
 import bcrypt
 from fastapi import FastAPI
@@ -26,10 +24,8 @@ AZURE_SQL_DB     = os.getenv("AZURE_SQL_DATABASE", "Spend-Analytics")
 AZURE_SQL_USER   = os.getenv("AZURE_SQL_USER", "")   # set on Railway; empty = use Azure AD
 AZURE_SQL_PASS   = os.getenv("AZURE_SQL_PASS", "")
 
-SMTP_HOST        = os.getenv("SMTP_HOST", "smtp.office365.com")
-SMTP_PORT        = int(os.getenv("SMTP_PORT", "587"))
-SMTP_USER        = os.getenv("SMTP_USER", "raja.essahri@dolphinaipro.com")
-SMTP_PASS        = os.getenv("SMTP_PASS", "")
+RESEND_API_KEY   = os.getenv("RESEND_API_KEY", "")
+FROM_EMAIL       = os.getenv("FROM_EMAIL", "raja.essahri@dolphinaipro.com")
 NOTIFY_EMAIL     = os.getenv("NOTIFY_EMAIL", "raja.essahri@dolphinaipro.com")
 
 client = AsyncOpenAI(api_key=OPENAI_API_KEY)
@@ -180,20 +176,17 @@ async def login(req: LoginRequest):
 # ─── Email helper ─────────────────────────────────────────────────────────────
 
 def send_email(to: str, subject: str, html: str):
-    if not SMTP_PASS:
-        print("⚠ Email skipped: SMTP_PASS not set in .env")
+    if not RESEND_API_KEY:
+        print("⚠ Email skipped: RESEND_API_KEY not set")
         return
     try:
-        msg = MIMEMultipart("alternative")
-        msg["Subject"] = subject
-        msg["From"]    = SMTP_USER
-        msg["To"]      = to
-        msg.attach(MIMEText(html, "html"))
-        with smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=10) as server:
-            server.ehlo()
-            server.starttls()
-            server.login(SMTP_USER, SMTP_PASS)
-            server.sendmail(SMTP_USER, to, msg.as_string())
+        with httpx.Client(timeout=15) as client:
+            resp = client.post(
+                "https://api.resend.com/emails",
+                headers={"Authorization": f"Bearer {RESEND_API_KEY}", "Content-Type": "application/json"},
+                json={"from": FROM_EMAIL, "to": [to], "subject": subject, "html": html},
+            )
+            resp.raise_for_status()
         print(f"✓ Email sent → {to}")
     except Exception as e:
         print(f"⚠ Email error: {e}")

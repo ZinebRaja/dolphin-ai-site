@@ -117,6 +117,20 @@ a { color: inherit; text-decoration: none; }
   transform: translateY(-1px);
   box-shadow: 0 4px 14px rgba(224,104,32,0.18);
 }
+.btn-soft-estimate {
+  background: rgba(224,104,32,0.09);
+  color: #C05818;
+  border: 1.5px solid rgba(224,104,32,0.22);
+  border-radius: 8px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.btn-soft-estimate:hover {
+  background: rgba(224,104,32,0.16);
+  border-color: rgba(224,104,32,0.45);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(224,104,32,0.15);
+}
 
 .btn-text-link {
   display: inline-flex; align-items: center; gap: 6px;
@@ -351,6 +365,14 @@ a { color: inherit; text-decoration: none; }
   text-decoration: none; transition: background 0.15s;
 }
 .mega-demo-cta:hover { background: #C85E20; color: #fff !important; }
+.mega-resource-link {
+  display: inline-flex; align-items: center; gap: 7px;
+  margin-top: 8px; padding: 8px 12px; border-radius: 8px;
+  font-size: 13px; font-weight: 600; color: var(--navy) !important;
+  text-decoration: none; border: 1px solid #EEECEA;
+  background: #fff; transition: border-color 0.15s, background 0.15s;
+}
+.mega-resource-link:hover { border-color: var(--copper); background: #FDF6F2; color: var(--copper) !important; }
 
 @media (max-width: 900px) {
   .mega-inner { grid-template-columns: 1fr; }
@@ -1903,6 +1925,33 @@ a { color: inherit; text-decoration: none; }
 }
 .rpt-screenshot2.rpt-img-in  { opacity: 1; transform: scale(1); }
 .rpt-screenshot2.rpt-img-out { opacity: 0; transform: scale(0.99); }
+.rpt-zoom-hint {
+  position: absolute; bottom: 10px; right: 10px;
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(0,0,0,0.55); color: #fff;
+  font-size: 11px; font-weight: 600; padding: 5px 10px;
+  border-radius: 6px; cursor: zoom-in; pointer-events: auto;
+  backdrop-filter: blur(4px);
+}
+.rpt-lightbox {
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(0,0,0,0.88);
+  display: flex; align-items: center; justify-content: center;
+  cursor: zoom-out; padding: 20px;
+}
+.rpt-lightbox-img {
+  max-width: 95vw; max-height: 92vh;
+  border-radius: 10px; cursor: default;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+}
+.rpt-lightbox-close {
+  position: absolute; top: 16px; right: 20px;
+  background: rgba(255,255,255,0.15); border: none;
+  color: #fff; font-size: 18px; width: 36px; height: 36px;
+  border-radius: 50%; cursor: pointer; display: grid; place-items: center;
+  transition: background 0.15s;
+}
+.rpt-lightbox-close:hover { background: rgba(255,255,255,0.3); }
 
 @media (max-width: 900px) {
   .rpt-layout2 { grid-template-columns: 1fr; }

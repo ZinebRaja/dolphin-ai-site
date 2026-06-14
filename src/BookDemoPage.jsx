@@ -8,6 +8,18 @@ const COMPANY_SIZES = ['1–50', '51–200', '201–500', '501–2,000', '2,000�
 const SPEND_RANGES  = ['Under $5M', '$5M–$25M', '$25M–$100M', '$100M–$500M', 'Over $500M'];
 const ROLES         = ['CPO / Head of Procurement', 'Procurement Manager', 'Finance / CFO', 'Data / Analytics', 'IT', 'Other'];
 
+const PERSONAL_DOMAINS = new Set([
+  'gmail.com','yahoo.com','hotmail.com','outlook.com','live.com','msn.com',
+  'aol.com','icloud.com','me.com','mac.com','protonmail.com','proton.me',
+  'ymail.com','mail.com','zoho.com','inbox.com','gmx.com','gmx.net',
+  'fastmail.com','fastmail.fm','tutanota.com','hey.com','pm.me',
+]);
+
+function isPersonalEmail(email) {
+  const domain = email.split('@')[1]?.toLowerCase();
+  return domain ? PERSONAL_DOMAINS.has(domain) : false;
+}
+
 export default function BookDemoPage() {
   const [form, setForm] = useState({
     firstName: '', lastName: '', email: '', company: '',
@@ -16,15 +28,25 @@ export default function BookDemoPage() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading]     = useState(false);
   const [error, setError]         = useState('');
+  const [emailError, setEmailError] = useState('');
 
   function set(field) {
-    return e => setForm(f => ({ ...f, [field]: e.target.value }));
+    return e => {
+      const value = e.target.value;
+      setForm(f => ({ ...f, [field]: value }));
+      if (field === 'email') {
+        setEmailError(value && isPersonalEmail(value) ? 'Please use your work email address.' : '');
+      }
+    };
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
     if (!form.firstName || !form.lastName || !form.email || !form.company) {
       setError('Please fill in all required fields.'); return;
+    }
+    if (isPersonalEmail(form.email)) {
+      setEmailError('Please use your work email address.'); return;
     }
     setError('');
     setLoading(true);
@@ -116,7 +138,11 @@ export default function BookDemoPage() {
 
                 <div className="login-field">
                   <label>Work email <span className="req">*</span></label>
-                  <input type="email" value={form.email} onChange={set('email')} placeholder="you@company.com" />
+                  <input type="email" value={form.email} onChange={set('email')} placeholder="you@company.com"
+                    onBlur={() => { if (form.email && isPersonalEmail(form.email)) setEmailError('Please use your work email address.'); }}
+                    style={emailError ? { borderColor: '#dc2626' } : {}}
+                  />
+                  {emailError && <span style={{ color: '#dc2626', fontSize: '12.5px', marginTop: '4px', display: 'block' }}>{emailError}</span>}
                 </div>
 
                 <div className="login-field">
@@ -161,12 +187,12 @@ export default function BookDemoPage() {
 
                 {error && <div className="login-error">{error}</div>}
 
-                <button type="submit" className="btn btn-primary btn-full" disabled={loading}>
+                <button type="submit" className="btn btn-primary btn-full" disabled={loading || !!emailError}>
                   {loading ? 'Sending…' : <>Book my demo <ArrowRight size={16} /></>}
                 </button>
 
                 <p className="signup-terms" style={{ marginTop: '0.75rem' }}>
-                  We'll never share your data. <a href="#">Privacy Policy</a>.
+                  We'll never share your data. <Link to="/privacy">Privacy Policy</Link>.
                 </p>
               </form>
             )}

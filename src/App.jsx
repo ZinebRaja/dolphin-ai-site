@@ -467,6 +467,12 @@ function HomePage() {
                     <Link to="/demo-video" className="mega-demo-cta" onClick={() => setProductOpen(false)}>
                       See Dolphin AI in action <ArrowRight size={13}/>
                     </Link>
+                    <Link to="/dashboard" className="mega-resource-link" onClick={() => setProductOpen(false)}>
+                      <BarChart3 size={14}/> Sample Dashboard
+                    </Link>
+                    <Link to="/reporting" className="mega-resource-link" onClick={() => setProductOpen(false)}>
+                      <TrendingUp size={14}/> Reporting
+                    </Link>
                   </div>
 
                 </div>
@@ -481,6 +487,7 @@ function HomePage() {
           </nav>
           <div className="nav-actions">
             <Link to="/book-demo" className="btn btn-primary">Book a Demo</Link>
+            <Link to="/assessment" className="btn btn-soft-estimate">Get a free estimate <ArrowRight size={14} /></Link>
           </div>
           <button className="mobile-menu-btn" onClick={() => setMobileOpen(m => !m)} aria-label="Menu">
             <span className={`hamburger ${mobileOpen ? 'open' : ''}`} />
@@ -493,7 +500,7 @@ function HomePage() {
           <a href="#solution">Solution</a>
           <a href="#workflow">Workflow</a>
           <Link to="/pricing">Pricing</Link>
-          <a href="#contact">Contact</a>
+          <Link to="/contact">Contact</Link>
           <Link to="/book-demo" className="btn btn-primary">Book a Demo</Link>
         </div>
       )}
@@ -514,11 +521,6 @@ function HomePage() {
                 Dolphin AI normalizes supplier names, classifies spend using your taxonomy,
                 and reveals opportunities hidden in procurement data.
               </p>
-              <div className="hero-actions">
-                <Link to="/assessment" className="btn btn-outline btn-lg btn-pill">
-                  Get a free estimate <ArrowRight size={16} />
-                </Link>
-              </div>
             </motion.div>
           </div>
         </section>
@@ -654,84 +656,77 @@ function HomePage() {
           </div>
         </section>
 
-        {/* ══ CASE STUDIES ══ */}
+        {/* ══ WHO WE HELP ══ */}
         <section className="cases-section container">
           <div className="section-head centered">
-            <span className="eyebrow">Results</span>
-            <h2>Measurable impact on your spend data</h2>
+            <span className="eyebrow">Who we help</span>
+            <h2>Built for organizations where spend data is a problem</h2>
             <div className="section-rule" />
-            <p>Real outcomes from organizations that made the switch to automated spend intelligence.</p>
+            <p>If any of these sound familiar, Dolphin AI was built for you.</p>
           </div>
           <div className="cases-grid">
             {[
               {
-                industry: 'Industrial Manufacturing',
-                spend: '$450M annual spend',
-                challenge: 'Supplier names duplicated across 4 ERPs. No consistent taxonomy. Category reporting took 3 weeks per quarter.',
-                results: [
-                  '1,800+ supplier records normalized in one run',
-                  'Classification accuracy improved from 54% to 97%',
-                  'Quarterly reporting time cut from 3 weeks to 2 days',
+                industry: 'Manufacturing',
+                icon: '🏭',
+                challenge: 'Supplier names duplicated across multiple ERPs, no consistent taxonomy, and category reporting takes weeks instead of hours.',
+                painPoints: [
+                  'Thousands of duplicate supplier records',
+                  'No unified spend taxonomy across plants',
+                  'Monthly reporting takes 2–3 weeks to prepare',
                 ],
-                saving: '$3.2M savings identified',
               },
               {
-                industry: 'US Retail Group',
-                spend: '$280M annual spend',
-                challenge: 'Procurement team manually mapping 60,000+ spend lines per year in Excel. 40h/month of analyst time wasted on data prep.',
-                results: [
-                  '60,000 spend lines auto-classified at 95%+ accuracy',
-                  'Analyst data prep time reduced by 80%',
-                  'Identified $1.8M in off-contract tail spend',
+                industry: 'Retail & Distribution',
+                icon: '🛒',
+                challenge: 'Procurement teams spending 40+ hours per month manually cleaning and mapping spend data in Excel instead of driving strategy.',
+                painPoints: [
+                  'Tens of thousands of spend lines unclassified',
+                  'Off-contract tail spend invisible to leadership',
+                  'No time left for sourcing or negotiation',
                 ],
-                saving: '$1.8M tail spend surfaced',
               },
               {
-                industry: 'Global Logistics Company',
-                spend: '$750M annual spend',
-                challenge: 'No spend visibility below Level 1 categories. Strategic sourcing decisions made on incomplete data.',
-                results: [
-                  'Full Level 1–4 taxonomy applied across all spend',
-                  'Supplier consolidation opportunities across 6 categories',
-                  'Finance and procurement aligned on one data source',
+                industry: 'Logistics & Transport',
+                icon: '🚚',
+                challenge: 'Spend visibility stops at Level 1 categories. Sourcing decisions are made on gut feel because the data can\'t be trusted.',
+                painPoints: [
+                  'No granular category breakdown below L1',
+                  'Supplier consolidation opportunities missed',
+                  'Finance and procurement working from different numbers',
                 ],
-                saving: '$6.1M consolidation opportunity',
               },
               {
-                industry: 'Healthcare System',
-                spend: '$320M annual spend',
-                challenge: 'Complex supplier landscape across medical devices, pharmaceuticals, and services. No unified category structure across hospital entities.',
-                results: [
-                  'Spend taxonomy harmonized across 8 hospital entities',
-                  'Medical device spend classified at 96% accuracy',
-                  'Contract compliance gaps surfaced across 3 categories',
+                industry: 'Healthcare & Life Sciences',
+                icon: '🏥',
+                challenge: 'Complex supplier landscape across medical devices, pharmaceuticals, and services with no unified structure across entities.',
+                painPoints: [
+                  'Inconsistent taxonomy across hospital entities',
+                  'Contract compliance gaps impossible to track',
+                  'Regulatory reporting slowed by messy data',
                 ],
-                saving: '$4.1M in contract leakage identified',
               },
               {
-                industry: 'Global Banking Group',
-                spend: '$600M annual spend',
-                challenge: 'Procurement operating across 12 countries with inconsistent supplier master data and no cross-entity spend visibility.',
-                results: [
-                  'Supplier master harmonized across 12 entities',
-                  '94% of indirect spend auto-classified',
-                  'Procurement risk reduced through supplier deduplication',
+                industry: 'Financial Services',
+                icon: '🏦',
+                challenge: 'Procurement operating across multiple countries or entities with inconsistent supplier master data and no cross-entity visibility.',
+                painPoints: [
+                  'No single view of spend across business units',
+                  'Supplier risk impossible to quantify accurately',
+                  'Indirect spend largely unmanaged and unclassified',
                 ],
-                saving: '$7.2M savings opportunity identified',
               },
             ].map(c => (
               <div className="case-card" key={c.industry}>
                 <div className="case-header">
-                  <div className="case-industry">{c.industry}</div>
-                  <div className="case-spend">{c.spend}</div>
+                  <div className="case-industry"><span style={{marginRight:8}}>{c.icon}</span>{c.industry}</div>
                 </div>
                 <p className="case-challenge">{c.challenge}</p>
                 <ul className="case-results">
-                  {c.results.map(r => (
+                  {c.painPoints.map(r => (
                     <li key={r}><CheckCircle2 size={14} />{r}</li>
                   ))}
                 </ul>
-                <div className="case-saving">{c.saving}</div>
               </div>
             ))}
           </div>

@@ -70,7 +70,7 @@ export default function SignupPage() {
             <Link to="/#contact">Contact</Link>
           </nav>
           <div className="nav-actions">
-            <Link to="/book-demo" className="btn btn-primary">Book a demo</Link>
+            <Link to="/book-demo" className="btn btn-primary">Book a Demo</Link>
           </div>
         </div>
       </header>
@@ -145,7 +145,7 @@ export default function SignupPage() {
                 </button>
 
                 <p className="signup-terms">
-                  By signing up you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+                  By signing up you agree to our <Link to="/terms">Terms of Service</Link> and <Link to="/privacy">Privacy Policy</Link>.
                 </p>
               </form>
 

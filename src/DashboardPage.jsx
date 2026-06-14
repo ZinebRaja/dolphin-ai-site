@@ -197,7 +197,7 @@ export default function DashboardPage() {
             <Link to="/#contact">Contact</Link>
           </nav>
           <div className="nav-actions">
-            <Link to="/book-demo" className="btn btn-primary">Book a demo</Link>
+            <Link to="/book-demo" className="btn btn-primary">Book a Demo</Link>
           </div>
         </div>
       </header>
@@ -240,7 +240,7 @@ export default function DashboardPage() {
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                   <h2 style={{ margin: 0, fontSize: '1.2rem', fontWeight: 800, color: 'var(--navy)' }}>Spend Overview</h2>
-                  <span style={{ background: '#dcfce7', color: '#16a34a', fontSize: '10px', fontWeight: 800, padding: '2px 8px', borderRadius: '999px', letterSpacing: '0.05em' }}>LIVE</span>
+                  <span style={{ background: '#e0f2fe', color: '#0369a1', fontSize: '10px', fontWeight: 800, padding: '2px 8px', borderRadius: '999px', letterSpacing: '0.05em' }}>SAMPLE</span>
                 </div>
                 <p style={{ margin: '3px 0 0', fontSize: '12px', color: 'var(--gray-400)' }}>{p.meta}</p>
               </div>
@@ -248,7 +248,7 @@ export default function DashboardPage() {
             </div>
 
             {/* KPI row */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6,1fr)', gap: '10px', marginBottom: '1.25rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))', gap: '10px', marginBottom: '1.25rem' }}>
               {p.kpis.map(k => (
                 <div key={k.label} style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '10px', padding: '12px 14px' }}>
                   <p style={{ margin: '0 0 4px', fontSize: '9px', fontWeight: 700, letterSpacing: '0.08em', color: 'var(--gray-400)' }}>{k.label}</p>
@@ -261,7 +261,7 @@ export default function DashboardPage() {
             </div>
 
             {/* Charts row */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.9fr 1fr', gap: '12px', marginBottom: '1.25rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '12px', marginBottom: '1.25rem' }}>
 
               {/* Spend Trend */}
               <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '10px', padding: '14px' }}>
@@ -341,7 +341,7 @@ export default function DashboardPage() {
               Ready to see this with your own data?
             </p>
             <Link to="/book-demo" className="btn btn-primary btn-lg">
-              Book a demo <ArrowRight size={16} />
+              Book a Demo <ArrowRight size={16} />
             </Link>
           </div>
 
