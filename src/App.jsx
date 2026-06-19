@@ -34,6 +34,8 @@ import {
   Lightbulb,
   Link2,
   Database,
+  ClipboardList,
+  BookOpen,
 } from 'lucide-react';
 
 const features = [
@@ -474,6 +476,12 @@ function HomePage() {
                     </Link>
                     <Link to="/reporting" className="mega-resource-link" onClick={() => setProductOpen(false)}>
                       <TrendingUp size={14}/> Reporting
+                    </Link>
+                    <Link to="/scoping" className="mega-resource-link" onClick={() => setProductOpen(false)}>
+                      <ClipboardList size={14}/> Project Scoping Tool
+                    </Link>
+                    <Link to="/onboarding" className="mega-resource-link" onClick={() => setProductOpen(false)}>
+                      <BookOpen size={14}/> How It Works
                     </Link>
                   </div>
 
