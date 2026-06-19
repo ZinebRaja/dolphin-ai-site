@@ -17,6 +17,7 @@ import ContactPage from './ContactPage.jsx';
 import AssessmentPage from './AssessmentPage.jsx';
 import ProductPage from './ProductPage.jsx';
 import ReportingPage from './ReportingPage.jsx';
+import ScopingPage from './ScopingPage.jsx';
 import CookieBanner from './CookieBanner.jsx';
 import {
   ArrowRight,
@@ -862,6 +863,7 @@ export default function App() {
       <Route path="/assessment" element={<AssessmentPage />} />
       <Route path="/product" element={<ProductPage />} />
       <Route path="/reporting" element={<ReportingPage />} />
+      <Route path="/scoping" element={<ScopingPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );

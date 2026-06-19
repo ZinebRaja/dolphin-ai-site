@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight, Layers3, Building2, TrendingUp, Lightbulb,
-  Database, Link2, GitBranch, PieChart, ShieldCheck,
+  Database, Link2, GitBranch, PieChart, ShieldCheck, ClipboardList,
 } from 'lucide-react';
 
 export default function Navbar() {
@@ -85,6 +85,9 @@ export default function Navbar() {
                     </Link>
                     <Link to="/reporting" className="mega-resource-link" onClick={close}>
                       <GitBranch size={14}/> Reporting
+                    </Link>
+                    <Link to="/scoping" className="mega-resource-link" onClick={close}>
+                      <ClipboardList size={14}/> Project Scoping Tool
                     </Link>
                   </div>
 
