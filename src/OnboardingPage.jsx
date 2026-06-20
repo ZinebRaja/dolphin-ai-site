@@ -447,7 +447,7 @@ export default function OnboardingPage() {
                 <div style={{ fontWeight: 700, color: '#fff', marginBottom: 4 }}>These are conservative estimates</div>
                 <div style={{ color: '#93c5fd', fontSize: 14 }}>Real timelines depend on data access speed, IT response time, and taxonomy complexity. In a live demo we'll give you a project-specific estimate.</div>
               </div>
-              <Link to="/scoping" className="btn btn-outline" style={{ color: '#fff', borderColor: 'rgba(255,255,255,0.3)', flexShrink: 0, whiteSpace: 'nowrap' }}>
+              <Link to="/scoping" className="btn" style={{ background: 'rgba(255,255,255,0.15)', color: '#fff', border: '1.5px solid rgba(255,255,255,0.35)', borderRadius: 8, flexShrink: 0, whiteSpace: 'nowrap', fontWeight: 700 }}>
                 Use the scoping tool <ArrowRight size={14}/>
               </Link>
             </div>
