@@ -331,21 +331,21 @@ export default function ScopingPage() {
               <div>
                 {/* Hero result */}
                 <div style={{
-                  background: 'linear-gradient(135deg,#1B2A4A,#2d4a7a)',
+                  background: 'linear-gradient(135deg, #111111 0%, #1E1E1E 45%, #C05818 80%, #E06820 100%)',
                   borderRadius: 20, padding: '40px 36px', marginBottom: 28, textAlign: 'center', color: '#fff',
                 }}>
-                  <div style={{ fontSize: 13, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#93c5fd', marginBottom: 12 }}>
+                  <div style={{ fontSize: 13, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.65)', marginBottom: 12 }}>
                     Estimated time to first results
                   </div>
                   <div style={{ fontSize: 'clamp(48px,8vw,72px)', fontWeight: 900, lineHeight: 1, color: '#fff', marginBottom: 8 }}>
                     {estimate.minDays}–{estimate.maxDays}
                     <span style={{ fontSize: 24, fontWeight: 400, marginLeft: 8 }}>days</span>
                   </div>
-                  <p style={{ color: '#93c5fd', fontSize: 14, marginTop: 12 }}>
+                  <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: 14, marginTop: 12 }}>
                     From data upload to your first classified spend dashboard
                   </p>
                   {estimate.taxonomyNote && (
-                    <div style={{ marginTop: 16, background: 'rgba(255,255,255,0.1)', borderRadius: 8, padding: '8px 16px', fontSize: 13, color: '#bfdbfe', display: 'inline-block' }}>
+                    <div style={{ marginTop: 16, background: 'rgba(255,255,255,0.12)', borderRadius: 8, padding: '8px 16px', fontSize: 13, color: '#fff', display: 'inline-block' }}>
                       📋 Taxonomy: {estimate.taxonomyNote}
                     </div>
                   )}
@@ -445,21 +445,24 @@ export default function ScopingPage() {
                   </div>
                 )}
 
-                {/* CTA */}
-                <div style={{ background: '#1B2A4A', borderRadius: 16, padding: '32px 28px', textAlign: 'center', color: '#fff' }}>
+                {/* Back + CTA */}
+                <div style={{ display: 'flex', gap: 12, marginBottom: 16 }}>
+                  <button className="btn btn-outline" onClick={() => setStep(2)} style={{ flex: 1 }}>
+                    <ArrowLeft size={15}/> Back to Goals
+                  </button>
+                  <button className="btn btn-outline" onClick={() => { setStep(0); setSpend(null); setSources(null); setVolume(null); setSuppliers(null); setQuality(null); setTaxonomy(null); setPriorities([]); }} style={{ flex: 1 }}>
+                    Start over
+                  </button>
+                </div>
+
+                <div style={{ background: 'linear-gradient(135deg, #1A1A1A 0%, #2a2a2a 60%, #7a3010 100%)', borderRadius: 16, padding: '32px 28px', textAlign: 'center', color: '#fff' }}>
                   <h3 style={{ fontSize: 20, fontWeight: 800, marginBottom: 8 }}>Ready to get your detailed proposal?</h3>
-                  <p style={{ color: '#93c5fd', fontSize: 14, marginBottom: 24 }}>
+                  <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: 14, marginBottom: 24 }}>
                     Book a 30-min demo and we'll show you exactly what this looks like on your actual data — no commitment required.
                   </p>
-                  <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
-                    <Link to="/book-demo" className="btn btn-primary btn-lg" style={{ background: '#E06820', border: 'none' }}>
-                      Book a Demo <ArrowRight size={15}/>
-                    </Link>
-                    <button className="btn btn-outline" onClick={() => { setStep(0); setSpend(null); setSources(null); setVolume(null); setSuppliers(null); setQuality(null); setTaxonomy(null); setPriorities([]); }}
-                      style={{ color: '#fff', borderColor: 'rgba(255,255,255,0.3)' }}>
-                      Start over
-                    </button>
-                  </div>
+                  <Link to="/book-demo" className="btn btn-primary btn-lg" style={{ border: 'none' }}>
+                    Book a Demo <ArrowRight size={15}/>
+                  </Link>
                 </div>
               </div>
             )}
