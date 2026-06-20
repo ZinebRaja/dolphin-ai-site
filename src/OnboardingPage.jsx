@@ -33,15 +33,15 @@ const PHASES = [
     bg: '#e0f2fe',
     icon: <Database size={22}/>,
     title: 'Data Ingestion',
-    duration: 'Day 1',
-    what: 'We connect directly to your source systems and extract all spend data. No manual exports, no reformatting, no IT project.',
+    duration: 'Days 1–3',
+    what: 'We connect to your source systems, extract all spend data, and run an initial completeness check. Access setup, data transfer, and format validation all happen in this phase.',
     how: [
       'Direct connector to SAP, Oracle, Dynamics 365, Coupa, or Workday',
       'Excel / CSV upload for any additional sources',
       'All data encrypted in transit and processed in your security boundary',
-      'A full data inventory report is generated within hours',
+      'A full data inventory report is generated before moving to cleaning',
     ],
-    stat: { value: '<4h', label: 'Average ingestion time' },
+    stat: { value: '1–3 days', label: 'Typical ingestion window' },
   },
   {
     number: '02',
@@ -49,7 +49,7 @@ const PHASES = [
     bg: '#fefce8',
     icon: <Zap size={22}/>,
     title: 'Automated Cleaning',
-    duration: 'Days 1–3',
+    duration: 'Days 3–8',
     what: 'AI scans every record for errors, blanks, duplicates, and inconsistencies — then fixes them automatically, flagging anything it can\'t resolve with confidence.',
     how: [
       'Supplier name deduplication using NLP fuzzy matching',
@@ -65,7 +65,7 @@ const PHASES = [
     bg: '#f5f3ff',
     icon: <Layers3 size={22}/>,
     title: 'Spend Classification',
-    duration: 'Days 2–7',
+    duration: 'Days 6–14',
     what: 'Every transaction is mapped to your taxonomy — down to Level 4 — using a combination of AI and your own business rules. Low-confidence results are flagged for human review.',
     how: [
       'Works with any taxonomy: UNSPSC, custom, or hybrid',
@@ -81,7 +81,7 @@ const PHASES = [
     bg: '#f0fdf4',
     icon: <TrendingUp size={22}/>,
     title: 'Enrichment & Validation',
-    duration: 'Days 3–5',
+    duration: 'Days 10–18',
     what: 'Cleaned and classified data is enriched with supplier intelligence — country of origin, industry, risk tier, and contract status — then validated before any dashboard is published.',
     how: [
       'Supplier records cross-referenced against public business databases',
@@ -97,7 +97,7 @@ const PHASES = [
     bg: '#fff3eb',
     icon: <BarChart3 size={22}/>,
     title: 'Dashboard Delivery',
-    duration: 'Day ' ,
+    duration: 'Days 14–30',
     what: 'Your dashboards go live. Every KPI, chart, and table updates automatically as new transactions arrive. No manual refresh, no exports, no waiting.',
     how: [
       'Pre-built views for CPO, category managers, and CFO',
@@ -105,7 +105,7 @@ const PHASES = [
       'Anomaly alerts and savings opportunities surfaced automatically',
       'Export to PDF, Excel, or CSV in one click',
     ],
-    stat: { value: 'Day 5–14', label: 'First live dashboard' },
+    stat: { value: 'Day 14–30', label: 'First live dashboard' },
   },
 ];
 
@@ -119,12 +119,12 @@ const SCENARIOS = [
     lines: 'Under 20K lines',
     sources: '1–2 systems',
     quality: 'Mixed',
-    timeline: '3–6 days',
+    timeline: '7–14 days',
     cleanup: '10–20%',
     accuracy: '95%+',
     duplicates: '5–15%',
     savings: '3–5% of spend',
-    notes: 'Fastest path to results. Single-pass cleaning and classification. Dashboard delivered within the first week.',
+    notes: 'Fastest path to results. Single-pass cleaning and classification. Dashboard typically delivered in the second week.',
   },
   {
     label: 'Growth',
@@ -135,7 +135,7 @@ const SCENARIOS = [
     lines: '20K – 100K lines',
     sources: '2–4 systems',
     quality: 'Mostly messy',
-    timeline: '7–14 days',
+    timeline: '2–4 weeks',
     cleanup: '20–40%',
     accuracy: '95%+',
     duplicates: '15–30%',
@@ -151,12 +151,12 @@ const SCENARIOS = [
     lines: '100K – 500K lines',
     sources: '4–8 systems',
     quality: 'Very messy',
-    timeline: '2–4 weeks',
+    timeline: '4–8 weeks',
     cleanup: '35–55%',
     accuracy: '95%+',
     duplicates: '25–40%',
     savings: '5–10% of spend',
-    notes: 'Complex multi-ERP environment. Taxonomy alignment across business units. Phased delivery — first category dashboard in week 1, full rollout by week 4.',
+    notes: 'Complex multi-ERP environment. Taxonomy alignment across business units. Phased delivery — first category dashboard by week 3, full rollout by week 8.',
   },
   {
     label: 'Global',
@@ -167,7 +167,7 @@ const SCENARIOS = [
     lines: '500K+ lines',
     sources: '8+ systems',
     quality: 'Very messy + multi-currency',
-    timeline: '4–8 weeks',
+    timeline: '8–16 weeks',
     cleanup: '45–65%',
     accuracy: '95%+',
     duplicates: '30–50%',
@@ -213,7 +213,7 @@ export default function OnboardingPage() {
             </p>
             <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
               {[
-                { icon: <Clock size={14}/>, text: 'First results in 3–14 days' },
+                { icon: <Clock size={14}/>, text: 'First results in 14–30 days' },
                 { icon: <CheckCircle2 size={14}/>, text: '95%+ classification accuracy' },
                 { icon: <Database size={14}/>, text: 'No IT project required' },
               ].map(b => (
