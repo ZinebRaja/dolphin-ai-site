@@ -199,16 +199,16 @@ export default function OnboardingPage() {
       <main>
 
         {/* ── Hero ── */}
-        <section style={{ background: 'linear-gradient(135deg,#1B2A4A 0%,#2d4a7a 100%)', padding: '100px 0 80px', color: '#fff' }}>
+        <section style={{ background: 'linear-gradient(135deg, #111111 0%, #1E1E1E 45%, #C05818 80%, #E06820 100%)', padding: '100px 0 80px', color: '#fff' }}>
           <div className="container" style={{ maxWidth: 760, textAlign: 'center' }}>
-            <span style={{ background: 'rgba(255,255,255,0.12)', color: '#93c5fd', fontSize: 12, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', padding: '6px 16px', borderRadius: 20 }}>
+            <span style={{ background: 'rgba(255,255,255,0.12)', color: '#fcd9bc', fontSize: 12, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', padding: '6px 16px', borderRadius: 20 }}>
               How it works
             </span>
             <h1 style={{ fontSize: 'clamp(32px,5vw,52px)', fontWeight: 900, margin: '20px 0 16px', lineHeight: 1.1 }}>
               From raw, messy spend data<br/>
-              <span style={{ color: '#fbbf24' }}>to actionable intelligence</span>
+              <span style={{ color: '#F07830' }}>to actionable intelligence</span>
             </h1>
-            <p style={{ color: '#93c5fd', fontSize: 18, maxWidth: 560, margin: '0 auto 36px', lineHeight: 1.6 }}>
+            <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: 18, maxWidth: 560, margin: '0 auto 36px', lineHeight: 1.6 }}>
               Here's exactly what happens to your data from the moment you share it — every step, every fix, every result.
             </p>
             <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -217,7 +217,7 @@ export default function OnboardingPage() {
                 { icon: <CheckCircle2 size={14}/>, text: '95%+ classification accuracy' },
                 { icon: <Database size={14}/>, text: 'No IT project required' },
               ].map(b => (
-                <div key={b.text} style={{ display: 'flex', alignItems: 'center', gap: 7, background: 'rgba(255,255,255,0.1)', padding: '8px 16px', borderRadius: 20, fontSize: 13, color: '#e0f2fe' }}>
+                <div key={b.text} style={{ display: 'flex', alignItems: 'center', gap: 7, background: 'rgba(255,255,255,0.12)', padding: '8px 16px', borderRadius: 20, fontSize: 13, color: '#fff' }}>
                   {b.icon}{b.text}
                 </div>
               ))}
@@ -441,11 +441,11 @@ export default function OnboardingPage() {
               ))}
             </div>
 
-            <div style={{ marginTop: 40, background: '#1B2A4A', borderRadius: 16, padding: '28px 32px', display: 'flex', alignItems: 'center', gap: 24, flexWrap: 'wrap' }}>
-              <AlertTriangle size={24} style={{ color: '#fbbf24', flexShrink: 0 }}/>
+            <div style={{ marginTop: 40, background: 'linear-gradient(135deg, #1A1A1A 0%, #2a2a2a 60%, #7a3010 100%)', borderRadius: 16, padding: '28px 32px', display: 'flex', alignItems: 'center', gap: 24, flexWrap: 'wrap' }}>
+              <AlertTriangle size={24} style={{ color: '#E06820', flexShrink: 0 }}/>
               <div style={{ flex: 1, minWidth: 200 }}>
                 <div style={{ fontWeight: 700, color: '#fff', marginBottom: 4 }}>These are conservative estimates</div>
-                <div style={{ color: '#93c5fd', fontSize: 14 }}>Real timelines depend on data access speed, IT response time, and taxonomy complexity. In a live demo we'll give you a project-specific estimate.</div>
+                <div style={{ color: 'rgba(255,255,255,0.65)', fontSize: 14 }}>Real timelines depend on data access speed, IT response time, and taxonomy complexity. In a live demo we'll give you a project-specific estimate.</div>
               </div>
               <Link to="/scoping" className="btn" style={{ background: 'rgba(255,255,255,0.15)', color: '#fff', border: '1.5px solid rgba(255,255,255,0.35)', borderRadius: 8, flexShrink: 0, whiteSpace: 'nowrap', fontWeight: 700 }}>
                 Use the scoping tool <ArrowRight size={14}/>
