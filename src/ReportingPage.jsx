@@ -22,7 +22,7 @@ const TABS = [
     label: 'Supplier Analysis',
     headline: 'Know every supplier — their spend, risk, and performance',
     desc: 'Pareto analysis, year-over-year supplier spend, risk distribution, and performance scoring in one view. Identify concentration risk before it becomes a problem.',
-    img: '/screenshots/dash-supplier-analysis.png',
+    img: '/screenshots/dash-reports.png',
     stats: [{ label: 'Suppliers tracked', value: '39' }, { label: 'High-risk suppliers', value: '8' }, { label: 'Avg performance score', value: '75.9%' }],
   },
   {
@@ -31,7 +31,7 @@ const TABS = [
     label: 'Category Analysis',
     headline: 'Deep taxonomy insights down to Level 4',
     desc: 'Category trend charts, L1 and L2 breakdowns, YoY growth by category, and a full spend summary table. Filter by scope level to go as deep as your taxonomy allows.',
-    img: '/screenshots/dash-category-analysis.png',
+    img: '/screenshots/dash-supplier-analysis.png',
     stats: [{ label: 'L1 categories', value: '10' }, { label: 'Coverage rate', value: '82.4%' }, { label: 'Fastest growing', value: '+34.9%' }],
   },
   {
@@ -40,7 +40,7 @@ const TABS = [
     label: 'Contract Analysis',
     headline: 'Stay ahead of renewals and compliance gaps',
     desc: 'Active contracts, expiry alerts, compliance trend vs. target, and renewal risk — all surfaced automatically. Never miss a critical renewal again.',
-    img: '/screenshots/dash-contract-analysis.png',
+    img: '/screenshots/dash-category-analysis.png',
     stats: [{ label: 'Active contracts', value: '8,142' }, { label: 'Expiring in 90 days', value: '542' }, { label: 'Compliance rate', value: '89.7%' }],
   },
   {
@@ -49,7 +49,7 @@ const TABS = [
     label: 'Savings Opportunities',
     headline: 'Savings opportunities ranked by value and confidence',
     desc: 'Every opportunity quantified in dollars, ranked by potential impact, and tracked through planning, in-progress, and implemented stages.',
-    img: '/screenshots/dash-savings.png',
+    img: '/screenshots/dash-contract-analysis.png',
     stats: [{ label: 'Opportunities found', value: '243' }, { label: 'Potential savings', value: '$412.3M' }, { label: 'Implemented savings', value: '$96.8M' }],
   },
   {
@@ -58,7 +58,7 @@ const TABS = [
     label: 'Alerts & Insights',
     headline: 'Proactive alerts before issues become crises',
     desc: 'Critical spend anomalies, contract risks, duplicate invoices, and supplier risks — all surfaced with severity levels, dollar impact, and AI-generated action recommendations.',
-    img: '/screenshots/dash-alerts.png',
+    img: '/screenshots/dash-savings.png',
     stats: [{ label: 'Critical alerts', value: '17' }, { label: 'Spend anomalies', value: '36' }, { label: 'AI insights open', value: '24' }],
   },
   {
@@ -67,7 +67,7 @@ const TABS = [
     label: 'Reports',
     headline: 'Scheduled reports delivered automatically',
     desc: 'Create, schedule, and share procurement reports — weekly, monthly, or on demand. Export to PDF, Excel, or CSV. Every report your team needs, automated.',
-    img: '/screenshots/dash-reports.png',
+    img: '/screenshots/dash-alerts.png',
     stats: [{ label: 'Reports in library', value: '128' }, { label: 'Scheduled deliveries', value: '34' }, { label: 'Ran last 30 days', value: '96' }],
   },
 ];
