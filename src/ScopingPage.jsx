@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from './Navbar.jsx';
-import { ArrowRight, ArrowLeft, CheckCircle2, Clock, TrendingUp, Database, Layers3, BarChart3, Users, FileText, Zap, Calendar } from 'lucide-react';
+import { ArrowRight, ArrowLeft, CheckCircle2, Clock, TrendingUp, Database, Layers3, BarChart3, Users, FileText, Zap, Calendar, Search, Settings, FlaskConical, Rocket, ChevronDown, AlertTriangle } from 'lucide-react';
 
 const STEPS = ['Data Profile', 'Data Quality', 'Your Goals', 'Your Estimate'];
 
@@ -176,6 +176,7 @@ export default function ScopingPage() {
   const [quality, setQuality]     = useState(null);
   const [taxonomy, setTaxonomy]   = useState(null);
   const [priorities, setPriorities] = useState([]);
+  const [openPhase, setOpenPhase] = useState(0);
 
   const togglePriority = (key) => setPriorities(p => p.includes(key) ? p.filter(k => k !== key) : [...p, key]);
 
@@ -419,34 +420,142 @@ export default function ScopingPage() {
                   ))}
                 </div>
 
-                {/* Process timeline */}
-                <div style={{ background: '#fff', border: '1.5px solid #e5e7eb', borderRadius: 16, padding: '28px 28px', marginBottom: 28 }}>
-                  <h3 style={{ fontSize: 16, fontWeight: 700, color: '#1B2A4A', marginBottom: 24 }}>
-                    <Calendar size={16} style={{ marginRight: 8, verticalAlign: -2 }}/>
-                    How your project will unfold
-                  </h3>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
-                    {[
-                      { day: `Days 1–${estimate.ing2}`,                        icon: <Database size={15}/>,   color: '#0369a1', bg: '#e0f2fe', title: 'Data ingestion',           desc: `We connect to your ${sources.label === '1 system' ? 'system' : sources.label + ' systems'} and pull all spend data — access setup, extraction, format validation.` },
-                      { day: `Days ${estimate.ing2}–${estimate.cln2}`,         icon: <Zap size={15}/>,        color: '#ca8a04', bg: '#fefce8', title: 'Automated cleaning',        desc: `AI cleans ${estimate.cMin}–${estimate.cMax}% of records: normalizes supplier names, fills blanks, removes duplicates.` },
-                      { day: `Days ${estimate.cls1}–${estimate.cls2}`,         icon: <Layers3 size={15}/>,    color: '#7c3aed', bg: '#f5f3ff', title: 'Spend classification',      desc: `Every transaction mapped to your taxonomy at 95%+ accuracy. Low-confidence predictions flagged for human review.` },
-                      { day: `Days ${estimate.minDays}–${estimate.maxDays}`,   icon: <BarChart3 size={15}/>,  color: '#16a34a', bg: '#f0fdf4', title: 'First dashboard delivered', desc: 'Spend by category, supplier rankings, anomaly alerts — all live. Your team can act on the data immediately.' },
-                      { day: 'Ongoing',                                         icon: <TrendingUp size={15}/>, color: '#E06820', bg: '#fff3eb', title: 'Continuous intelligence',   desc: 'Data refreshes automatically. New transactions classified in real time. Alerts surfaced as they appear.' },
-                    ].map((phase, i, arr) => (
-                      <div key={phase.title} style={{ display: 'flex', gap: 16, paddingBottom: i < arr.length - 1 ? 20 : 0 }}>
-                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexShrink: 0 }}>
-                          <div style={{ width: 36, height: 36, borderRadius: '50%', background: phase.bg, color: phase.color, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>{phase.icon}</div>
-                          {i < arr.length - 1 && <div style={{ width: 2, flex: 1, background: '#e5e7eb', margin: '4px 0' }}/>}
-                        </div>
-                        <div style={{ paddingTop: 6, paddingBottom: i < arr.length - 1 ? 16 : 0 }}>
-                          <div style={{ fontSize: 11, fontWeight: 700, color: phase.color, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 2 }}>{phase.day}</div>
-                          <div style={{ fontWeight: 700, color: '#1B2A4A', marginBottom: 4 }}>{phase.title}</div>
-                          <div style={{ fontSize: 13, color: '#6b7280', lineHeight: 1.5 }}>{phase.desc}</div>
-                        </div>
+                {/* Project Phases Accordion */}
+                {(() => {
+                  const phases = [
+                    {
+                      icon: <Search size={16}/>,
+                      color: '#E06820',
+                      bg: '#fff8f2',
+                      title: 'Discovery',
+                      days: `Days 1–${estimate.ing2}`,
+                      status: 'Kick-off',
+                      summary: 'We align on scope, access, and success criteria before any data is touched.',
+                      deliverable: 'Signed-off project charter + data access checklist',
+                      items: [
+                        `Map your ${sources.label === '1 system' ? 'data system' : sources.label + ' data systems'} and agree on extraction method`,
+                        taxonomy === 'none' ? 'Design a spend taxonomy from scratch tailored to your industry' : taxonomy === 'partial' ? 'Extend your existing partial taxonomy to cover all categories' : 'Review and validate your existing taxonomy before classification begins',
+                        'Align on KPIs, dashboard views, and who needs access',
+                        'Confirm timeline, milestones, and point-of-contact on both sides',
+                      ],
+                    },
+                    {
+                      icon: <Database size={16}/>,
+                      color: '#0369a1',
+                      bg: '#e0f2fe',
+                      title: 'Data Ingestion',
+                      days: `Days ${estimate.ing2}–${estimate.cln2}`,
+                      status: 'In progress',
+                      summary: 'Secure extraction of your spend data — no IT project, no manual exports.',
+                      deliverable: 'Full data inventory report with record counts and source breakdown',
+                      items: [
+                        `Connect to your ${sources.label === '1 system' ? 'system' : sources.label + ' systems'} via secure API or encrypted file transfer`,
+                        'Run initial completeness scan — flag missing fields, date gaps, currency inconsistencies',
+                        'Deduplicate across sources and reconcile overlapping transaction records',
+                        'Produce a data health scorecard before any cleaning begins',
+                      ],
+                    },
+                    {
+                      icon: <Settings size={16}/>,
+                      color: '#7c3aed',
+                      bg: '#f5f3ff',
+                      title: 'Cleaning & Classification',
+                      days: `Days ${estimate.cls1}–${estimate.cls2}`,
+                      status: 'Configuration',
+                      summary: `AI resolves ${estimate.cMin}–${estimate.cMax}% of data issues automatically. Everything else goes to a review queue — nothing is silently accepted.`,
+                      deliverable: 'Cleaned dataset + classification report with confidence scores',
+                      items: [
+                        'Supplier name normalization using NLP fuzzy matching — eliminating variants and duplicates',
+                        'Blank fields inferred from transaction history and context',
+                        'Every transaction mapped to your taxonomy at L1–L4 with 95%+ accuracy',
+                        'Low-confidence classifications surfaced in a review queue for human sign-off',
+                      ],
+                    },
+                    {
+                      icon: <FlaskConical size={16}/>,
+                      color: '#ca8a04',
+                      bg: '#fefce8',
+                      title: 'Testing & Validation',
+                      days: `Days ${estimate.cls2}–${estimate.minDays}`,
+                      status: 'QA',
+                      summary: 'You review a sample of results. We adjust until the output matches your expectations.',
+                      deliverable: 'Validated dataset with final QA sign-off before dashboard build',
+                      items: [
+                        'Share a sample of classified spend for your review — typically 200–500 transactions',
+                        'Collect corrections and re-run classification with updated rules',
+                        'Validate supplier master against your internal records',
+                        'Generate a pre-delivery data quality score across all dimensions',
+                      ],
+                    },
+                    {
+                      icon: <Rocket size={16}/>,
+                      color: '#16a34a',
+                      bg: '#f0fdf4',
+                      title: 'Go Live',
+                      days: `Days ${estimate.minDays}–${estimate.maxDays}`,
+                      status: 'Delivery',
+                      summary: 'Dashboards go live. Your team gets access, a walkthrough, and everything they need to act on the data.',
+                      deliverable: 'Live dashboards + user training session + handover documentation',
+                      items: [
+                        'Spend by category (L1–L4), supplier rankings, trend charts — all live',
+                        'Role-based access set up: CPO, category managers, finance',
+                        '60-minute walkthrough session with your core team',
+                        'Ongoing data refresh configured — new transactions classified automatically',
+                      ],
+                    },
+                  ];
+                  return (
+                    <div style={{ background: '#fff', border: '1.5px solid #e5e7eb', borderRadius: 16, overflow: 'hidden', marginBottom: 28 }}>
+                      <div style={{ padding: '20px 24px', borderBottom: '1px solid #f0f0f0' }}>
+                        <h3 style={{ fontSize: 16, fontWeight: 700, color: '#1B2A4A', margin: 0 }}>
+                          <Calendar size={15} style={{ marginRight: 8, verticalAlign: -2 }}/>
+                          Your project phases
+                        </h3>
+                        <p style={{ fontSize: 13, color: '#6b7280', margin: '4px 0 0' }}>Click any phase to see what happens and what you'll receive.</p>
                       </div>
-                    ))}
-                  </div>
-                </div>
+                      {phases.map((ph, i) => {
+                        const isOpen = openPhase === i;
+                        return (
+                          <div key={ph.title} style={{ borderBottom: i < phases.length - 1 ? '1px solid #f0f0f0' : 'none' }}>
+                            <button
+                              onClick={() => setOpenPhase(isOpen ? null : i)}
+                              style={{ width: '100%', background: isOpen ? ph.bg : '#fff', border: 'none', cursor: 'pointer', padding: '16px 24px', display: 'flex', alignItems: 'center', gap: 14, textAlign: 'left', transition: 'background 0.15s' }}
+                            >
+                              <div style={{ width: 36, height: 36, borderRadius: 10, background: isOpen ? ph.bg : '#f5f5f5', border: `1.5px solid ${isOpen ? ph.color + '44' : '#e5e7eb'}`, color: isOpen ? ph.color : '#9ca3af', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'all 0.15s' }}>
+                                {ph.icon}
+                              </div>
+                              <div style={{ flex: 1, minWidth: 0 }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 2 }}>
+                                  <span style={{ fontWeight: 700, fontSize: 14, color: '#1B2A4A' }}>{ph.title}</span>
+                                  <span style={{ fontSize: 11, fontWeight: 700, color: ph.color, background: ph.bg, border: `1px solid ${ph.color}33`, padding: '2px 8px', borderRadius: 20 }}>{ph.status}</span>
+                                </div>
+                                <span style={{ fontSize: 12, color: '#9ca3af', fontWeight: 600 }}>{ph.days}</span>
+                              </div>
+                              <ChevronDown size={16} style={{ color: '#9ca3af', flexShrink: 0, transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }}/>
+                            </button>
+                            {isOpen && (
+                              <div style={{ padding: '0 24px 20px 24px', borderTop: `1px solid ${ph.color}22`, background: ph.bg }}>
+                                <p style={{ fontSize: 14, color: '#374151', margin: '16px 0 12px', lineHeight: 1.6 }}>{ph.summary}</p>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 14 }}>
+                                  {ph.items.map(item => (
+                                    <div key={item} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
+                                      <div style={{ width: 6, height: 6, borderRadius: '50%', background: ph.color, flexShrink: 0, marginTop: 6 }}/>
+                                      <span style={{ fontSize: 13, color: '#4b5563', lineHeight: 1.5 }}>{item}</span>
+                                    </div>
+                                  ))}
+                                </div>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: '#fff', border: `1.5px solid ${ph.color}33`, borderRadius: 8, padding: '10px 14px' }}>
+                                  <CheckCircle2 size={14} style={{ color: ph.color, flexShrink: 0 }}/>
+                                  <span style={{ fontSize: 12, color: '#374151' }}><strong>Deliverable:</strong> {ph.deliverable}</span>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  );
+                })()}
 
                 {/* What's included */}
                 {priorities.length > 0 && (
@@ -503,6 +612,17 @@ export default function ScopingPage() {
                         </div>
                       );
                     })}
+                  </div>
+                </div>
+
+                {/* Disclaimer */}
+                <div style={{ display: 'flex', gap: 14, alignItems: 'flex-start', background: '#fffbf5', border: '1.5px solid #fde0c4', borderRadius: 12, padding: '16px 20px', marginBottom: 20 }}>
+                  <AlertTriangle size={18} style={{ color: '#E06820', flexShrink: 0, marginTop: 2 }}/>
+                  <div>
+                    <div style={{ fontWeight: 700, fontSize: 13, color: '#1B2A4A', marginBottom: 4 }}>This estimate is not final</div>
+                    <div style={{ fontSize: 13, color: '#6b7280', lineHeight: 1.6 }}>
+                      These timelines are based on what you've told us. Until we look at a sample of your actual data, we can't confirm the exact scope. Data access delays, ERP complexity, and taxonomy decisions are the most common reasons projects shift — which is why we do a proper discovery before committing to a plan.
+                    </div>
                   </div>
                 </div>
 
