@@ -1,6 +1,6 @@
 import Navbar from './Navbar.jsx';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { ArrowRight, CheckCircle2, Calendar, Clock, Users } from 'lucide-react';
 
 const API_URL       = import.meta.env.VITE_API_URL || 'https://dolphinai-api-c2a8ezgdctakh9g0.centralus-01.azurewebsites.net';
@@ -21,6 +21,10 @@ function isPersonalEmail(email) {
 }
 
 export default function BookDemoPage() {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const returnTo = searchParams.get('return');
+
   const [form, setForm] = useState({
     firstName: '', lastName: '', email: '', company: '',
     role: '', companySize: '', annualSpend: '', message: '',
@@ -62,7 +66,11 @@ export default function BookDemoPage() {
         setLoading(false);
       } else {
         localStorage.setItem('demo_booked', 'true');
-        setSubmitted(true);
+        if (returnTo) {
+          navigate(returnTo);
+        } else {
+          setSubmitted(true);
+        }
       }
     } catch {
       setError('Cannot reach the server. Please try again.');

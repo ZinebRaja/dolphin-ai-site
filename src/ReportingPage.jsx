@@ -222,7 +222,7 @@ export default function ReportingPage() {
                           <p style={{ fontSize: 13, color: '#6b7280', marginBottom: 22, lineHeight: 1.6 }}>
                             Book a 30-min demo and we'll walk you through <strong>{tab.label}</strong> live on your actual data — no generic screenshots.
                           </p>
-                          <Link to="/book-demo" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center', display: 'flex' }}>
+                          <Link to="/book-demo?return=/reporting" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center', display: 'flex' }}>
                             Book a Demo to Unlock <ArrowRight size={14}/>
                           </Link>
                           <button onClick={() => handleTabClick(0)} style={{ marginTop: 10, background: 'none', border: 'none', cursor: 'pointer', fontSize: 12, color: '#9ca3af', textDecoration: 'underline' }}>
