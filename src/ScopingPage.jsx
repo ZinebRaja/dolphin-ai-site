@@ -5,6 +5,20 @@ import { ArrowRight, ArrowLeft, CheckCircle2, Clock, TrendingUp, Database, Layer
 
 const STEPS = ['Data Profile', 'Data Quality', 'Your Goals', 'Your Estimate'];
 
+const TIER_SCENARIOS = [
+  { label: 'Starter',    color: '#E06820', bg: '#fff8f2', border: '#fde0c4', spend: 'Under $100M',   timeline: '7–14 days',  cleanup: '10–20%', duplicates: '5–15%',  accuracy: '95%+' },
+  { label: 'Growth',     color: '#C05818', bg: '#fff3eb', border: '#fcd9bc', spend: '$100M–$500M',  timeline: '2–4 weeks',  cleanup: '20–40%', duplicates: '15–30%', accuracy: '95%+' },
+  { label: 'Enterprise', color: '#1B2A4A', bg: '#f0f3f8', border: '#c8d4e8', spend: '$500M–$2B',    timeline: '4–8 weeks',  cleanup: '35–55%', duplicates: '25–40%', accuracy: '95%+' },
+  { label: 'Global',     color: '#111111', bg: '#f5f5f5', border: '#d0d0d0', spend: 'Over $2B',     timeline: '8–16 weeks', cleanup: '45–65%', duplicates: '30–50%', accuracy: '95%+' },
+];
+
+function matchTier(spendValue) {
+  if (spendValue <= 60)   return 0;
+  if (spendValue <= 400)  return 1;
+  if (spendValue <= 2000) return 2;
+  return 3;
+}
+
 const SPEND_OPTIONS = [
   { label: 'Under $50M',      value: 40,   key: 'a' },
   { label: '$50M – $200M',    value: 125,  key: 'b' },
@@ -444,6 +458,36 @@ export default function ScopingPage() {
                     </div>
                   </div>
                 )}
+
+                {/* Tier reference */}
+                <div style={{ background: '#fff', border: '1.5px solid #e5e7eb', borderRadius: 16, padding: '24px 28px', marginBottom: 28 }}>
+                  <h3 style={{ fontSize: 15, fontWeight: 700, color: '#1B2A4A', marginBottom: 6 }}>Where your project fits</h3>
+                  <p style={{ fontSize: 13, color: '#6b7280', marginBottom: 20 }}>Based on your spend size and data profile, here are benchmark timelines for reference.</p>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(140px,1fr))', gap: 12 }}>
+                    {TIER_SCENARIOS.map((s, i) => {
+                      const isMatch = spend && i === matchTier(spend.value);
+                      return (
+                        <div key={s.label} style={{ border: `2px solid ${isMatch ? s.color : s.border}`, borderRadius: 12, overflow: 'hidden', position: 'relative', background: isMatch ? s.bg : '#fafafa' }}>
+                          {isMatch && (
+                            <div style={{ background: s.color, color: '#fff', fontSize: 10, fontWeight: 800, textAlign: 'center', padding: '4px 0', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
+                              Your tier
+                            </div>
+                          )}
+                          <div style={{ padding: '14px 14px 12px' }}>
+                            <div style={{ fontWeight: 800, fontSize: 11, color: s.color, textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 6 }}>{s.label}</div>
+                            <div style={{ fontWeight: 900, fontSize: 17, color: '#1B2A4A', lineHeight: 1.1, marginBottom: 2 }}>{s.timeline}</div>
+                            <div style={{ fontSize: 11, color: '#6b7280', marginBottom: 10 }}>to first dashboard</div>
+                            <div style={{ fontSize: 11, color: '#6b7280', borderTop: '1px solid #f0f0f0', paddingTop: 8 }}>
+                              <div style={{ marginBottom: 3 }}>Spend: <strong style={{ color: '#374151' }}>{s.spend}</strong></div>
+                              <div style={{ marginBottom: 3 }}>Cleanup: <strong style={{ color: '#374151' }}>{s.cleanup}</strong></div>
+                              <div>Duplicates: <strong style={{ color: '#374151' }}>{s.duplicates}</strong></div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
 
                 {/* Back + CTA */}
                 <div style={{ display: 'flex', gap: 12, marginBottom: 16 }}>

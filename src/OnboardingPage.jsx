@@ -423,7 +423,6 @@ export default function OnboardingPage() {
                       { label: 'Records to clean',    value: s.cleanup },
                       { label: 'Classification',      value: s.accuracy },
                       { label: 'Duplicate suppliers', value: s.duplicates },
-                      { label: 'Savings potential',   value: s.savings },
                     ].map(row => (
                       <div key={row.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '7px 0', borderBottom: '1px solid #f3f4f6', gap: 8 }}>
                         <span style={{ fontSize: 12, color: '#6b7280' }}>{row.label}</span>
