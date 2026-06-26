@@ -61,6 +61,7 @@ export default function BookDemoPage() {
         setError(data.error);
         setLoading(false);
       } else {
+        localStorage.setItem('demo_booked', 'true');
         setSubmitted(true);
       }
     } catch {

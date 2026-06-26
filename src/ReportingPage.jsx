@@ -101,7 +101,8 @@ export default function ReportingPage() {
   }
 
   const tab = TABS[active];
-  const isLocked = active > 0;
+  const demoBooked = localStorage.getItem('demo_booked') === 'true';
+  const isLocked = !demoBooked && active > 0;
 
   return (
     <div className="site">
