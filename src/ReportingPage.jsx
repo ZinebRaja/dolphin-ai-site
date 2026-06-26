@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import {
   BarChart3, Users, Tag, FileText, Lightbulb, Bell, BookOpen,
-  ArrowRight, CheckCircle2, TrendingUp, ShieldCheck, Download, LayoutDashboard,
+  ArrowRight, CheckCircle2, TrendingUp, ShieldCheck, Download, LayoutDashboard, Lock,
 } from 'lucide-react';
 
 const TABS = [
@@ -101,6 +101,7 @@ export default function ReportingPage() {
   }
 
   const tab = TABS[active];
+  const isLocked = active > 0;
 
   return (
     <div className="site">
@@ -127,13 +128,21 @@ export default function ReportingPage() {
             {/* Headline above grid */}
           <div className={`rpt-headline-row ${visible ? 'rpt-visible' : ''}`} style={{ opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(20px)', transition: 'opacity 0.5s, transform 0.5s', marginBottom: 24 }}>
             <h2 className={`rpt-content-h2 ${animating ? 'rpt-fade-out' : 'rpt-fade-in'}`}>{tab.headline}</h2>
-            <div className="rpt-stats2">
-              {tab.stats.map(s => (
-                <div className={`rpt-stat2 ${animating ? 'rpt-fade-out' : 'rpt-fade-in'}`} key={s.label}>
-                  <strong>{s.value}</strong>
-                  <span>{s.label}</span>
+            <div className="rpt-stats2" style={{ position: 'relative' }}>
+              <div style={{ filter: isLocked ? 'blur(5px)' : 'none', transition: 'filter 0.3s', pointerEvents: isLocked ? 'none' : 'auto', display: 'contents' }}>
+                {tab.stats.map(s => (
+                  <div className={`rpt-stat2 ${animating ? 'rpt-fade-out' : 'rpt-fade-in'}`} key={s.label}>
+                    <strong>{s.value}</strong>
+                    <span>{s.label}</span>
+                  </div>
+                ))}
+              </div>
+              {isLocked && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6, position: 'absolute', inset: 0, justifyContent: 'center' }}>
+                  <Lock size={13} style={{ color: '#9ca3af' }}/>
+                  <span style={{ fontSize: 12, color: '#9ca3af', fontWeight: 600 }}>Book a demo to see live stats</span>
                 </div>
-              ))}
+              )}
             </div>
           </div>
 
@@ -148,10 +157,12 @@ export default function ReportingPage() {
                       key={t.id}
                       className={`rpt-tab2 ${i === active ? 'rpt-tab2-active' : ''}`}
                       onClick={() => handleTabClick(i)}
+                      style={i > 0 && i !== active ? { opacity: 0.6 } : {}}
                     >
-                      <span className="rpt-tab-icon">{t.icon}</span>
-                      <span>{t.label}</span>
-                      {i === active && <span className="rpt-tab-dot" />}
+                      <span className="rpt-tab-icon" style={{ opacity: i > 0 ? 0.7 : 1 }}>{t.icon}</span>
+                      <span style={{ flex: 1 }}>{t.label}</span>
+                      {i === 0 && <span className="rpt-tab-dot" style={{ display: active === 0 ? undefined : 'none' }}/>}
+                      {i > 0 && <Lock size={12} style={{ color: i === active ? '#E06820' : '#9ca3af', flexShrink: 0 }}/>}
                     </button>
                   ))}
                 </div>
@@ -178,13 +189,47 @@ export default function ReportingPage() {
                       src={tab.img}
                       alt={tab.label}
                       className={`rpt-screenshot2 ${animating ? 'rpt-img-out' : 'rpt-img-in'}`}
-                      onClick={() => setLightbox(tab.img)}
-                      style={{ cursor: 'zoom-in' }}
+                      onClick={() => !isLocked && setLightbox(tab.img)}
+                      style={{ cursor: isLocked ? 'default' : 'zoom-in', filter: isLocked ? 'blur(7px) brightness(0.6)' : 'none', transition: 'filter 0.3s', userSelect: 'none' }}
                     />
-                    <div className="rpt-zoom-hint" onClick={() => setLightbox(tab.img)}>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
-                      Click to enlarge
-                    </div>
+                    {!isLocked && (
+                      <div className="rpt-zoom-hint" onClick={() => setLightbox(tab.img)}>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+                        Click to enlarge
+                      </div>
+                    )}
+                    {isLocked && (
+                      <div style={{
+                        position: 'absolute', inset: 0,
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        zIndex: 10,
+                      }}>
+                        <div style={{
+                          background: 'rgba(255,255,255,0.97)',
+                          borderRadius: 20,
+                          padding: '36px 40px',
+                          textAlign: 'center',
+                          maxWidth: 340,
+                          boxShadow: '0 8px 48px rgba(0,0,0,0.18)',
+                        }}>
+                          <div style={{ width: 56, height: 56, borderRadius: '50%', background: 'linear-gradient(135deg,#C05818,#E06820)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px' }}>
+                            <Lock size={24} color="#fff"/>
+                          </div>
+                          <h3 style={{ fontSize: 17, fontWeight: 800, color: '#1B2A4A', marginBottom: 8 }}>
+                            {tab.label} is locked
+                          </h3>
+                          <p style={{ fontSize: 13, color: '#6b7280', marginBottom: 22, lineHeight: 1.6 }}>
+                            Book a 30-min demo and we'll walk you through <strong>{tab.label}</strong> live on your actual data — no generic screenshots.
+                          </p>
+                          <Link to="/book-demo" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center', display: 'flex' }}>
+                            Book a Demo to Unlock <ArrowRight size={14}/>
+                          </Link>
+                          <button onClick={() => handleTabClick(0)} style={{ marginTop: 10, background: 'none', border: 'none', cursor: 'pointer', fontSize: 12, color: '#9ca3af', textDecoration: 'underline' }}>
+                            Back to Spend Overview
+                          </button>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
 
