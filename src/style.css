@@ -1841,12 +1841,12 @@ a { color: inherit; text-decoration: none; }
    REPORTING / ANALYTICS PAGE
 ════════════════════════════════════ */
 .rpt-hero {
-  background: linear-gradient(150deg, #0f1624 0%, #1a2540 60%, #1e2d50 100%);
+  background: linear-gradient(135deg, #111111 0%, #1E1E1E 45%, #C05818 80%, #E06820 100%);
   padding: 88px 0 72px; text-align: center; position: relative; overflow: hidden;
 }
 .rpt-hero::before {
   content: ''; position: absolute; inset: 0;
-  background: radial-gradient(ellipse 70% 50% at 50% 80%, rgba(224,104,32,0.18) 0%, transparent 70%);
+  background: radial-gradient(ellipse 60% 60% at 80% 50%, rgba(255,255,255,0.04) 0%, transparent 70%);
 }
 .rpt-hero-inner { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; }
 .rpt-live-badge {
