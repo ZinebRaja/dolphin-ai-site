@@ -71,15 +71,26 @@ const PRIORITY_OPTIONS = [
 ];
 
 function calcEstimate({ spend, sources, volume, suppliers, quality, taxonomy, priorities }) {
-  let minDays = 3, maxDays = 5;
-  if (sources >= 2)  { minDays += 2; maxDays += 3; }
-  if (sources >= 5)  { minDays += 3; maxDays += 4; }
-  if (sources >= 8)  { minDays += 4; maxDays += 6; }
-  if (quality === 'very_messy')   { minDays += 5; maxDays += 8; }
-  else if (quality === 'mostly_messy') { minDays += 3; maxDays += 5; }
-  else if (quality === 'mixed')        { minDays += 1; maxDays += 3; }
-  if (volume > 200) { minDays += 3; maxDays += 5; }
-  else if (volume > 50) { minDays += 1; maxDays += 2; }
+  // Realistic base tied to spend size (aligned with tier benchmarks)
+  let minDays, maxDays;
+  if (spend < 100)       { minDays = 7;  maxDays = 14; }
+  else if (spend < 500)  { minDays = 14; maxDays = 28; }
+  else if (spend < 2000) { minDays = 28; maxDays = 56; }
+  else                   { minDays = 56; maxDays = 112; }
+
+  // Data quality multiplier — messier data = more cleaning cycles
+  const qm = { very_messy: 1.5, mostly_messy: 1.25, mixed: 1.0, mostly_clean: 0.85 }[quality] || 1.0;
+  minDays = Math.round(minDays * qm);
+  maxDays = Math.round(maxDays * qm);
+
+  // Number of data sources adds integration overhead
+  if (sources >= 8)      { minDays += 14; maxDays += 28; }
+  else if (sources >= 5) { minDays += 7;  maxDays += 14; }
+  else if (sources >= 2) { minDays += 3;  maxDays += 7;  }
+
+  // Transaction volume adds processing and review time
+  if (volume > 200)      { minDays += 7;  maxDays += 14; }
+  else if (volume > 50)  { minDays += 3;  maxDays += 7;  }
 
   const cleanupRates = { very_messy: [45,65], mostly_messy: [25,45], mixed: [12,25], mostly_clean: [4,12] };
   const [cMin, cMax] = cleanupRates[quality] || [15,30];
@@ -98,9 +109,15 @@ function calcEstimate({ spend, sources, volume, suppliers, quality, taxonomy, pr
   const savMin = +(spend * rateMin).toFixed(1);
   const savMax = +(spend * rateMax).toFixed(1);
 
+  // Phase breakpoints for the timeline view
+  const ing2  = Math.max(3,  Math.round(minDays * 0.18));
+  const cln2  = Math.max(ing2 + 2, Math.round(minDays * 0.40));
+  const cls1  = Math.max(ing2, Math.round(minDays * 0.30));
+  const cls2  = Math.round(minDays * 0.72);
+
   const taxonomyBonus = { none: '+3–5 days for taxonomy design', partial: '+1–2 days for gap-filling', exists: 'Using your existing structure', structured: 'Mapped directly to your taxonomy' };
 
-  return { minDays, maxDays, cMin, cMax, dupMin, dupMax, savMin, savMax, taxonomyNote: taxonomyBonus[taxonomy] || '' };
+  return { minDays, maxDays, cMin, cMax, dupMin, dupMax, savMin, savMax, ing2, cln2, cls1, cls2, taxonomyNote: taxonomyBonus[taxonomy] || '' };
 }
 
 function OptionCard({ selected, onClick, children, color, bg }) {
@@ -410,11 +427,11 @@ export default function ScopingPage() {
                   </h3>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
                     {[
-                      { day: 'Day 1',        icon: <Database size={15}/>,   color: '#0369a1', bg: '#e0f2fe', title: 'Data ingestion',          desc: `We connect to your ${sources.label === '1 system' ? 'system' : sources.label + ' systems'} and pull all spend data. No IT project required.` },
-                      { day: 'Days 1–3',     icon: <Zap size={15}/>,        color: '#ca8a04', bg: '#fefce8', title: 'Automated cleaning',       desc: `AI cleans ${estimate.cMin}–${estimate.cMax}% of records: normalizes supplier names, fills blanks, removes duplicates.` },
-                      { day: 'Days 2–' + Math.round(estimate.minDays * 0.7), icon: <Layers3 size={15}/>, color: '#7c3aed', bg: '#f5f3ff', title: 'Spend classification', desc: `Every transaction mapped to your taxonomy at 95%+ accuracy. Low-confidence predictions flagged for review.` },
-                      { day: 'Day ' + estimate.minDays,  icon: <BarChart3 size={15}/>, color: '#16a34a', bg: '#f0fdf4', title: 'First dashboard delivered', desc: 'Spend by category, supplier rankings, anomaly alerts — all live. Your team can act on the data immediately.' },
-                      { day: 'Ongoing',      icon: <TrendingUp size={15}/>, color: '#E06820', bg: '#fff3eb', title: 'Continuous intelligence',  desc: 'Data refreshes automatically. New transactions classified in real time. Savings opportunities surfaced as they appear.' },
+                      { day: `Days 1–${estimate.ing2}`,                        icon: <Database size={15}/>,   color: '#0369a1', bg: '#e0f2fe', title: 'Data ingestion',           desc: `We connect to your ${sources.label === '1 system' ? 'system' : sources.label + ' systems'} and pull all spend data — access setup, extraction, format validation.` },
+                      { day: `Days ${estimate.ing2}–${estimate.cln2}`,         icon: <Zap size={15}/>,        color: '#ca8a04', bg: '#fefce8', title: 'Automated cleaning',        desc: `AI cleans ${estimate.cMin}–${estimate.cMax}% of records: normalizes supplier names, fills blanks, removes duplicates.` },
+                      { day: `Days ${estimate.cls1}–${estimate.cls2}`,         icon: <Layers3 size={15}/>,    color: '#7c3aed', bg: '#f5f3ff', title: 'Spend classification',      desc: `Every transaction mapped to your taxonomy at 95%+ accuracy. Low-confidence predictions flagged for human review.` },
+                      { day: `Days ${estimate.minDays}–${estimate.maxDays}`,   icon: <BarChart3 size={15}/>,  color: '#16a34a', bg: '#f0fdf4', title: 'First dashboard delivered', desc: 'Spend by category, supplier rankings, anomaly alerts — all live. Your team can act on the data immediately.' },
+                      { day: 'Ongoing',                                         icon: <TrendingUp size={15}/>, color: '#E06820', bg: '#fff3eb', title: 'Continuous intelligence',   desc: 'Data refreshes automatically. New transactions classified in real time. Alerts surfaced as they appear.' },
                     ].map((phase, i, arr) => (
                       <div key={phase.title} style={{ display: 'flex', gap: 16, paddingBottom: i < arr.length - 1 ? 20 : 0 }}>
                         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexShrink: 0 }}>
