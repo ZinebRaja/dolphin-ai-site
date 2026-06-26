@@ -103,10 +103,10 @@ export default function SolutionPage() {
         </section>
 
         {/* ── Architecture Diagram ── */}
-        <section style={{ background: '#0D0D0D', padding: '72px 0' }}>
-          <div className="container" style={{ maxWidth: 1040 }}>
+        <section style={{ background: '#f9f6f3', padding: '52px 0 48px', borderTop: '1px solid #ede8e3', borderBottom: '1px solid #ede8e3' }}>
+          <div className="container" style={{ maxWidth: 960 }}>
 
-            <p style={{ textAlign: 'center', fontSize: 11, fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#E06820', marginBottom: 48 }}>
+            <p style={{ textAlign: 'center', fontSize: 11, fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#E06820', marginBottom: 32 }}>
               Platform Architecture
             </p>
 
@@ -115,40 +115,39 @@ export default function SolutionPage() {
 
               {/* ── LEFT: Data sources ── */}
               <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-                <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#555', marginBottom: 12, paddingLeft: 2 }}>Your data sources</div>
-                <div style={{ flex: 1, border: '1px solid #222', borderRadius: 16, overflow: 'hidden', background: '#141414' }}>
+                <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#9ca3af', marginBottom: 8, paddingLeft: 2 }}>Your data sources</div>
+                <div style={{ flex: 1, border: '1.5px solid #e5ddd6', borderRadius: 12, overflow: 'hidden', background: '#fff', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
                   {SOURCES.map((s, i) => (
-                    <div key={s.name} style={{ padding: '14px 16px', borderBottom: i < SOURCES.length - 1 ? '1px solid #1f1f1f' : 'none', display: 'flex', alignItems: 'center', gap: 10 }}>
-                      <span style={{ width: 9, height: 9, borderRadius: '50%', background: s.dot, flexShrink: 0, display: 'inline-block', boxShadow: `0 0 6px ${s.dot}88` }}/>
-                      <span style={{ fontSize: 13, color: '#d1d5db', fontWeight: 500 }}>{s.name}</span>
+                    <div key={s.name} style={{ padding: '10px 14px', borderBottom: i < SOURCES.length - 1 ? '1px solid #f3ede8' : 'none', display: 'flex', alignItems: 'center', gap: 9 }}>
+                      <span style={{ width: 8, height: 8, borderRadius: '50%', background: s.dot, flexShrink: 0, display: 'inline-block' }}/>
+                      <span style={{ fontSize: 12.5, color: '#374151', fontWeight: 500 }}>{s.name}</span>
                     </div>
                   ))}
-                  <div style={{ padding: '12px 16px', borderTop: '1px solid #1f1f1f' }}>
-                    <span style={{ fontSize: 11, color: '#444', fontStyle: 'italic' }}>+ any other source</span>
+                  <div style={{ padding: '8px 14px', borderTop: '1px solid #f3ede8' }}>
+                    <span style={{ fontSize: 11, color: '#bbb', fontStyle: 'italic' }}>+ any other source</span>
                   </div>
                 </div>
               </div>
 
               {/* ── CONNECTOR → ── */}
-              <div style={{ display: 'flex', alignItems: 'center', paddingTop: 32 }}>
+              <div style={{ display: 'flex', alignItems: 'center', paddingTop: 26 }}>
                 <Arrow />
               </div>
 
               {/* ── CENTER: Engine ── */}
-              <div style={{ width: 224, flexShrink: 0, display: 'flex', flexDirection: 'column' }}>
-                <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#E06820', marginBottom: 12, textAlign: 'center' }}>Dolphin AI Engine</div>
-                <div style={{ flex: 1, border: '2px solid #E06820', borderRadius: 16, overflow: 'hidden', background: '#0d0d0d', boxShadow: '0 0 40px rgba(224,104,32,0.12), inset 0 0 40px rgba(224,104,32,0.03)' }}>
-                  {/* Header */}
-                  <div style={{ padding: '14px 16px 10px', background: 'rgba(224,104,32,0.08)', borderBottom: '1px solid rgba(224,104,32,0.2)', display: 'flex', alignItems: 'center', gap: 8 }}>
-                    <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#E06820', boxShadow: '0 0 8px #E06820' }}/>
-                    <span style={{ fontSize: 12, fontWeight: 800, color: '#E06820', letterSpacing: '0.05em' }}>AI PIPELINE</span>
+              <div style={{ width: 200, flexShrink: 0, display: 'flex', flexDirection: 'column' }}>
+                <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#E06820', marginBottom: 8, textAlign: 'center' }}>Dolphin AI Engine</div>
+                <div style={{ flex: 1, border: '2px solid #E06820', borderRadius: 12, overflow: 'hidden', background: '#fff', boxShadow: '0 4px 20px rgba(224,104,32,0.12)' }}>
+                  <div style={{ padding: '10px 14px 8px', background: '#fff8f3', borderBottom: '1px solid #f5deca', display: 'flex', alignItems: 'center', gap: 7 }}>
+                    <div style={{ width: 7, height: 7, borderRadius: '50%', background: '#E06820' }}/>
+                    <span style={{ fontSize: 11, fontWeight: 800, color: '#E06820', letterSpacing: '0.05em' }}>AI PIPELINE</span>
                   </div>
                   {ENGINE.map((s, i) => (
-                    <div key={s.n} style={{ padding: '11px 14px', borderBottom: i < ENGINE.length - 1 ? '1px solid #1a1a1a' : 'none', display: 'flex', alignItems: 'center', gap: 10 }}>
-                      <div style={{ width: 24, height: 24, borderRadius: 7, background: 'rgba(224,104,32,0.12)', color: '#E06820', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: 11, fontWeight: 800 }}>{s.n}</div>
+                    <div key={s.n} style={{ padding: '9px 12px', borderBottom: i < ENGINE.length - 1 ? '1px solid #f5ede6' : 'none', display: 'flex', alignItems: 'center', gap: 9 }}>
+                      <div style={{ width: 20, height: 20, borderRadius: 6, background: '#fff3eb', color: '#E06820', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: 10, fontWeight: 800 }}>{s.n}</div>
                       <div>
-                        <div style={{ fontSize: 12, fontWeight: 700, color: '#fff', lineHeight: 1.3 }}>{s.title}</div>
-                        <div style={{ fontSize: 10, color: '#555', lineHeight: 1.3 }}>{s.sub}</div>
+                        <div style={{ fontSize: 11.5, fontWeight: 700, color: '#1f2937', lineHeight: 1.3 }}>{s.title}</div>
+                        <div style={{ fontSize: 10, color: '#9ca3af', lineHeight: 1.2 }}>{s.sub}</div>
                       </div>
                     </div>
                   ))}
@@ -156,23 +155,23 @@ export default function SolutionPage() {
               </div>
 
               {/* ── CONNECTOR → ── */}
-              <div style={{ display: 'flex', alignItems: 'center', paddingTop: 32 }}>
+              <div style={{ display: 'flex', alignItems: 'center', paddingTop: 26 }}>
                 <Arrow />
               </div>
 
               {/* ── RIGHT: Outputs ── */}
               <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-                <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#555', marginBottom: 12, paddingLeft: 2 }}>What your team gets</div>
-                <div style={{ flex: 1, border: '1px solid #222', borderRadius: 16, overflow: 'hidden', background: '#141414' }}>
+                <div style={{ fontSize: 10, fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#9ca3af', marginBottom: 8, paddingLeft: 2 }}>What your team gets</div>
+                <div style={{ flex: 1, border: '1.5px solid #e5ddd6', borderRadius: 12, overflow: 'hidden', background: '#fff', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
                   {OUTPUTS.map((o, i) => (
-                    <div key={o.name} style={{ padding: '14px 16px', borderBottom: i < OUTPUTS.length - 1 ? '1px solid #1f1f1f' : 'none', display: 'flex', alignItems: 'center', gap: 10 }}>
+                    <div key={o.name} style={{ padding: '10px 14px', borderBottom: i < OUTPUTS.length - 1 ? '1px solid #f3ede8' : 'none', display: 'flex', alignItems: 'center', gap: 9 }}>
                       <span style={{ color: '#E06820', flexShrink: 0 }}>{o.icon}</span>
-                      <span style={{ fontSize: 13, color: '#d1d5db', fontWeight: 500 }}>{o.name}</span>
-                      <CheckCircle2 size={12} style={{ color: '#10b981', marginLeft: 'auto', flexShrink: 0 }}/>
+                      <span style={{ fontSize: 12.5, color: '#374151', fontWeight: 500 }}>{o.name}</span>
+                      <CheckCircle2 size={11} style={{ color: '#10b981', marginLeft: 'auto', flexShrink: 0 }}/>
                     </div>
                   ))}
-                  <div style={{ padding: '12px 16px', borderTop: '1px solid #1f1f1f', display: 'flex', alignItems: 'center', gap: 8 }}>
-                    <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#10b981', boxShadow: '0 0 6px #10b98188', display: 'inline-block' }}/>
+                  <div style={{ padding: '8px 14px', borderTop: '1px solid #f3ede8', display: 'flex', alignItems: 'center', gap: 7 }}>
+                    <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#10b981', display: 'inline-block' }}/>
                     <span style={{ fontSize: 11, color: '#10b981', fontWeight: 600 }}>Live · auto-refreshing</span>
                   </div>
                 </div>
@@ -181,17 +180,17 @@ export default function SolutionPage() {
             </div>
 
             {/* Key metrics strip */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 1, marginTop: 40, border: '1px solid #222', borderRadius: 14, overflow: 'hidden' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 0, marginTop: 28, border: '1.5px solid #e5ddd6', borderRadius: 12, overflow: 'hidden', background: '#fff' }}>
               {[
-                { v: '14–30', u: 'days to go live', sub: 'From data handover' },
-                { v: '95%+', u: 'classification accuracy', sub: 'Across L1–L4' },
-                { v: '87%', u: 'issues auto-resolved', sub: 'Without human input' },
-                { v: '0',   u: 'IT projects required', sub: 'We connect to what you have' },
+                { v: '14–30', u: 'days to go live',         sub: 'From data handover' },
+                { v: '95%+', u: 'classification accuracy',  sub: 'Across L1–L4' },
+                { v: '87%',  u: 'issues auto-resolved',     sub: 'Without human input' },
+                { v: '0',    u: 'IT projects required',     sub: 'We connect to what you have' },
               ].map((m, i) => (
-                <div key={m.v} style={{ background: '#141414', padding: '22px 16px', textAlign: 'center', borderRight: i < 3 ? '1px solid #222' : 'none' }}>
-                  <div style={{ fontSize: 32, fontWeight: 900, color: '#E06820', lineHeight: 1 }}>{m.v}</div>
-                  <div style={{ fontSize: 12, fontWeight: 700, color: '#fff', margin: '6px 0 2px', lineHeight: 1.3 }}>{m.u}</div>
-                  <div style={{ fontSize: 10, color: '#444' }}>{m.sub}</div>
+                <div key={m.v} style={{ padding: '18px 14px', textAlign: 'center', borderRight: i < 3 ? '1px solid #f0ebe5' : 'none' }}>
+                  <div style={{ fontSize: 26, fontWeight: 900, color: '#E06820', lineHeight: 1 }}>{m.v}</div>
+                  <div style={{ fontSize: 11.5, fontWeight: 700, color: '#1f2937', margin: '5px 0 2px', lineHeight: 1.3 }}>{m.u}</div>
+                  <div style={{ fontSize: 10, color: '#9ca3af' }}>{m.sub}</div>
                 </div>
               ))}
             </div>
