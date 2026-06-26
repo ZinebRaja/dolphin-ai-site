@@ -153,19 +153,22 @@ export default function ReportingPage() {
               <div className="rpt-tabs2">
                 <p className="rpt-tabs-label">Dashboard views</p>
                 <div className="rpt-tab-list">
-                  {TABS.map((t, i) => (
-                    <button
-                      key={t.id}
-                      className={`rpt-tab2 ${i === active ? 'rpt-tab2-active' : ''}`}
-                      onClick={() => handleTabClick(i)}
-                      style={i > 0 && i !== active ? { opacity: 0.6 } : {}}
-                    >
-                      <span className="rpt-tab-icon" style={{ opacity: i > 0 ? 0.7 : 1 }}>{t.icon}</span>
-                      <span style={{ flex: 1 }}>{t.label}</span>
-                      {i === 0 && <span className="rpt-tab-dot" style={{ display: active === 0 ? undefined : 'none' }}/>}
-                      {i > 0 && <Lock size={12} style={{ color: i === active ? '#E06820' : '#9ca3af', flexShrink: 0 }}/>}
-                    </button>
-                  ))}
+                  {TABS.map((t, i) => {
+                    const tabLocked = !demoBooked && i > 0;
+                    return (
+                      <button
+                        key={t.id}
+                        className={`rpt-tab2 ${i === active ? 'rpt-tab2-active' : ''}`}
+                        onClick={() => handleTabClick(i)}
+                        style={tabLocked && i !== active ? { opacity: 0.6 } : {}}
+                      >
+                        <span className="rpt-tab-icon" style={{ opacity: tabLocked ? 0.7 : 1 }}>{t.icon}</span>
+                        <span style={{ flex: 1 }}>{t.label}</span>
+                        {i === active && !tabLocked && <span className="rpt-tab-dot" />}
+                        {tabLocked && <Lock size={12} style={{ color: i === active ? '#E06820' : '#9ca3af', flexShrink: 0 }}/>}
+                      </button>
+                    );
+                  })}
                 </div>
                 <Link to="/book-demo" className="rpt-tabs-cta">
                   See it live <ArrowRight size={13} />
