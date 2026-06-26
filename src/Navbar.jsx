@@ -99,6 +99,7 @@ export default function Navbar() {
             </div>
 
             <Link to="/">Home</Link>
+            <Link to="/solution">Solution</Link>
             <Link to="/pricing">Pricing</Link>
             <Link to="/contact">Contact</Link>
           </nav>
