@@ -66,7 +66,7 @@ const TABS = [
     icon: <BookOpen size={16} />,
     label: 'Reports',
     headline: 'Scheduled reports delivered automatically',
-    desc: 'Create, schedule, and share procurement reports — weekly, monthly, or on demand. Export to PDF, Excel, or CSV. Every report your team needs, automated.',
+    desc: 'Create, schedule, and share organization reports — weekly, monthly, or on demand. Export to PDF, Excel, or CSV. Every report your team needs, automated.',
     img: '/screenshots/dash-alerts.png',
     stats: [{ label: 'Reports in library', value: '128' }, { label: 'Scheduled deliveries', value: '34' }, { label: 'Ran last 30 days', value: '96' }],
   },
@@ -112,7 +112,7 @@ export default function ReportingPage() {
         <section className="rpt-hero">
           <div className="container rpt-hero-inner">
             <div className="rpt-live-badge"><span className="rpt-live-dot" />Live dashboards</div>
-            <h1>Every procurement insight, live and in one place</h1>
+            <h1>Every organization insight, live and in one place</h1>
             <p>From spend trends to supplier risk, contract compliance to savings pipelines — Dolphin AI turns raw data into executive-ready dashboards that update automatically.</p>
             <div className="rpt-hero-pills">
               {['Real-time data', 'Zero manual preparation', 'Export to PDF & Excel', 'Scheduled delivery'].map(t => (

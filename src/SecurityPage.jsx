@@ -50,7 +50,7 @@ const FAQS = [
   },
   {
     q: 'Can we request a security review or questionnaire?',
-    a: 'Yes. We complete standard vendor security questionnaires and can provide a security summary document for your procurement or IT security team on request.',
+    a: 'Yes. We complete standard vendor security questionnaires and can provide a security summary document for your organization or IT security team on request.',
   },
   {
     q: 'What happens to our data when we cancel?',
@@ -71,7 +71,7 @@ export default function SecurityPage() {
             <span className="eyebrow">Security & Trust</span>
             <h1>Your spend data is safe with us</h1>
             <p>
-              Enterprise procurement data is sensitive. We built Dolphin AI with security as a
+              Enterprise organization data is sensitive. We built Dolphin AI with security as a
               first principle — not an afterthought.
             </p>
           </div>

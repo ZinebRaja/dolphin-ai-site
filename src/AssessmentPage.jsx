@@ -134,7 +134,7 @@ export function ROICalculator() {
     { icon: <Users size={15}/>,       label: 'Productivity Recovery',   value: productivity,  desc: 'Hours freed from manual data work',
       tooltip: 'The value of time your team gets back when Dolphin AI handles manual data cleaning, formatting, and classification — freeing your people to focus on analysis and decisions instead.' },
     { icon: <BarChart3 size={15}/>,   label: 'Classification Savings',  value: spendSavings,  desc: 'Better visibility → better contracts',
-      tooltip: 'When spend is accurately categorized, procurement teams can benchmark suppliers, identify overspending, and negotiate better contracts. This saving reflects the improved sourcing decisions that accurate classification enables.' },
+      tooltip: 'When spend is accurately categorized, organization teams can benchmark suppliers, identify overspending, and negotiate better contracts. This saving reflects the improved sourcing decisions that accurate classification enables.' },
     { icon: <TrendingUp size={15}/>,  label: 'Tail Spend Recovery',     value: tailSpend,     desc: 'Unmanaged spend brought under control',
       tooltip: 'Tail spend consists of many small purchases from unmanaged suppliers — often with no contracts, no negotiation, and inflated prices. Bringing this spend under control through better visibility and consolidation recovers significant value.' },
     { icon: <ShieldCheck size={15}/>, label: 'Supplier Consolidation',  value: consolidation, desc: 'Leverage from fewer, stronger suppliers',
@@ -146,7 +146,7 @@ export function ROICalculator() {
       {/* LEFT: Inputs */}
       <div className="roi-inputs-panel">
         <h3 className="roi-panel-title">Your organization's data</h3>
-        <SliderField label="Annual procurement spend"
+        <SliderField label="Annual organization spend"
           value={spend} min={1_000_000} max={2_000_000_000} step={1_000_000}
           onChange={setSpend} display={fmtCurrency} rawUnit={1_000_000}
           tooltip="Total value of all purchases across categories and suppliers in a year. Click the value to type an exact amount."
@@ -154,12 +154,12 @@ export function ROICalculator() {
         <NumberField label="Employees managing spend data"
           value={employees} min={1} max={500} onChange={setEmployees}
           suffix="people"
-          tooltip="Number of people who spend time preparing, cleaning, or reporting on procurement data — not just analysts, but anyone touching the data."
+          tooltip="Number of people who spend time preparing, cleaning, or reporting on organization data — not just analysts, but anyone touching the data."
           hint="Used to calculate time saved on manual data work." />
         <SliderField label="Average hourly rate"
           value={hourlyRate} min={15} max={200} step={5}
           onChange={setHourlyRate} display={v => `$${v}/hr`}
-          tooltip="Fully loaded cost per hour for your procurement team — includes salary, benefits, and overhead. Typical range: $30–$80/hr."
+          tooltip="Fully loaded cost per hour for your organization team — includes salary, benefits, and overhead. Typical range: $30–$80/hr."
           hint="Used in the productivity savings formula." />
         <SliderField label="Hours spent on data work per employee / week"
           value={hoursPerWeek} min={1} max={40} step={0.5}

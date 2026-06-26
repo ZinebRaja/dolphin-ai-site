@@ -216,7 +216,7 @@ export default function ScopingPage() {
                 <h2 style={{ fontSize: 22, marginBottom: 32, color: '#1B2A4A' }}>Tell us about your data</h2>
 
                 <div style={{ marginBottom: 28 }}>
-                  <p style={{ fontWeight: 700, color: '#374151', marginBottom: 12 }}>What is your annual procurement spend?</p>
+                  <p style={{ fontWeight: 700, color: '#374151', marginBottom: 12 }}>What is your annual organization spend?</p>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(130px,1fr))', gap: 10 }}>
                     {SPEND_OPTIONS.map(o => (
                       <OptionCard key={o.key} selected={spend?.key === o.key} onClick={() => setSpend(o)}>

@@ -379,7 +379,7 @@ export default function PricingPage() {
             {[
               { title: 'Spend volume',       text: 'More spend data means more classification and enrichment scope.' },
               { title: 'Supplier complexity', text: 'Duplicate suppliers, aliases, and ERP variations affect normalization effort.' },
-              { title: 'Integration needs',  text: 'Excel upload, ERP integration, or procurement platform connections can change scope.' },
+              { title: 'Integration needs',  text: 'Excel upload, ERP integration, or organization platform connections can change scope.' },
             ].map(c => (
               <div className="pc-why-card" key={c.title}>
                 <h4>{c.title}</h4>
@@ -403,7 +403,7 @@ export default function PricingPage() {
         <div className="container footer-inner">
           <div className="footer-brand">
             <img src="/logowebsite.png" alt="Dolphin AI" className="footer-logo" />
-            <p>Intelligent Spend Classification for modern procurement and finance teams.</p>
+            <p>Intelligent Spend Classification for modern organization and finance teams.</p>
           </div>
           <div className="footer-links">
             <div className="footer-col">

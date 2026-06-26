@@ -42,7 +42,7 @@ const features = [
   {
     icon: <Layers3 size={22} />,
     title: 'Spend taxonomy classification',
-    text: 'Automatically classify transaction lines into category, subcategory, family, and spend group using your procurement taxonomy.'
+    text: 'Automatically classify transaction lines into category, subcategory, family, and spend group using your organization taxonomy.'
   },
   {
     icon: <RefreshCcw size={22} />,
@@ -57,12 +57,12 @@ const features = [
   {
     icon: <BarChart3 size={22} />,
     title: 'Actionable spend visibility',
-    text: 'Turn messy ERP and Excel exports into clean reporting-ready data for procurement and finance teams.'
+    text: 'Turn messy ERP and Excel exports into clean reporting-ready data for organization and finance teams.'
   }
 ];
 
 const steps = [
-  { num: '01', title: 'Import',    text: 'Import raw spend data from Excel, ERP, or any procurement system.' },
+  { num: '01', title: 'Import',    text: 'Import raw spend data from Excel, ERP, or any organization system.' },
   { num: '02', title: 'Normalize', text: 'Normalize supplier names and detect duplicates automatically.' },
   { num: '03', title: 'Classify',  text: 'Classify spend using your taxonomy, business rules, and AI suggestions.' },
   { num: '04', title: 'Clear Visibility', text: 'Explore your clean spend data through interactive dashboards and slicers — no exports needed.' }
@@ -272,7 +272,7 @@ const AFTER_ITEMS = [
     ),
   },
   {
-    label: 'Clear category visibility for procurement strategy',
+    label: 'Clear category visibility for organization strategy',
     preview: (
       <div className="ap-preview-visibility">
         <div className="ap-preview-title">Category spend breakdown</div>
@@ -345,7 +345,7 @@ function AfterPreviewSection() {
             'Supplier duplicates across several systems',
             'Manual spend category mapping in Excel',
             'Low confidence in category-level reporting',
-            'Slow analysis before procurement decisions',
+            'Slow analysis before organization decisions',
           ].map(item => (
             <div className="compare-item" key={item}><span className="dot"/>{item}</div>
           ))}
@@ -440,7 +440,7 @@ function HomePage() {
                       <img src="/logowebsite.png" alt="Dolphin AI" style={{ height: 44, objectFit: 'contain', mixBlendMode: 'darken' }} />
                     </div>
                     <h4 className="mega-overview-title">Spend Intelligence Platform</h4>
-                    <p className="mega-overview-copy">Clean, classify, and analyze your procurement data from any source — in hours, not months.</p>
+                    <p className="mega-overview-copy">Clean, classify, and analyze your organization data from any source — in hours, not months.</p>
                     <a href="/product" className="mega-overview-link" onClick={() => setProductOpen(false)}>Explore platform <ArrowRight size={13} /></a>
                   </div>
 
@@ -529,7 +529,7 @@ function HomePage() {
               <h1 className="hero-title">Transform raw spend data into actionable intelligence</h1>
               <p className="hero-subtitle">
                 Dolphin AI normalizes supplier names, classifies spend using your taxonomy,
-                and reveals opportunities hidden in procurement data.
+                and reveals opportunities hidden in organization data.
               </p>
             </motion.div>
           </div>
@@ -689,7 +689,7 @@ function HomePage() {
               {
                 industry: 'Retail & Distribution',
                 icon: '🛒',
-                challenge: 'Procurement teams spending 40+ hours per month manually cleaning and mapping spend data in Excel instead of driving strategy.',
+                challenge: 'Organization teams spending 40+ hours per month manually cleaning and mapping spend data in Excel instead of driving strategy.',
                 painPoints: [
                   'Tens of thousands of spend lines unclassified',
                   'Off-contract tail spend invisible to leadership',
@@ -703,7 +703,7 @@ function HomePage() {
                 painPoints: [
                   'No granular category breakdown below L1',
                   'Supplier consolidation opportunities missed',
-                  'Finance and procurement working from different numbers',
+                  'Finance and organization working from different numbers',
                 ],
               },
               {
@@ -719,7 +719,7 @@ function HomePage() {
               {
                 industry: 'Financial Services',
                 icon: '🏦',
-                challenge: 'Procurement operating across multiple countries or entities with inconsistent supplier master data and no cross-entity visibility.',
+                challenge: 'Organization operating across multiple countries or entities with inconsistent supplier master data and no cross-entity visibility.',
                 painPoints: [
                   'No single view of spend across business units',
                   'Supplier risk impossible to quantify accurately',
@@ -747,7 +747,7 @@ function HomePage() {
           <div className="container">
             <div className="section-head centered">
               <span className="eyebrow">Why teams choose Dolphin AI</span>
-              <h2>Built for the reality of procurement data</h2>
+              <h2>Built for the reality of organization data</h2>
               <div className="section-rule" />
             </div>
             <div className="trust-stats-grid">
@@ -778,9 +778,9 @@ function HomePage() {
           </div>
           <div className="faq-list">
             {[
-              { q: "What kind of data does Dolphin AI work with?", a: "Dolphin AI works with any spend data — ERP exports, procurement platform reports, Excel files, or AP transaction data. As long as it contains supplier names, amounts, and descriptions, we can classify and normalize it." },
+              { q: "What kind of data does Dolphin AI work with?", a: "Dolphin AI works with any spend data — ERP exports, organization platform reports, Excel files, or AP transaction data. As long as it contains supplier names, amounts, and descriptions, we can classify and normalize it." },
               { q: "How accurate is the classification?", a: "Our classification engine achieves 95%+ accuracy on spend data, combining a sourcing team's rule-based recommendations with AI reasoning. Every result can be reviewed and validated before export." },
-              { q: "Do I need to change my ERP or procurement system?", a: "No. Dolphin AI connects to your existing systems via API or file upload. You keep your current stack — we enrich and classify the data, then return it in whatever format you need." },
+              { q: "Do I need to change my ERP or organization system?", a: "No. Dolphin AI connects to your existing systems via API or file upload. You keep your current stack — we enrich and classify the data, then return it in whatever format you need." },
               { q: "How long does it take to get started?", a: "It depends on the quality and complexity of your data. We start with a sample, configure your taxonomy, and deliver a first classification run before full deployment. The cleaner and more structured your data, the faster we can move." },
               { q: "Is our spend data secure?", a: "Yes. All data is encrypted in transit and at rest, and your data is never used to train models or shared with third parties. We sign NDAs and DPAs as standard." },
               { q: "What's the difference between the plans?", a: "Coastal (up to $200M spend) covers classification, supplier normalization, and self-serve onboarding. Reef adds advanced reporting and savings identification. Navigator (most popular) adds multi-source consolidation, custom taxonomy, and real-time monitoring. Horizon scales to $1B+ with enterprise-grade pipelines. Apex is fully custom for the largest enterprises, with white-glove implementation and a dedicated CSM." },
@@ -805,7 +805,7 @@ function HomePage() {
         <div className="container footer-inner">
           <div className="footer-brand">
             <img src="/logowebsite.png" alt="Dolphin AI" className="footer-logo" />
-            <p>Intelligent Spend Classification for modern procurement and finance teams.</p>
+            <p>Intelligent Spend Classification for modern organization and finance teams.</p>
             <p style={{ fontSize: '12.5px', color: 'rgba(255,255,255,0.35)', marginTop: '0.5rem', lineHeight: 1.5 }}>
               Dolphin AI LLC<br />
               7301 State Highway 161 Ste 148<br />

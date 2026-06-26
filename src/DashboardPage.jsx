@@ -116,7 +116,7 @@ const PROFILES = [
       { icon: '📦', text: 'Merchandise & Goods at 38.5% — top 3 suppliers cover 62% of this category.' },
       { icon: '🚚', text: 'Logistics costs up 18% YoY — consolidation opportunity estimated at $4.2M savings.' },
       { icon: '💡', text: 'IT & Software fragmented across 34 suppliers. Consolidation could save 15-20%.' },
-      { icon: '📈', text: 'Q4 spend spike consistent across all years — plan procurement cycles accordingly.' },
+      { icon: '📈', text: 'Q4 spend spike consistent across all years — plan organization cycles accordingly.' },
     ],
   },
   {

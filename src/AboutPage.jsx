@@ -6,11 +6,11 @@ import { ArrowRight } from 'lucide-react';
 const VALUES = [
   {
     title: 'Data integrity first',
-    text: 'We believe every procurement decision should be grounded in clean, trusted data. We never cut corners on classification accuracy.',
+    text: 'We believe every organization decision should be grounded in clean, trusted data. We never cut corners on classification accuracy.',
   },
   {
     title: 'Built for practitioners',
-    text: 'We build for the people who actually work with spend data — category managers, finance analysts, and procurement leads — not just executives.',
+    text: 'We build for the people who actually work with spend data — category managers, finance analysts, and organization leads — not just executives.',
   },
   {
     title: 'Transparent by design',
@@ -33,9 +33,9 @@ export default function AboutPage() {
         <section className="about-hero">
           <div className="container about-hero-inner">
             <span className="eyebrow">About us</span>
-            <h1>We fix the data problem that holds procurement back</h1>
+            <h1>We fix the data problem that holds organization back</h1>
             <p>
-              Dolphin AI was built by procurement practitioners who got tired of seeing multi-million dollar
+              Dolphin AI was built by organization practitioners who got tired of seeing multi-million dollar
               sourcing decisions made on unreliable, unclassified spend data. We built the platform
               we always wished existed.
             </p>
@@ -50,7 +50,7 @@ export default function AboutPage() {
               <h2>The problem we kept seeing</h2>
               <div className="section-rule" style={{ margin: '1rem 0 1.25rem' }} />
               <p>
-                In procurement transformation after transformation, the same problem appeared at the start
+                In organization transformation after transformation, the same problem appeared at the start
                 of every engagement: the spend data was a mess. Supplier names duplicated dozens of times,
                 transactions mapped to the wrong categories, descriptions copied from outdated ERP fields.
               </p>
@@ -59,7 +59,7 @@ export default function AboutPage() {
                 And after all that effort, the data still wasn't trustworthy enough for confident strategic decisions.
               </p>
               <p style={{ marginTop: '1rem' }}>
-                Dolphin AI was founded to automate exactly that work — giving procurement and finance teams
+                Dolphin AI was founded to automate exactly that work — giving organization and finance teams
                 clean, classified, normalized spend data from day one, so they can spend their time on strategy
                 instead of spreadsheets.
               </p>
@@ -109,10 +109,10 @@ export default function AboutPage() {
           <div className="about-team-banner">
             <p className="about-team-lead">
               The Dolphin AI team brings together <strong>over 20 years of combined experience</strong> across
-              enterprise procurement, AI engineering, and financial data systems.
+              enterprise organization, AI engineering, and financial data systems.
             </p>
             <p className="about-team-sub">
-              Our founders have worked directly inside the procurement and finance functions of large organizations —
+              Our founders have worked directly inside the organization and finance functions of large organizations —
               building reports manually, wrestling with ERP exports, and spending weeks cleaning data before any
               analysis could begin. That lived frustration is exactly what Dolphin AI was built to solve.
             </p>
@@ -123,7 +123,7 @@ export default function AboutPage() {
               </div>
               <div className="about-team-stat">
                 <strong>3</strong>
-                <span>Industries: procurement, AI, finance</span>
+                <span>Industries: organization, AI, finance</span>
               </div>
               <div className="about-team-stat">
                 <strong>$10B+</strong>
@@ -131,7 +131,7 @@ export default function AboutPage() {
               </div>
               <div className="about-team-stat">
                 <strong>100%</strong>
-                <span>Focused on procurement intelligence</span>
+                <span>Focused on organization intelligence</span>
               </div>
             </div>
           </div>
@@ -144,7 +144,7 @@ export default function AboutPage() {
               <h3>Headquartered in Irving, Texas</h3>
               <p>Dolphin AI LLC · 7301 State Highway 161 Ste 148 · Irving, TX 75039</p>
               <p style={{ marginTop: '0.5rem' }}>
-                Serving procurement and finance teams globally, with a focus on North American
+                Serving organization and finance teams globally, with a focus on North American
                 and North American mid-market and enterprise organizations.
               </p>
             </div>

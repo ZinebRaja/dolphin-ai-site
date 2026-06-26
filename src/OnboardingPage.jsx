@@ -402,7 +402,7 @@ export default function OnboardingPage() {
               <span className="eyebrow">Standard estimates</span>
               <h2 style={{ fontSize: 'clamp(24px,3.5vw,36px)', marginTop: 8 }}>What to expect based on your situation</h2>
               <p style={{ color: '#6b7280', maxWidth: 560, margin: '12px auto 0' }}>
-                Every project is different, but here are honest benchmarks based on real procurement data we've worked with.
+                Every project is different, but here are honest benchmarks based on real organization data we've worked with.
               </p>
             </div>
 

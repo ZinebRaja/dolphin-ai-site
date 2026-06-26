@@ -9,7 +9,7 @@ const REASONS = [
   {
     icon: <BarChart3 size={22} />,
     title: 'Talk to Dolphin AI Team',
-    desc: 'Get a personalized walkthrough of how Dolphin AI fits your procurement stack.',
+    desc: 'Get a personalized walkthrough of how Dolphin AI fits your organization stack.',
     cta: 'Book a Demo',
     href: '/book-demo',
   },
@@ -169,7 +169,7 @@ export default function ContactPage() {
                   </div>
                   <div className="cf-field">
                     <label>Message *</label>
-                    <textarea name="message" value={form.message} onChange={handle} required rows={5} placeholder="Tell us about your procurement data challenge..." />
+                    <textarea name="message" value={form.message} onChange={handle} required rows={5} placeholder="Tell us about your organization data challenge..." />
                   </div>
                   <button type="submit" className="btn btn-primary btn-full" disabled={emailInvalid}>
                     Send message <ArrowRight size={15} />

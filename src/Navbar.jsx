@@ -50,7 +50,7 @@ export default function Navbar() {
                       <img src="/logowebsite.png" alt="Dolphin AI" style={{ height: 32, objectFit: 'contain' }} />
                     </div>
                     <h4 className="mega-overview-title">Spend Intelligence Platform</h4>
-                    <p className="mega-overview-copy">Clean, classify, and analyze your procurement data from any source — in hours, not months.</p>
+                    <p className="mega-overview-copy">Clean, classify, and analyze your organization data from any source — in hours, not months.</p>
                     <Link to="/product" className="mega-overview-link" onClick={close}>Explore platform <ArrowRight size={13} /></Link>
                   </div>
 
