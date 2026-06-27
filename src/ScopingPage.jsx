@@ -462,7 +462,7 @@ export default function ScopingPage() {
                       title: 'Cleaning & Classification',
                       days: `Days ${estimate.cls1}–${estimate.cls2}`,
                       status: 'Configuration',
-                      summary: `AI resolves ${estimate.cMin}–${estimate.cMax}% of data issues automatically. Everything else goes to a review queue — nothing is silently accepted.`,
+                      summary: 'AI resolves data issues where confidence is high. Everything else goes to a review queue — nothing is silently accepted.',
                       deliverable: 'Cleaned dataset + classification report with confidence scores',
                       items: [
                         'Supplier name normalization using NLP fuzzy matching — eliminating variants and duplicates',
