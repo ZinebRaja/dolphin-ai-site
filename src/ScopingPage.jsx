@@ -619,7 +619,6 @@ export default function ScopingPage() {
                 <div style={{ display: 'flex', gap: 14, alignItems: 'flex-start', background: '#fffbf5', border: '1.5px solid #fde0c4', borderRadius: 12, padding: '16px 20px', marginBottom: 20 }}>
                   <AlertTriangle size={18} style={{ color: '#E06820', flexShrink: 0, marginTop: 2 }}/>
                   <div>
-                    <div style={{ fontWeight: 700, fontSize: 13, color: '#1B2A4A', marginBottom: 4 }}>This estimate is not final</div>
                     <div style={{ fontSize: 13, color: '#6b7280', lineHeight: 1.6 }}>
                       These timelines are based on what you've told us. Until we look at a sample of your actual data, we can't confirm the exact scope. Data access delays, ERP complexity, and taxonomy decisions are the most common reasons projects shift — which is why we do a proper discovery before committing to a plan.
                     </div>
