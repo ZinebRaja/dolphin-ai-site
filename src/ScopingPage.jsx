@@ -433,7 +433,7 @@ export default function ScopingPage() {
                       summary: 'We align on scope, access, and success criteria before any data is touched.',
                       deliverable: 'Signed-off project charter + data access checklist',
                       items: [
-                        `Map your ${sources.label === '1 system' ? 'data system' : sources.label + ' data systems'} and agree on extraction method`,
+                        'Map your data systems and agree on extraction method',
                         taxonomy === 'none' ? 'Design a spend taxonomy from scratch tailored to your industry' : taxonomy === 'partial' ? 'Extend your existing partial taxonomy to cover all categories' : 'Review and validate your existing taxonomy before classification begins',
                         'Align on KPIs, dashboard views, and who needs access',
                         'Confirm timeline, milestones, and point-of-contact on both sides',
