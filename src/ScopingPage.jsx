@@ -449,7 +449,7 @@ export default function ScopingPage() {
                       summary: 'Secure extraction of your spend data — no IT project, no manual exports.',
                       deliverable: 'Full data inventory report with record counts and source breakdown',
                       items: [
-                        `Connect to your ${sources.label === '1 system' ? 'system' : sources.label + ' systems'} via secure API or encrypted file transfer`,
+                        'Connect to your systems via secure API or encrypted file transfer',
                         'Run initial completeness scan — flag missing fields, date gaps, currency inconsistencies',
                         'Deduplicate across sources and reconcile overlapping transaction records',
                         'Produce a data health scorecard before any cleaning begins',
