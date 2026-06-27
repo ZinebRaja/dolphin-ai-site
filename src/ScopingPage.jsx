@@ -481,7 +481,7 @@ export default function ScopingPage() {
                       summary: 'You review a sample of results. We adjust until the output matches your expectations.',
                       deliverable: 'Validated dataset with final QA sign-off before dashboard build',
                       items: [
-                        'Share a sample of classified spend for your review — typically 200–500 transactions',
+                        'Share a sample of classified spend for your review',
                         'Collect corrections and re-run classification with updated rules',
                         'Validate supplier master against your internal records',
                         'Generate a pre-delivery data quality score across all dimensions',
