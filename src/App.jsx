@@ -491,7 +491,7 @@ function HomePage() {
             </div>
 
             {/* nav links */}
-            <a href="#solution">Solution</a>
+            <Link to="/solution">Solution</Link>
             <a href="#workflow">Workflow</a>
             <Link to="/pricing">Pricing</Link>
             <Link to="/contact">Contact</Link>
@@ -508,7 +508,7 @@ function HomePage() {
       {/* Mobile nav drawer */}
       {mobileOpen && (
         <div className="mobile-nav" onClick={() => setMobileOpen(false)}>
-          <a href="#solution">Solution</a>
+          <Link to="/solution">Solution</Link>
           <a href="#workflow">Workflow</a>
           <Link to="/pricing">Pricing</Link>
           <Link to="/contact">Contact</Link>
@@ -822,7 +822,7 @@ function HomePage() {
             <div className="footer-col">
               <h4>Product</h4>
               <a href="#platform">Platform</a>
-              <a href="#solution">Solution</a>
+              <Link to="/solution">Solution</Link>
               <a href="#workflow">Workflow</a>
             </div>
             <div className="footer-col">
