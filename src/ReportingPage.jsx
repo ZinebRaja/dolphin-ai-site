@@ -154,19 +154,18 @@ export default function ReportingPage() {
           <div className={`rpt-headline-row ${visible ? 'rpt-visible' : ''}`} style={{ opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(20px)', transition: 'opacity 0.5s, transform 0.5s', marginBottom: 24 }}>
             <h2 className={`rpt-content-h2 ${animating ? 'rpt-fade-out' : 'rpt-fade-in'}`}>{tab.headline}</h2>
             <div className="rpt-stats2" style={{ position: 'relative' }}>
-              <div style={{ filter: isLocked ? 'blur(5px)' : 'none', transition: 'filter 0.3s', pointerEvents: isLocked ? 'none' : 'auto', display: 'contents' }}>
-                {tab.stats.map(s => (
+              {isLocked ? (
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6, justifyContent: 'center', padding: '8px 0' }}>
+                  <Lock size={13} style={{ color: '#9ca3af' }}/>
+                  <span style={{ fontSize: 12, color: '#9ca3af', fontWeight: 600 }}>Enter your details to see live stats</span>
+                </div>
+              ) : (
+                tab.stats.map(s => (
                   <div className={`rpt-stat2 ${animating ? 'rpt-fade-out' : 'rpt-fade-in'}`} key={s.label}>
                     <strong>{s.value}</strong>
                     <span>{s.label}</span>
                   </div>
-                ))}
-              </div>
-              {isLocked && (
-                <div style={{ display: 'flex', alignItems: 'center', gap: 6, position: 'absolute', inset: 0, justifyContent: 'center' }}>
-                  <Lock size={13} style={{ color: '#9ca3af' }}/>
-                  <span style={{ fontSize: 12, color: '#9ca3af', fontWeight: 600 }}>Enter your details to see live stats</span>
-                </div>
+                ))
               )}
             </div>
           </div>
@@ -227,7 +226,7 @@ export default function ReportingPage() {
                       </div>
                     )}
                     {isLocked && (
-                      <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 10 }}>
+                      <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 10, padding: '16px' }}>
                         <div style={{ background: '#fff', borderRadius: 20, padding: '28px 28px', maxWidth: 340, width: '90%', boxShadow: '0 8px 48px rgba(0,0,0,0.18)' }}>
                           <div style={{ textAlign: 'center', marginBottom: 20 }}>
                             <div style={{ width: 44, height: 44, borderRadius: '50%', background: 'linear-gradient(135deg,#C05818,#E06820)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 12px' }}>
