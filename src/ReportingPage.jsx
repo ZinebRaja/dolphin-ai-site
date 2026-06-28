@@ -228,15 +228,13 @@ export default function ReportingPage() {
                     )}
                     {isLocked && (
                       <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 10 }}>
-                        <div style={{ background: 'rgba(255,255,255,0.97)', borderRadius: 20, padding: '28px 32px', maxWidth: 360, width: '90%', boxShadow: '0 8px 48px rgba(0,0,0,0.18)' }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 14 }}>
-                            <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'linear-gradient(135deg,#C05818,#E06820)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                              <Lock size={18} color="#fff"/>
+                        <div style={{ background: '#fff', borderRadius: 20, padding: '28px 28px', maxWidth: 340, width: '90%', boxShadow: '0 8px 48px rgba(0,0,0,0.18)' }}>
+                          <div style={{ textAlign: 'center', marginBottom: 20 }}>
+                            <div style={{ width: 44, height: 44, borderRadius: '50%', background: 'linear-gradient(135deg,#C05818,#E06820)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 12px' }}>
+                              <Lock size={20} color="#fff"/>
                             </div>
-                            <div>
-                              <h3 style={{ fontSize: 15, fontWeight: 800, color: '#1B2A4A', margin: 0 }}>Unlock {tab.label}</h3>
-                              <p style={{ fontSize: 12, color: '#9ca3af', margin: 0 }}>Enter your details to get instant access</p>
-                            </div>
+                            <h3 style={{ fontSize: 16, fontWeight: 800, color: '#1B2A4A', margin: '0 0 4px' }}>Unlock {tab.label}</h3>
+                            <p style={{ fontSize: 12, color: '#9ca3af', margin: 0, lineHeight: 1.5 }}>Enter your details to get instant access</p>
                           </div>
                           <form onSubmit={handleUnlock} noValidate>
                             <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
