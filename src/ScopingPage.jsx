@@ -499,7 +499,7 @@ export default function ScopingPage() {
                       items: [
                         'Spend by category (L1–L4), supplier rankings, trend charts — all live',
                         'Role-based access set up: CPO, category managers, finance',
-                        '60-minute walkthrough session with your core team',
+                        'Walkthrough session with your core team',
                         'Ongoing data refresh configured — new transactions classified automatically',
                       ],
                     },
