@@ -81,7 +81,7 @@ export default function ReportingPage() {
   const [animating, setAnimating] = useState(false);
   const [visible, setVisible]     = useState(false);
   const [lightbox, setLightbox]   = useState(null);
-  const [demoBooked, setDemoBooked] = useState(() => localStorage.getItem('demo_booked') === 'true');
+  const [demoBooked, setDemoBooked] = useState(() => localStorage.getItem('report_unlocked') === 'true');
   const [form, setForm]           = useState({ firstName: '', email: '', company: '' });
   const [submitting, setSubmitting] = useState(false);
   const [formError, setFormError] = useState('');
@@ -120,7 +120,7 @@ export default function ReportingPage() {
         body: JSON.stringify({ firstName: form.firstName, lastName: '', email: form.email, company: form.company, role: '', companySize: '', annualSpend: '', message: 'Unlocked from reporting page' }),
       });
     } catch (_) { /* still unlock even if API fails */ }
-    localStorage.setItem('demo_booked', 'true');
+    localStorage.setItem('report_unlocked', 'true');
     setDemoBooked(true);
     setSubmitting(false);
   }
