@@ -233,22 +233,19 @@ export default function ReportingPage() {
                             <div style={{ width: 44, height: 44, borderRadius: '50%', background: 'linear-gradient(135deg,#C05818,#E06820)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 12px' }}>
                               <Lock size={20} color="#fff"/>
                             </div>
-                            <h3 style={{ fontSize: 16, fontWeight: 800, color: '#1B2A4A', margin: '0 0 4px' }}>Unlock {tab.label}</h3>
-                            <p style={{ fontSize: 12, color: '#9ca3af', margin: 0, lineHeight: 1.5 }}>Enter your details to get instant access</p>
+                            <h3 style={{ fontSize: 16, fontWeight: 800, color: '#1B2A4A', margin: 0 }}>Unlock {tab.label}</h3>
                           </div>
                           <form onSubmit={handleUnlock} noValidate>
-                            <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
-                              <input
-                                type="text" placeholder="First name" value={form.firstName}
-                                onChange={e => setForm(f => ({ ...f, firstName: e.target.value }))}
-                                style={{ flex: 1, padding: '9px 12px', border: '1.5px solid #e5e7eb', borderRadius: 8, fontSize: 13, outline: 'none' }}
-                              />
-                              <input
-                                type="text" placeholder="Company" value={form.company}
-                                onChange={e => setForm(f => ({ ...f, company: e.target.value }))}
-                                style={{ flex: 1, padding: '9px 12px', border: '1.5px solid #e5e7eb', borderRadius: 8, fontSize: 13, outline: 'none' }}
-                              />
-                            </div>
+                            <input
+                              type="text" placeholder="First name" value={form.firstName}
+                              onChange={e => setForm(f => ({ ...f, firstName: e.target.value }))}
+                              style={{ width: '100%', padding: '9px 12px', border: '1.5px solid #e5e7eb', borderRadius: 8, fontSize: 13, outline: 'none', boxSizing: 'border-box', marginBottom: 8 }}
+                            />
+                            <input
+                              type="text" placeholder="Company" value={form.company}
+                              onChange={e => setForm(f => ({ ...f, company: e.target.value }))}
+                              style={{ width: '100%', padding: '9px 12px', border: '1.5px solid #e5e7eb', borderRadius: 8, fontSize: 13, outline: 'none', boxSizing: 'border-box', marginBottom: 8 }}
+                            />
                             <input
                               type="email" placeholder="Work email" value={form.email}
                               onChange={e => { setForm(f => ({ ...f, email: e.target.value })); setEmailError(''); }}
