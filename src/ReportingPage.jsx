@@ -6,6 +6,10 @@ import {
   ArrowRight, CheckCircle2, TrendingUp, ShieldCheck, Download, LayoutDashboard, Lock,
 } from 'lucide-react';
 
+const API_URL = import.meta.env.VITE_API_URL || 'https://dolphinai-api-c2a8ezgdctakh9g0.centralus-01.azurewebsites.net';
+const PERSONAL_DOMAINS = new Set(['gmail.com','yahoo.com','hotmail.com','outlook.com','live.com','msn.com','aol.com','icloud.com','me.com','mac.com','protonmail.com','proton.me','ymail.com','mail.com','zoho.com','gmx.com','fastmail.com','tutanota.com','hey.com','pm.me']);
+function isPersonalEmail(email) { const d = email.split('@')[1]?.toLowerCase(); return d ? PERSONAL_DOMAINS.has(d) : false; }
+
 const TABS = [
   {
     id: 'spend-overview',
@@ -77,6 +81,11 @@ export default function ReportingPage() {
   const [animating, setAnimating] = useState(false);
   const [visible, setVisible]     = useState(false);
   const [lightbox, setLightbox]   = useState(null);
+  const [demoBooked, setDemoBooked] = useState(() => localStorage.getItem('demo_booked') === 'true');
+  const [form, setForm]           = useState({ firstName: '', email: '', company: '' });
+  const [submitting, setSubmitting] = useState(false);
+  const [formError, setFormError] = useState('');
+  const [emailError, setEmailError] = useState('');
   const sectionRef = useRef(null);
 
   /* scroll reveal only */
@@ -100,8 +109,23 @@ export default function ReportingPage() {
     setTimeout(() => { setActive(i); setAnimating(false); }, 200);
   }
 
+  async function handleUnlock(e) {
+    e.preventDefault();
+    if (!form.firstName || !form.email || !form.company) { setFormError('Please fill in all fields.'); return; }
+    if (isPersonalEmail(form.email)) { setEmailError('Please use your work email.'); return; }
+    setFormError(''); setEmailError(''); setSubmitting(true);
+    try {
+      await fetch(`${API_URL}/api/book-demo`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ firstName: form.firstName, lastName: '', email: form.email, company: form.company, role: '', companySize: '', annualSpend: '', message: 'Unlocked from reporting page' }),
+      });
+    } catch (_) { /* still unlock even if API fails */ }
+    localStorage.setItem('demo_booked', 'true');
+    setDemoBooked(true);
+    setSubmitting(false);
+  }
+
   const tab = TABS[active];
-  const demoBooked = localStorage.getItem('demo_booked') === 'true';
   const isLocked = !demoBooked && active > 0;
 
   return (
@@ -141,7 +165,7 @@ export default function ReportingPage() {
               {isLocked && (
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6, position: 'absolute', inset: 0, justifyContent: 'center' }}>
                   <Lock size={13} style={{ color: '#9ca3af' }}/>
-                  <span style={{ fontSize: 12, color: '#9ca3af', fontWeight: 600 }}>Book a demo to see live stats</span>
+                  <span style={{ fontSize: 12, color: '#9ca3af', fontWeight: 600 }}>Enter your details to see live stats</span>
                 </div>
               )}
             </div>
@@ -203,32 +227,43 @@ export default function ReportingPage() {
                       </div>
                     )}
                     {isLocked && (
-                      <div style={{
-                        position: 'absolute', inset: 0,
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        zIndex: 10,
-                      }}>
-                        <div style={{
-                          background: 'rgba(255,255,255,0.97)',
-                          borderRadius: 20,
-                          padding: '36px 40px',
-                          textAlign: 'center',
-                          maxWidth: 340,
-                          boxShadow: '0 8px 48px rgba(0,0,0,0.18)',
-                        }}>
-                          <div style={{ width: 56, height: 56, borderRadius: '50%', background: 'linear-gradient(135deg,#C05818,#E06820)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px' }}>
-                            <Lock size={24} color="#fff"/>
+                      <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 10 }}>
+                        <div style={{ background: 'rgba(255,255,255,0.97)', borderRadius: 20, padding: '28px 32px', maxWidth: 360, width: '90%', boxShadow: '0 8px 48px rgba(0,0,0,0.18)' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 14 }}>
+                            <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'linear-gradient(135deg,#C05818,#E06820)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                              <Lock size={18} color="#fff"/>
+                            </div>
+                            <div>
+                              <h3 style={{ fontSize: 15, fontWeight: 800, color: '#1B2A4A', margin: 0 }}>Unlock {tab.label}</h3>
+                              <p style={{ fontSize: 12, color: '#9ca3af', margin: 0 }}>Enter your details to get instant access</p>
+                            </div>
                           </div>
-                          <h3 style={{ fontSize: 17, fontWeight: 800, color: '#1B2A4A', marginBottom: 8 }}>
-                            {tab.label} is locked
-                          </h3>
-                          <p style={{ fontSize: 13, color: '#6b7280', marginBottom: 22, lineHeight: 1.6 }}>
-                            Book a 30-min demo and we'll walk you through <strong>{tab.label}</strong> live on your actual data — no generic screenshots.
-                          </p>
-                          <Link to="/book-demo?return=/reporting" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center', display: 'flex' }}>
-                            Book a Demo to Unlock <ArrowRight size={14}/>
-                          </Link>
-                          <button onClick={() => handleTabClick(0)} style={{ marginTop: 10, background: 'none', border: 'none', cursor: 'pointer', fontSize: 12, color: '#9ca3af', textDecoration: 'underline' }}>
+                          <form onSubmit={handleUnlock} noValidate>
+                            <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
+                              <input
+                                type="text" placeholder="First name" value={form.firstName}
+                                onChange={e => setForm(f => ({ ...f, firstName: e.target.value }))}
+                                style={{ flex: 1, padding: '9px 12px', border: '1.5px solid #e5e7eb', borderRadius: 8, fontSize: 13, outline: 'none' }}
+                              />
+                              <input
+                                type="text" placeholder="Company" value={form.company}
+                                onChange={e => setForm(f => ({ ...f, company: e.target.value }))}
+                                style={{ flex: 1, padding: '9px 12px', border: '1.5px solid #e5e7eb', borderRadius: 8, fontSize: 13, outline: 'none' }}
+                              />
+                            </div>
+                            <input
+                              type="email" placeholder="Work email" value={form.email}
+                              onChange={e => { setForm(f => ({ ...f, email: e.target.value })); setEmailError(''); }}
+                              onBlur={() => { if (form.email && isPersonalEmail(form.email)) setEmailError('Please use your work email.'); }}
+                              style={{ width: '100%', padding: '9px 12px', border: `1.5px solid ${emailError ? '#ef4444' : '#e5e7eb'}`, borderRadius: 8, fontSize: 13, outline: 'none', boxSizing: 'border-box', marginBottom: 6 }}
+                            />
+                            {emailError && <p style={{ fontSize: 11, color: '#ef4444', margin: '0 0 6px' }}>{emailError}</p>}
+                            {formError && <p style={{ fontSize: 11, color: '#ef4444', margin: '0 0 6px' }}>{formError}</p>}
+                            <button type="submit" disabled={submitting} style={{ width: '100%', background: 'linear-gradient(135deg,#C05818,#E06820)', color: '#fff', border: 'none', borderRadius: 8, padding: '10px', fontSize: 13, fontWeight: 700, cursor: submitting ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, opacity: submitting ? 0.7 : 1 }}>
+                              {submitting ? 'Unlocking…' : <> Get Access <ArrowRight size={14}/></>}
+                            </button>
+                          </form>
+                          <button onClick={() => handleTabClick(0)} style={{ marginTop: 10, background: 'none', border: 'none', cursor: 'pointer', fontSize: 11, color: '#9ca3af', textDecoration: 'underline', width: '100%' }}>
                             Back to Spend Overview
                           </button>
                         </div>
