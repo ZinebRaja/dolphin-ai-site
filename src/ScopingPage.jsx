@@ -492,7 +492,7 @@ export default function ScopingPage() {
                       color: '#16a34a',
                       bg: '#f0fdf4',
                       title: 'Go Live',
-                      days: `Day ${estimate.maxDays}`,
+                      days: '',
                       status: 'Delivery',
                       summary: 'Dashboards go live. Your team gets access, a walkthrough, and everything they need to act on the data.',
                       deliverable: 'Live dashboards + user training session + handover documentation',
@@ -529,7 +529,7 @@ export default function ScopingPage() {
                                   <span style={{ fontWeight: 700, fontSize: 14, color: '#1B2A4A' }}>{ph.title}</span>
                                   <span style={{ fontSize: 11, fontWeight: 700, color: ph.color, background: ph.bg, border: `1px solid ${ph.color}33`, padding: '2px 8px', borderRadius: 20 }}>{ph.status}</span>
                                 </div>
-                                <span style={{ fontSize: 12, color: '#9ca3af', fontWeight: 600 }}>{ph.days}</span>
+                                {ph.days && <span style={{ fontSize: 12, color: '#9ca3af', fontWeight: 600 }}>{ph.days}</span>}
                               </div>
                               <ChevronDown size={16} style={{ color: '#9ca3af', flexShrink: 0, transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }}/>
                             </button>
