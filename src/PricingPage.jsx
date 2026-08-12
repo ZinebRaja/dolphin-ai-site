@@ -1,4 +1,5 @@
 import Navbar from './Navbar.jsx';
+import useSEO from './useSEO.js';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, Check, BarChart2, Store, Database } from 'lucide-react';
@@ -348,6 +349,7 @@ function PricingCalculator() {
 
 
 export default function PricingPage() {
+  useSEO({ title: 'Pricing — Dolphin AI Spend Intelligence Platform', description: 'Simple, transparent pricing for AI spend classification and procurement analytics. See plans for mid-market and enterprise procurement teams.' });
   return (
     <div className="site">
       <Navbar />

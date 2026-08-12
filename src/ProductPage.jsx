@@ -1,4 +1,5 @@
 import Navbar from './Navbar.jsx';
+import useSEO from './useSEO.js';
 import { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
@@ -121,6 +122,7 @@ const CAPABILITIES = [
 ];
 
 export default function ProductPage() {
+  useSEO({ title: 'Product — AI Spend Classification & Procurement Analytics | Dolphin AI', description: 'Explore Dolphin AI capabilities: spend classification, supplier normalization, opportunity detection, and ERP integrations for SAP, Oracle, Coupa, and MS Dynamics.' });
   const { hash } = useLocation();
 
   useEffect(() => {

@@ -1,4 +1,5 @@
 import Navbar from './Navbar.jsx';
+import useSEO from './useSEO.js';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, TrendingUp, Users, BarChart3, ShieldCheck, Sparkles } from 'lucide-react';
@@ -271,6 +272,7 @@ export function ROICalculator() {
 }
 
 export default function AssessmentPage() {
+  useSEO({ title: 'Free Spend Intelligence Assessment — Dolphin AI', description: 'Get a free estimate for your spend data project. Answer 5 questions about your data sources and volume to see scope, timeline, and ROI potential.' });
   return (
     <div className="site">
       <Navbar />

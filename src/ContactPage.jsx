@@ -1,4 +1,5 @@
 import Navbar from './Navbar.jsx';
+import useSEO from './useSEO.js';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Mail, Phone, MapPin, MessageSquare, BarChart3, Handshake } from 'lucide-react';
@@ -46,6 +47,7 @@ function isPersonalEmail(email) {
 }
 
 export default function ContactPage() {
+  useSEO({ title: 'Contact Us — Dolphin AI', description: 'Get in touch with the Dolphin AI team. Talk to a spend intelligence expert about your procurement data challenges.' });
   const [form, setForm]         = useState({ name: '', company: '', email: '', spend: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
   const [emailError, setEmailError] = useState('');

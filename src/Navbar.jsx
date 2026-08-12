@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import {
   ArrowRight, Layers3, Building2, TrendingUp, Lightbulb,
-  Database, Link2, GitBranch, PieChart, ShieldCheck, ClipboardList, BookOpen,
+  Database, Link2, GitBranch, PieChart, ShieldCheck, ClipboardList, BookOpen, BarChart2,
 } from 'lucide-react';
 
 export default function Navbar() {
@@ -91,6 +91,9 @@ export default function Navbar() {
                     </Link>
                     <Link to="/onboarding" className="mega-resource-link" onClick={close}>
                       <BookOpen size={14}/> How It Works
+                    </Link>
+                    <Link to="/power-bi" className="mega-resource-link" onClick={close}>
+                      <BarChart2 size={14}/> Live Dashboard
                     </Link>
                   </div>
 

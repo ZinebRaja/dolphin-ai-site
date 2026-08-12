@@ -1,4 +1,5 @@
 import Navbar from './Navbar.jsx';
+import useSEO from './useSEO.js';
 import { Link } from 'react-router-dom';
 import { ArrowRight, CheckCircle2, Clock, Database, Zap, Layers3, BarChart3, TrendingUp, AlertTriangle, XCircle, ArrowDown } from 'lucide-react';
 
@@ -193,6 +194,7 @@ function DataIssueTag({ type }) {
 }
 
 export default function OnboardingPage() {
+  useSEO({ title: 'How Dolphin AI Onboarding Works — Go Live in 14–30 Days', description: 'Step-by-step onboarding process for Dolphin AI: data ingestion, cleaning, classification, and reporting — live in as little as 14 days with no IT resources required.' });
   return (
     <div className="site">
       <Navbar />

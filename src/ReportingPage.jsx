@@ -1,4 +1,5 @@
 import Navbar from './Navbar.jsx';
+import useSEO from './useSEO.js';
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import {
@@ -77,6 +78,7 @@ const TABS = [
 ];
 
 export default function ReportingPage() {
+  useSEO({ title: 'Spend Reporting & Analytics — Dolphin AI', description: 'Interactive spend analytics: overview, supplier analysis, category breakdowns, and savings opportunities — all from your cleaned and classified procurement data.' });
   const [active, setActive]       = useState(0);
   const [animating, setAnimating] = useState(false);
   const [visible, setVisible]     = useState(false);

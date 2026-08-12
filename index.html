@@ -26,6 +26,91 @@
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/logowebsite.png" />
+
+    <!-- Structured data: Organization -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Dolphin AI",
+      "url": "https://dolphinaipro.com",
+      "logo": "https://dolphinaipro.com/logowebsite.png",
+      "description": "AI-powered spend intelligence and procurement analytics platform for enterprise finance and procurement teams.",
+      "sameAs": [],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "url": "https://dolphinaipro.com/contact"
+      }
+    }
+    </script>
+
+    <!-- Structured data: SoftwareApplication -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Dolphin AI",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "url": "https://dolphinaipro.com",
+      "description": "Dolphin AI classifies procurement spend, normalizes supplier data, and surfaces savings opportunities — connecting to SAP, Oracle, Coupa, and Excel in days, not months.",
+      "offers": {
+        "@type": "Offer",
+        "url": "https://dolphinaipro.com/pricing"
+      },
+      "featureList": [
+        "AI Spend Classification",
+        "Supplier Normalization",
+        "Procurement Analytics",
+        "ERP Integration",
+        "Savings Opportunity Detection",
+        "Category Management"
+      ]
+    }
+    </script>
+
+    <!-- Structured data: FAQ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is spend classification?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Spend classification is the process of categorizing procurement transactions into a structured taxonomy (such as UNSPSC or a custom hierarchy) so organizations can analyze where money is spent, identify savings opportunities, and improve supplier management."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does Dolphin AI classify spend data?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Dolphin AI uses machine learning to automatically map every transaction to your taxonomy, normalize supplier names, and enrich data — connecting directly to SAP, Oracle, Coupa, MS Dynamics, or Excel files. Implementation typically takes 14–30 days."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which ERP systems does Dolphin AI integrate with?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Dolphin AI integrates with SAP S/4HANA, Oracle Fusion, Microsoft Dynamics 365, Coupa, Ariba, and accepts data via Excel and CSV exports from any system."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long does spend intelligence implementation take?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Most organizations go live with Dolphin AI in 14 to 30 days, depending on the number of data sources and complexity of the spend taxonomy."
+          }
+        }
+      ]
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>

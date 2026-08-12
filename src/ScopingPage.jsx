@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from './Navbar.jsx';
+import useSEO from './useSEO.js';
 import { ArrowRight, ArrowLeft, CheckCircle2, Clock, TrendingUp, Database, Layers3, BarChart3, Users, FileText, Zap, Calendar, Search, Settings, FlaskConical, Rocket, ChevronDown, AlertTriangle } from 'lucide-react';
 
 const STEPS = ['Data Profile', 'Data Quality', 'Your Goals', 'Your Estimate'];
@@ -168,6 +169,7 @@ function StepIndicator({ current }) {
 }
 
 export default function ScopingPage() {
+  useSEO({ title: 'Project Scoping Tool — Dolphin AI Implementation Estimate', description: 'Estimate your Dolphin AI implementation timeline and scope. Enter your spend volume and data sources for a customized project plan.' });
   const [step, setStep] = useState(0);
   const [spend, setSpend]         = useState(null);
   const [sources, setSources]     = useState(null);

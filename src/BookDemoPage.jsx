@@ -1,4 +1,5 @@
 import Navbar from './Navbar.jsx';
+import useSEO from './useSEO.js';
 import { useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { ArrowRight, CheckCircle2, Calendar, Clock, Users } from 'lucide-react';
@@ -21,6 +22,7 @@ function isPersonalEmail(email) {
 }
 
 export default function BookDemoPage() {
+  useSEO({ title: 'Book a Demo — See Dolphin AI in Action', description: 'Schedule a personalized demo of Dolphin AI spend intelligence. See how we classify spend, normalize suppliers, and surface savings in your procurement data.' });
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const returnTo = searchParams.get('return');
