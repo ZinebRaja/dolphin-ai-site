@@ -2163,7 +2163,7 @@ h1, h2, h3, h4 { text-transform: capitalize; }
 .prod-chip-icon svg { width: 14px; height: 14px; }
 
 .prod-sections { padding: 0 0 80px; }
-.prod-cap-section { padding: 80px 0; border-bottom: 1px solid var(--gray-100); }
+.prod-cap-section { padding: 80px 0; border-bottom: 1px solid var(--gray-100); scroll-margin-top: 80px; }
 .prod-cap-section:last-child { border-bottom: none; }
 .prod-cap-inner {
   display: grid; grid-template-columns: 1fr 380px; gap: 56px; align-items: start;

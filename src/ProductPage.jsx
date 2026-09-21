@@ -128,7 +128,10 @@ export default function ProductPage() {
   useEffect(() => {
     if (hash) {
       const el = document.getElementById(hash.slice(1));
-      if (el) setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80);
+      if (el) setTimeout(() => {
+        const top = el.getBoundingClientRect().top + window.scrollY - 90;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }, 80);
     } else {
       window.scrollTo(0, 0);
     }
