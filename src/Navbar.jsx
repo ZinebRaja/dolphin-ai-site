@@ -104,6 +104,7 @@ export default function Navbar() {
             <Link to="/">Home</Link>
             <Link to="/solution">Solution</Link>
             <Link to="/pricing">Pricing</Link>
+            <Link to="/blog">Blog</Link>
             <Link to="/contact">Contact</Link>
           </nav>
 

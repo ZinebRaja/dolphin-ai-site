@@ -21,6 +21,8 @@ import ScopingPage from './ScopingPage.jsx';
 import OnboardingPage from './OnboardingPage.jsx';
 import SolutionPage from './SolutionPage.jsx';
 import PowerBIPage from './PowerBIPage.jsx';
+import BlogPage from './BlogPage.jsx';
+import BlogPostPage from './BlogPostPage.jsx';
 import CookieBanner from './CookieBanner.jsx';
 import {
   ArrowRight,
@@ -878,6 +880,8 @@ export default function App() {
       <Route path="/onboarding" element={<OnboardingPage />} />
       <Route path="/solution" element={<SolutionPage />} />
       <Route path="/power-bi" element={<PowerBIPage />} />
+      <Route path="/blog" element={<BlogPage />} />
+      <Route path="/blog/:slug" element={<BlogPostPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );

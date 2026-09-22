@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "create-excel": "node scripts/create-excel.cjs",
+    "update-blog": "node scripts/update-blog.cjs"
   },
   "dependencies": {
     "@vitejs/plugin-react": "latest",
@@ -17,5 +19,8 @@
     "react-router-dom": "^7.15.1",
     "recharts": "^3.8.1",
     "vite": "latest"
+  },
+  "devDependencies": {
+    "xlsx": "^0.18.5"
   }
 }
