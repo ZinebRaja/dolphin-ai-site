@@ -497,6 +497,7 @@ function HomePage() {
             <Link to="/solution">Solution</Link>
             <a href="#workflow">Workflow</a>
             <Link to="/pricing">Pricing</Link>
+            <Link to="/blog">Blog</Link>
             <Link to="/contact">Contact</Link>
           </nav>
           <div className="nav-actions">
@@ -514,6 +515,7 @@ function HomePage() {
           <Link to="/solution">Solution</Link>
           <a href="#workflow">Workflow</a>
           <Link to="/pricing">Pricing</Link>
+          <Link to="/blog">Blog</Link>
           <Link to="/contact">Contact</Link>
           <Link to="/book-demo" className="btn btn-primary">Book a Demo</Link>
         </div>

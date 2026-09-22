@@ -124,6 +124,7 @@ export default function Navbar() {
           <Link to="/">Home</Link>
           <Link to="/product">Product</Link>
           <Link to="/pricing">Pricing</Link>
+          <Link to="/blog">Blog</Link>
           <Link to="/contact">Contact</Link>
           <Link to="/book-demo" className="btn btn-primary">Book a Demo</Link>
         </div>
