@@ -22,7 +22,7 @@ function isPersonalEmail(email) {
 }
 
 export default function BookDemoPage() {
-  useSEO({ title: 'Book a Demo — See Dolphin AI in Action', description: 'Schedule a personalized demo of Dolphin AI spend intelligence. See how we classify spend, normalize suppliers, and surface savings in your procurement data.' });
+  useSEO({ title: 'Book a Demo — See Dolphin AI in Action', description: 'Schedule a personalized demo of Dolphin AI spend intelligence. See how we classify spend, normalize suppliers, and surface savings in your supply chain data.' });
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const returnTo = searchParams.get('return');

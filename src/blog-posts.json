@@ -21,23 +21,23 @@
     ]
   },
   {
-    "slug": "ai-transforming-procurement-analytics",
-    "title": "How AI Is Transforming Procurement Analytics in 2026",
+    "slug": "ai-transforming-supply-chain-analytics",
+    "title": "How AI Is Transforming Supply Chain Analytics in 2026",
     "category": "AI & Technology",
     "date": "2026-09-08",
     "author": "Dolphin AI Team",
     "readTime": "6 min read",
     "featured": false,
-    "excerpt": "Procurement analytics used to mean pivot tables and quarterly reviews. AI has changed what's possible — and the gap between early adopters and everyone else is widening fast.",
+    "excerpt": "Supply Chain analytics used to mean pivot tables and quarterly reviews. AI has changed what's possible — and the gap between early adopters and everyone else is widening fast.",
     "content": [
-      { "type": "paragraph", "text": "Three years ago, the state of the art in procurement analytics was a well-maintained Power BI dashboard connected to a data warehouse that someone in IT agreed to update monthly. That was considered good. Today, that's the floor — and organizations still there are operating with a significant competitive disadvantage." },
+      { "type": "paragraph", "text": "Three years ago, the state of the art in supply chain analytics was a well-maintained Power BI dashboard connected to a data warehouse that someone in IT agreed to update monthly. That was considered good. Today, that's the floor — and organizations still there are operating with a significant competitive disadvantage." },
       { "type": "heading", "text": "From Descriptive to Predictive" },
-      { "type": "paragraph", "text": "Traditional procurement analytics answered one question: what happened? AI-powered analytics answer three: what happened, why did it happen, and what should we do next? The shift from descriptive to predictive and prescriptive insight is the defining change of this generation of procurement technology." },
+      { "type": "paragraph", "text": "Traditional supply chain analytics answered one question: what happened? AI-powered analytics answer three: what happened, why did it happen, and what should we do next? The shift from descriptive to predictive and prescriptive insight is the defining change of this generation of supply chain technology." },
       { "type": "callout", "text": "Organizations using AI-assisted spend classification report 60–80% reduction in time spent on data preparation, freeing analysts to focus on strategic decisions rather than data cleaning." },
       { "type": "heading", "text": "Supplier Normalization: The Foundation" },
       { "type": "paragraph", "text": "Before any analytics can be trusted, supplier data must be clean. 'Microsoft', 'Microsoft Corp', 'MSFT', and 'Microsoft Corporation Ltd' are the same supplier — but in a raw ERP export, they look like four different vendors. AI entity resolution maps them to a single canonical record, giving you an accurate view of total relationship spend." },
       { "type": "heading", "text": "The Data That Was Always There" },
-      { "type": "paragraph", "text": "The most important insight for procurement leaders is that the data you need has almost certainly always existed in your systems. ERP transactions, purchase orders, invoice lines — the raw material for world-class procurement analytics is already there. The gap has always been in the cleaning, classification, and connection of that data. That gap is now closeable in weeks, not years." }
+      { "type": "paragraph", "text": "The most important insight for supply chain leaders is that the data you need has almost certainly always existed in your systems. ERP transactions, purchase orders, invoice lines — the raw material for world-class supply chain analytics is already there. The gap has always been in the cleaning, classification, and connection of that data. That gap is now closeable in weeks, not years." }
     ]
   },
   {
@@ -53,9 +53,9 @@
       { "type": "paragraph", "text": "There is nothing wrong with Excel. For a team managing spend analysis for a business with a handful of suppliers and clean GL data, a well-structured spreadsheet is a perfectly reasonable tool. The problem isn't Excel — it's using Excel for problems Excel wasn't built to solve." },
       { "type": "heading", "text": "The Signs You've Outgrown Spreadsheets" },
       { "type": "paragraph", "text": "You know you've outgrown Excel for spend analysis when: your classification file has more VLOOKUP chains than rows of actual data; two analysts produce different numbers from the same source file; your monthly close process includes three hours of 'fixing the spend report'; or leadership has stopped trusting the numbers because they've been wrong before." },
-      { "type": "callout", "text": "The average enterprise procurement team spends 12–15 hours per month manually cleaning and classifying spend data in spreadsheets. That's time that could be spent on supplier negotiations and savings initiatives." },
+      { "type": "callout", "text": "The average enterprise supply chain team spends 12–15 hours per month manually cleaning and classifying spend data in spreadsheets. That's time that could be spent on supplier negotiations and savings initiatives." },
       { "type": "heading", "text": "What Migration Actually Looks Like" },
-      { "type": "paragraph", "text": "The fear most procurement teams have about moving off Excel is that it requires a 12-month IT project and a complete data strategy overhaul. In practice, modern spend intelligence platforms are designed to accept Excel and CSV exports as a primary input. You export what you have, the platform ingests it, cleans it, classifies it, and returns structured data." },
+      { "type": "paragraph", "text": "The fear most supply chain teams have about moving off Excel is that it requires a 12-month IT project and a complete data strategy overhaul. In practice, modern spend intelligence platforms are designed to accept Excel and CSV exports as a primary input. You export what you have, the platform ingests it, cleans it, classifies it, and returns structured data." },
       { "type": "heading", "text": "Keeping Excel in the Workflow" },
       { "type": "paragraph", "text": "For most teams, the goal isn't to eliminate Excel — it's to eliminate Excel as the system of record for raw, unclean data. Once spend is classified and cleaned, exporting to Excel for ad-hoc analysis, board presentations, or finance integration remains a completely valid workflow. The difference is that you're exporting from a trusted source, not working around an untrustworthy one." }
     ]
@@ -74,7 +74,7 @@
       { "type": "heading", "text": "Sign 1: Your Spend Reports Take Days to Produce" },
       { "type": "paragraph", "text": "If generating a spend report requires significant manual effort — exporting from multiple systems, reconciling categories, de-duplicating supplier names — that's a classification problem presenting as a reporting problem. Classified spend data should produce reports in minutes, not days." },
       { "type": "heading", "text": "Sign 2: Different Teams Have Different Numbers" },
-      { "type": "paragraph", "text": "When finance, procurement, and operations all have different answers to 'how much did we spend with Supplier X last quarter', the root cause is almost always inconsistent classification and supplier normalization. The data is there — it just isn't coherent." },
+      { "type": "paragraph", "text": "When finance, supply chain, and operations all have different answers to 'how much did we spend with Supplier X last quarter', the root cause is almost always inconsistent classification and supplier normalization. The data is there — it just isn't coherent." },
       { "type": "heading", "text": "Sign 3: Your Top 10 Suppliers List Looks Wrong" },
       { "type": "paragraph", "text": "If you look at your top suppliers by spend and something feels off — a supplier you know is significant isn't on the list, or an unfamiliar name is near the top — it's often because spend is fragmented across multiple supplier name variations." },
       { "type": "heading", "text": "Sign 4: You Can't Answer Basic Category Questions" },

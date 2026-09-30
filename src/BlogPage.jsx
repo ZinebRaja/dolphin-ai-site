@@ -16,7 +16,7 @@ function formatDate(str) {
 export default function BlogPage() {
   useSEO({
     title: 'Blog — Spend Intelligence Insights | Dolphin AI',
-    description: 'Expert insights on spend classification, procurement analytics, supplier normalization, and AI-powered spend intelligence.',
+    description: 'Expert insights on spend classification, supply chain analytics, supplier normalization, and AI-powered spend intelligence.',
   });
 
   const featured = posts.find(p => p.featured);
@@ -36,7 +36,7 @@ export default function BlogPage() {
             Spend Intelligence<br />Insights
           </h1>
           <p style={{ fontSize: 17, color: 'var(--gray-600)', maxWidth: 480, lineHeight: 1.65 }}>
-            Practical guides and expert thinking on procurement analytics, spend classification, and data-driven sourcing.
+            Practical guides and expert thinking on supply chain analytics, spend classification, and data-driven sourcing.
           </p>
         </div>
       </section>

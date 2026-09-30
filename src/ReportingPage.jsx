@@ -78,7 +78,7 @@ const TABS = [
 ];
 
 export default function ReportingPage() {
-  useSEO({ title: 'Spend Reporting & Analytics — Dolphin AI', description: 'Interactive spend analytics: overview, supplier analysis, category breakdowns, and savings opportunities — all from your cleaned and classified procurement data.' });
+  useSEO({ title: 'Spend Reporting & Analytics — Dolphin AI', description: 'Interactive spend analytics: overview, supplier analysis, category breakdowns, and savings opportunities — all from your cleaned and classified supply chain data.' });
   const [active, setActive]       = useState(0);
   const [animating, setAnimating] = useState(false);
   const [visible, setVisible]     = useState(false);

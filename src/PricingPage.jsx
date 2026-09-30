@@ -349,7 +349,7 @@ function PricingCalculator() {
 
 
 export default function PricingPage() {
-  useSEO({ title: 'Pricing — Dolphin AI Spend Intelligence Platform', description: 'Simple, transparent pricing for AI spend classification and procurement analytics. See plans for mid-market and enterprise procurement teams.' });
+  useSEO({ title: 'Pricing — Dolphin AI Spend Intelligence Platform', description: 'Simple, transparent pricing for AI spend classification and supply chain analytics. See plans for mid-market and enterprise supply chain teams.' });
   return (
     <div className="site">
       <Navbar />

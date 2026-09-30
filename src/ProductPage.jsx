@@ -122,7 +122,7 @@ const CAPABILITIES = [
 ];
 
 export default function ProductPage() {
-  useSEO({ title: 'Product — AI Spend Classification & Procurement Analytics | Dolphin AI', description: 'Explore Dolphin AI capabilities: spend classification, supplier normalization, opportunity detection, and ERP integrations for SAP, Oracle, Coupa, and MS Dynamics.' });
+  useSEO({ title: 'Product — AI Spend Classification & Supply Chain Analytics | Dolphin AI', description: 'Explore Dolphin AI capabilities: spend classification, supplier normalization, opportunity detection, and ERP integrations for SAP, Oracle, Coupa, and MS Dynamics.' });
   const { hash } = useLocation();
 
   useEffect(() => {

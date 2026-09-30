@@ -47,7 +47,7 @@ function isPersonalEmail(email) {
 }
 
 export default function ContactPage() {
-  useSEO({ title: 'Contact Us — Dolphin AI', description: 'Get in touch with the Dolphin AI team. Talk to a spend intelligence expert about your procurement data challenges.' });
+  useSEO({ title: 'Contact Us — Dolphin AI', description: 'Get in touch with the Dolphin AI team. Talk to a spend intelligence expert about your supply chain data challenges.' });
   const [form, setForm]         = useState({ name: '', company: '', email: '', spend: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
   const [emailError, setEmailError] = useState('');

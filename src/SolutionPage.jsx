@@ -75,7 +75,7 @@ function Arrow() {
 }
 
 export default function SolutionPage() {
-  useSEO({ title: 'How It Works — Dolphin AI Spend Intelligence Platform', description: 'See how Dolphin AI ingests, deduplicates, classifies, enriches, and publishes your spend data. From raw ERP exports to actionable procurement analytics in 14–30 days.' });
+  useSEO({ title: 'How It Works — Dolphin AI Spend Intelligence Platform', description: 'See how Dolphin AI ingests, deduplicates, classifies, enriches, and publishes your spend data. From raw ERP exports to actionable supply chain analytics in 14–30 days.' });
   return (
     <div className="site">
       <Navbar />
