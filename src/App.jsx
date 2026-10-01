@@ -72,6 +72,184 @@ const steps = [
   { num: '04', title: 'Clear Visibility', text: 'Explore your clean spend data through interactive dashboards and slicers — no exports needed.' }
 ];
 
+const FAQ_GROUPS = ['Overview', 'Data & Classification', 'Value & Savings', 'Rollout & Trust'];
+
+const FAQS = [
+  {
+    group: 'Overview',
+    q: 'What is Dolphin AI, and what does it actually do?',
+    a: ["Dolphin AI turns messy spend data into a clean, classified view of what you buy, where the money goes, and which suppliers/vendors you rely on. We can pull data from any source, including ERP systems, spreadsheets, supply chain platforms, AP and invoice systems, and other databases. Our solution then cleans and standardizes supplier/vendor names and descriptions and categorizes every line of spend.",
+         "With that clarity, your team can negotiate better contracts, bring tail spend under control, consolidate suppliers/vendors, and cut the hours spent on manual data work."],
+  },
+  {
+    group: 'Data & Classification',
+    q: 'What kind of data do we need to provide, and can Dolphin AI work with messy or incomplete data?',
+    a: ["Dolphin AI primarily works with supplier/vendor and spend-related data, such as supplier/vendor names, product or service descriptions, transaction details, categories, quantities, and spend amounts.",
+         "Business data often contains inconsistent supplier/vendor names, formatting differences, or missing information. Dolphin AI cleans, normalizes and structures the available data before analysis to create a more consistent and usable dataset."],
+  },
+  {
+    group: 'Data & Classification',
+    q: 'How does Dolphin AI classify spend?',
+    a: ["Dolphin AI matches each transaction's description to the available taxonomy and assigns it to a category across four levels. When a description isn't available, our AI looks at what the supplier/vendor does and classifies based on that business activity.",
+         "If a supplier covers several categories, the spend is marked as unclassified and left for your review. Once you provide a description, it can be classified. Every classification comes with its reasoning, even for tail spend, so you can see exactly why it was assigned."],
+  },
+  {
+    group: 'Value & Savings',
+    q: 'How can Dolphin AI help us reduce costs and negotiate better with suppliers/vendors?',
+    a: ["By creating a clearer view of supplier/vendor relationships and historical spending, Dolphin AI can help businesses identify areas that deserve further investigation, such as fragmented spending, high-spend categories, supplier/vendor consolidation opportunities, or potential sourcing improvements.",
+         "This gives decision-makers a stronger fact base when negotiating pricing, volumes, commercial terms, or future agreements with suppliers/vendors."],
+  },
+  {
+    group: 'Value & Savings',
+    q: 'What benefits does Dolphin AI deliver?',
+    a: ['Dolphin AI delivers value across your spend operations. The four major areas are:'],
+    bullets: [
+      { label: 'Time savings and quality data', text: 'Dolphin AI handles the heavy manual work of cleaning, normalizing, categorizing and analyzing your spend data, so your team saves significant time and gets high-quality, reliable data.' },
+      { label: 'Better contracts', text: 'a clear, accurate view of spend, with the reasoning behind each classification, gives you the visibility to negotiate stronger supplier/vendor terms.' },
+      { label: 'Tail spend recovery', text: 'small, unmanaged purchases are brought under control.' },
+      { label: 'Supplier/vendor consolidation', text: 'fewer, stronger supplier/vendor relationships give you more leverage.' },
+    ],
+  },
+  {
+    group: 'Value & Savings',
+    q: 'Can Dolphin AI help identify supplier consolidation opportunities?',
+    a: ["Structured supplier and spend information can reveal situations where similar products or services are being purchased from many different suppliers. Supply chain teams can investigate whether some of that demand could be consolidated, potentially increasing spending leverage and reducing unnecessary supplier complexity.",
+         "Consolidation is an opportunity to evaluate — not an automatic recommendation — because factors such as resilience, geography, quality, and supplier dependency also matter."],
+  },
+  {
+    group: 'Data & Classification',
+    q: 'Can Dolphin AI work with our existing categories and business structure?',
+    a: ["The objective is to organize data in a way that is meaningful for the business. If an organization already has established categories or a taxonomy, this can be considered when structuring its spend data. The exact taxonomy setup and customization requirements would be agreed upon as part of implementation."],
+  },
+  {
+    group: 'Rollout & Trust',
+    q: 'How do we see and use the results?',
+    a: ["Dolphin AI delivers your data in dashboard form, with standard visualizations that cover the requirements most teams have for running the business and making decisions. Your organization stays in control of who has access to the dashboards."],
+  },
+  {
+    group: 'Rollout & Trust',
+    q: 'How long does it take to implement Dolphin AI?',
+    a: ["Implementation is designed to be quick and streamlined. The timeline depends on data volume, complexity, and integration requirements, but Dolphin AI can rapidly process and analyze your spend data so your team can begin identifying opportunities without a lengthy implementation process."],
+  },
+  {
+    group: 'Rollout & Trust',
+    q: 'How secure is our data with Dolphin AI?',
+    a: ["We take the security of our clients' data seriously. Dolphin AI is built and hosted in a certified, enterprise-grade cloud environment that follows leading industry security and compliance standards, and your data is never shared with third parties.",
+         "For enterprise implementations, we work with your technical team to align with your organization's security policies."],
+  },
+  {
+    group: 'Rollout & Trust',
+    q: 'How much does Dolphin AI cost?',
+    a: ["Dolphin AI offers subscription plans based on the size of your annual spend, so the plan fits your organization. Our ROI calculator gives you an estimate of the value for your own numbers and a recommended plan for your spend.",
+         "For specifics, book a demo or request a free estimate and we will walk you through the options."],
+  },
+  {
+    group: 'Overview',
+    q: "Can't we just use a general AI tool and a prompt to do this?",
+    a: ["AI is changing how businesses work, but a single prompt cannot produce a complete, reliable solution for a specific business problem. Spend analysis needs data connected and synced across one or many systems, classification you can trust with clear reasoning, and secure handling of your supplier/vendor and spend data.",
+         "Dolphin AI is purpose-built for this, combining AI models with the data pipelines, security and dashboards that turn raw spend data into a reliable, repeatable solution."],
+  },
+];
+
+function FaqSection() {
+  const [group, setGroup] = useState('All');
+  const [open, setOpen]   = useState(0);
+
+  const visible = group === 'All' ? FAQS : FAQS.filter(f => f.group === group);
+
+  function pick(g) {
+    setGroup(g);
+    setOpen(0);
+  }
+
+  return (
+    <section className="faq-section" id="faq">
+      <div className="container faq-grid">
+
+        <aside className="faq-rail">
+          <span className="eyebrow">FAQ</span>
+          <h2 className="faq-title">Answers Before You Ask</h2>
+          <p className="faq-sub">
+            The questions teams raise most often when they evaluate Dolphin AI — on data, classification,
+            savings, security, and what rollout actually looks like.
+          </p>
+
+          <div className="faq-cta">
+            <p className="faq-cta-title">Still have a question?</p>
+            <p className="faq-cta-text">Talk to someone who works with spend data every day.</p>
+            <Link to="/book-demo" className="btn btn-primary faq-cta-btn">
+              Book a Demo <ArrowRight size={14} />
+            </Link>
+            <Link to="/contact" className="faq-cta-link">Or send us a message <ArrowRight size={13} /></Link>
+          </div>
+        </aside>
+
+        <div className="faq-main">
+          <div className="faq-filters" role="tablist" aria-label="FAQ categories">
+            {['All', ...FAQ_GROUPS].map(g => (
+              <button
+                key={g}
+                role="tab"
+                aria-selected={group === g}
+                className={`faq-pill ${group === g ? 'active' : ''}`}
+                onClick={() => pick(g)}
+              >
+                {g}
+                <span className="faq-pill-count">
+                  {g === 'All' ? FAQS.length : FAQS.filter(f => f.group === g).length}
+                </span>
+              </button>
+            ))}
+          </div>
+
+          <div className="faq-list">
+            {visible.map((item, i) => {
+              const isOpen = open === i;
+              return (
+                <div className={`faq-item ${isOpen ? 'open' : ''}`} key={item.q}>
+                  <button
+                    className="faq-q"
+                    aria-expanded={isOpen}
+                    aria-controls={`faq-panel-${i}`}
+                    onClick={() => setOpen(isOpen ? -1 : i)}
+                  >
+                    <span className="faq-num">{String(i + 1).padStart(2, '0')}</span>
+                    <span className="faq-q-text">{item.q}</span>
+                    <span className="faq-toggle" aria-hidden="true">
+                      <svg viewBox="0 0 16 16" width="15" height="15">
+                        <line x1="2.5" y1="8" x2="13.5" y2="8" />
+                        <line x1="8" y1="2.5" x2="8" y2="13.5" className="faq-toggle-v" />
+                      </svg>
+                    </span>
+                  </button>
+
+                  <div className="faq-ans-wrap" id={`faq-panel-${i}`} role="region">
+                    <div className="faq-ans-inner">
+                      <div className="faq-a">
+                        {item.a.map(p => <p key={p}>{p}</p>)}
+                        {item.bullets && (
+                          <ul className="faq-bullets">
+                            {item.bullets.map(b => (
+                              <li key={b.label}>
+                                <strong>{b.label}:</strong> {b.text}
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+      </div>
+    </section>
+  );
+}
+
 /* ── Brand SVG logos ─────────────────────────────────────── */
 
 function LogoSAP() {
@@ -382,7 +560,6 @@ function AfterPreviewSection() {
 
 function HomePage() {
   const [productOpen, setProductOpen] = useState(false);
-  const [faqOpen, setFaqOpen] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const productRef = useRef(null);
   const closeTimer = useRef(null);
@@ -776,33 +953,7 @@ function HomePage() {
         </section>
 
         {/* ══ FAQ ══ */}
-        <section className="faq-section container">
-          <div className="section-head centered">
-            <span className="eyebrow">FAQ</span>
-            <h2>Common questions</h2>
-            <div className="section-rule" />
-          </div>
-          <div className="faq-list">
-            {[
-              { q: "What kind of data does Dolphin AI work with?", a: "Dolphin AI works with any spend data — ERP exports, organization platform reports, Excel files, or AP transaction data. As long as it contains supplier names, amounts, and descriptions, we can classify and normalize it." },
-              { q: "How accurate is the classification?", a: "Our classification engine achieves 95%+ accuracy on spend data, combining a sourcing team's rule-based recommendations with AI reasoning. Every result can be reviewed and validated before export." },
-              { q: "Do I need to change my ERP or organization system?", a: "No. Dolphin AI connects to your existing systems via API or file upload. You keep your current stack — we enrich and classify the data, then return it in whatever format you need." },
-              { q: "How long does it take to get started?", a: "It depends on the quality and complexity of your data. We start with a sample, configure your taxonomy, and deliver a first classification run before full deployment. The cleaner and more structured your data, the faster we can move." },
-              { q: "Is our spend data secure?", a: "Yes. All data is encrypted in transit and at rest, and your data is never used to train models or shared with third parties. We sign NDAs and DPAs as standard." },
-              { q: "What's the difference between the plans?", a: "Coastal (up to $200M spend) covers classification, supplier normalization, and self-serve onboarding. Reef adds advanced reporting and savings identification. Navigator (most popular) adds multi-source consolidation, custom taxonomy, and real-time monitoring. Horizon scales to $1B+ with enterprise-grade pipelines. Apex is fully custom for the largest enterprises, with white-glove implementation and a dedicated CSM." },
-            ].map((item, i) => (
-              <div className={`faq-item ${faqOpen === i ? 'open' : ''}`} key={i} onClick={() => setFaqOpen(faqOpen === i ? null : i)}>
-                <div className="faq-q">
-                  <span>{item.q}</span>
-                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" className="faq-chevron">
-                    <path d="M4 6l5 5 5-5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </div>
-                {faqOpen === i && <div className="faq-a">{item.a}</div>}
-              </div>
-            ))}
-          </div>
-        </section>
+        <FaqSection />
 
       </main>
 
