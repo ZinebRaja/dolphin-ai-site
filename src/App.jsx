@@ -102,19 +102,19 @@ const FAQS = [
   {
     group: 'Value & Savings',
     q: 'What benefits does Dolphin AI deliver?',
-    a: ['Dolphin AI delivers value across your spend operations. The four major areas are:'],
+    a: ['Dolphin AI turns spend data from something your team has to wrestle with into something you can act on. The major areas of value are:'],
     bullets: [
-      { label: 'Time savings and quality data', text: 'Dolphin AI handles the heavy manual work of cleaning, normalizing, categorizing and analyzing your spend data, so your team saves significant time and gets high-quality, reliable data.' },
-      { label: 'Better contracts', text: 'a clear, accurate view of spend, with the reasoning behind each classification, gives you the visibility to negotiate stronger supplier/vendor terms.' },
-      { label: 'Tail spend recovery', text: 'small, unmanaged purchases are brought under control.' },
-      { label: 'Supplier/vendor consolidation', text: 'fewer, stronger supplier/vendor relationships give you more leverage.' },
+      { label: 'Data you can trust', text: 'clean, consistent, classified spend data, with the reasoning behind every classification, so decisions rest on facts instead of guesswork.' },
+      { label: 'Stronger negotiations', text: 'see exactly what you buy and from whom, and walk into supplier/vendor conversations with the evidence to ask for better terms.' },
+      { label: 'Tail spend under control', text: 'the small, scattered purchases that usually slip through the cracks finally get visibility and management.' },
+      { label: 'Smarter supplier/vendor consolidation', text: 'spot where many suppliers/vendors serve the same need and build leverage with fewer, stronger relationships.' },
     ],
   },
   {
     group: 'Value & Savings',
-    q: 'Can Dolphin AI help identify supplier consolidation opportunities?',
-    a: ["Structured supplier and spend information can reveal situations where similar products or services are being purchased from many different suppliers. Supply chain teams can investigate whether some of that demand could be consolidated, potentially increasing spending leverage and reducing unnecessary supplier complexity.",
-         "Consolidation is an opportunity to evaluate — not an automatic recommendation — because factors such as resilience, geography, quality, and supplier dependency also matter."],
+    q: 'How much labor cost and how many hours can Dolphin AI save our team?',
+    a: ["Think about how much of your team's week disappears into exporting spend data, cleaning it, matching supplier/vendor names and re-categorizing everything in spreadsheets. That's skilled people doing repetitive work, and it's expensive.",
+         "Dolphin AI takes that work over, so you save labor hours and labor cost: you need fewer people, or far fewer hours, on manual data work, and your team can spend their time on sourcing, negotiation and decisions instead. Our ROI calculator shows what that's worth for your own team size, hourly rate and weekly hours."],
   },
   {
     group: 'Data & Classification',
