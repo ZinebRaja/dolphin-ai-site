@@ -7,3 +7,14 @@ api/.env
 .env
 .env.local
 .DS_Store
+
+# Secrets live in Azure Key Vault (dolphinai-kv); these are local-only
+.env.*
+!.env.example
+api/.env.*
+
+# Deployment artifacts — api-deploy.zip bundles api/.env
+*-deploy.zip
+
+# Windows thumbnail cache
+Thumbs.db
